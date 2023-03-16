@@ -1,27 +1,31 @@
 import machine
 import utime
 
+STM32_CPU_CLOCK_SPEED = 64000000
 
-def lightsleep_test(interval_in_ms, duration_in_ms):
+def lightsleep_test(interval_in_ms, amount_of_loops):
     print("ENTERED LIGHTSLEEP TEST")
     results = []
     test_start = utime.ticks_cpu()
-    time_slept = 0
-    print(test_start)
-    while utime.ticks_diff(utime.ticks_cpu(), test_start) + time_slept < utime.ticks_diff(test_start + (duration_in_ms * 1000 * 64), test_start):
-        print("Tick NOW:")
-        print(utime.ticks_diff(utime.ticks_cpu(), test_start))
-        print("TICK GOAL:")
-        print(utime.ticks_diff(test_start + (duration_in_ms * 1000 * 64), test_start))
+    run_counter = 0
+    while run_counter < amount_of_loops :
+        
         timer_start = utime.ticks_cpu()
         machine.lightsleep(interval_in_ms)
         timer_end = utime.ticks_cpu()
-        time_slept += interval_in_ms * 64
-        results.append([(utime.ticks_diff(timer_end,timer_start)/64),
-                        (utime.ticks_diff(timer_start,test_start)/64),
-                        (utime.ticks_diff(timer_end, test_start)/64)])
-        print("RESULT APPENDED")
-    return results
+        #print("START")
+        #print(timer_start)
+        #print("END")
+        #print(timer_end)
+
+        results.append([utime.ticks_diff(timer_end,timer_start),
+                        utime.ticks_diff(timer_start,test_start),
+                        utime.ticks_diff(timer_end, test_start)])
+        run_counter += 1
+    test_end = utime.ticks_cpu()
+    
+    return results, utime.ticks_diff(test_end, test_start)
+
 
 def deepsleep_test(interval_in_ms, duration_in_ms):
     results = []
