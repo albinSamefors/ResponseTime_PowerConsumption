@@ -22,9 +22,8 @@ def lightsleep_test(interval_in_ms, amount_of_loops):
                         utime.ticks_diff(timer_start,test_start),
                         utime.ticks_diff(timer_end, test_start)])
         run_counter += 1
-    test_end = utime.ticks_cpu()
     
-    return results, utime.ticks_diff(test_end, test_start)
+    return results
 
 
 def deepsleep_test(interval_in_ms, duration_in_ms):

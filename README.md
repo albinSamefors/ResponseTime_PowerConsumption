@@ -26,6 +26,7 @@ To enter REPL
 rshell> repl
 ```
 Exit repl by using CTRL-X
+
 ### controller
 Contains the code for the controller part of the test platform. The purpose of this is to have an indipendent measuring device to not burden the test mcu more than neccesary to ensure that the data collected is accurate.
 ### measurments
