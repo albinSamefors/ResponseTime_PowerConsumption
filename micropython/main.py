@@ -6,16 +6,14 @@ import utime
 def get_cycles_from_time(duration_s, sleep_interval_ms):
     sleep_interval_s = sleep_interval_ms/1000
     cycles = int((duration_s/sleep_interval_s))
-    print(cycles)
     return cycles, sleep_interval_ms
 
 
 print("EXPERIMENT STARTING POINT")
 cycles, sleep_interval = get_cycles_from_time(5,50)
 runtime_start = utime.time()
-times = set_interval_tests.lightsleep_test(cycles, sleep_interval)
+times = set_interval_tests.lightsleep_test(sleep_interval, cycles)
 runtime_end = utime.time()
-#print("MACHINE FREQ {}".format(machine.freq()))
 
 print("ALL TIMES: \n")
 for time in times:
