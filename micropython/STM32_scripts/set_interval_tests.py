@@ -9,7 +9,6 @@ def blinky():
     GREEN_LED.low()
 
 def lightsleep_test(interval_in_ms, amount_of_loops):
-    print("ENTERED LIGHTSLEEP TEST")
     results = []
     run_counter = 0
     while run_counter < amount_of_loops : 
@@ -21,7 +20,6 @@ def lightsleep_test(interval_in_ms, amount_of_loops):
     return results
 
 def lightsleep_blinky_test(interval_in_ms, amount_of_loops):
-    print("ENTERED LIGHTSLEEP BLINKY TEST")
     results = []
     run_counter = 0
     while run_counter < amount_of_loops:
