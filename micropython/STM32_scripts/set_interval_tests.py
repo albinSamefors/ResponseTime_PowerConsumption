@@ -6,21 +6,13 @@ STM32_CPU_CLOCK_SPEED = 64000000
 def lightsleep_test(interval_in_ms, amount_of_loops):
     print("ENTERED LIGHTSLEEP TEST")
     results = []
-    test_start = utime.ticks_cpu()
     run_counter = 0
-    while run_counter < amount_of_loops :
-        
+    while run_counter < amount_of_loops : 
         timer_start = utime.ticks_cpu()
         machine.lightsleep(interval_in_ms)
         timer_end = utime.ticks_cpu()
-        #print("START")
-        #print(timer_start)
-        #print("END")
-        #print(timer_end)
-
-        results.append([utime.ticks_diff(timer_end,timer_start),
-                        utime.ticks_diff(timer_start,test_start),
-                        utime.ticks_diff(timer_end, test_start)])
+        results.append([utime.ticks_diff(timer_end,timer_start)])
+        print(len(results))
         run_counter += 1
     
     return results
