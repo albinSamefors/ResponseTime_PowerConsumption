@@ -11,14 +11,13 @@ def blinky():
 def lightsleep_test(interval_in_ms, amount_of_loops):
     results = []
     run_counter = 0
-    while run_counter < amount_of_loops : 
+    while run_counter < amount_of_loops:
         timer_start = utime.ticks_cpu()
         machine.lightsleep(interval_in_ms)
         timer_end = utime.ticks_cpu()
-        results.append([utime.ticks_diff(timer_end,timer_start)])
+        results.append(utime.ticks_diff(timer_end, timer_start))
         run_counter += 1
     return results
-
 def lightsleep_blinky_test(interval_in_ms, amount_of_loops):
     results = []
     run_counter = 0
@@ -31,14 +30,27 @@ def lightsleep_blinky_test(interval_in_ms, amount_of_loops):
         run_counter += 1
     return results
 
+# DEEPSLEEP IS NOT YET TESTED!!
 
-
-def deepsleep_test(interval_in_ms, duration_in_ms):
+def deepsleep_test(interval_in_ms, amount_of_loops):
     results = []
-    test_start = utime.ticks_cpu()
-    while utime.ticks_diff(utime.ticks_cpu(), test_start) < duration_in_ms * 1000:
+    run_counter = 0
+    while run_counter < amount_of_loops:
         timer_start = utime.ticks_cpu()
         machine.deepsleep(interval_in_ms)
         timer_end = utime.ticks_cpu()
-        results.append(utime.ticks_diff(timer_end, timer_start) - (interval_in_ms * 1000))
+        results.append([utime.ticks_diff(timer_end, timer_start)])
+        run_counter += 1
+    return results
+
+def deepsleep_blinky_test(interval_in_ms, amount_of_loops):
+    results = []
+    run_counter = 0
+    while run_counter < amount_of_loops:
+        timer_start = utime.ticks_cpu()
+        machine.deepsleep(interval_in_ms)
+        timer_end = utime.ticks_cpu()
+        blinky()
+        results.append(utime.ticks_diff(timer_end, timer_start))
+        run_counter += 1
     return results
