@@ -21,11 +21,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "stm32wbxx.h"
 #include "stm32wbxx_hal.h"
-#include "stm32wbxx_hal_i2c.h"
-#include "stm32wbxx_hal_pwr.h"
-#include "stm32wbxx_hal_rtc.h"
+#include "stdio.h"
+#include "string.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -56,7 +54,10 @@ RTC_HandleTypeDef hrtc;
 
 /* USER CODE BEGIN PV */
 
-uint32_t time_interrupt_received;
+volatile uint32_t wakeup_count = 0;
+volatile uint32_t start_time = 0;
+volatile uint32_t end_time = 0;
+uint8_t data;
 
 /* USER CODE END PV */
 
@@ -110,16 +111,11 @@ int main(void)
   MX_RTC_Init();
   /* USER CODE BEGIN 2 */
 
-  // Set up NVIC to receive interrupts from the I2C peripheral
-  HAL_NVIC_SetPriority(I2C1_EV_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(I2C1_EV_IRQn);
-
+  HAL_GPIO_WritePin(LED_PORT, LED_PIN, GPIO_PIN_RESET);
   // Set up the STM32WB55RG to enter sleep mode
   // Enter Stop mode
   // Enable the low-power regulator
-  HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFE);
-  // Set the RTC to wake up the device at the appropriate time
-  HAL_RTCEx_SetWakeUpTimer_IT(&hrtc, 0, RTC_WAKEUPCLOCK_RTCCLK_DIV16);
+  HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
 
   /* USER CODE END 2 */
 
@@ -127,7 +123,17 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
+	  if (HAL_I2C_Slave_Receive_IT(&hi2c1, &data, 1) == HAL_OK)
+	  {
+		  end_time = HAL_GetTick();
+		  blink_led();
+		  wakeup_count++;
+		  uint32_t response_time = end_time - start_time;
+		  printf("Response time: %lu ms/r/n", response_time);
+		  printf("Wake up counter: %lu /r/n", wakeup_count);
+	  }
+
+	  /* USER CODE END WHILE */
 
 
     /* USER CODE BEGIN 3 */
@@ -221,7 +227,7 @@ static void MX_I2C1_Init(void)
   /* USER CODE END I2C1_Init 1 */
   hi2c1.Instance = I2C1;
   hi2c1.Init.Timing = 0x00707CBB;
-  hi2c1.Init.OwnAddress1 = I2C_ADDRESS;
+  hi2c1.Init.OwnAddress1 = 0;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
   hi2c1.Init.OwnAddress2 = 0;
@@ -247,6 +253,8 @@ static void MX_I2C1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN I2C1_Init 2 */
+
+  HAL_I2C_Slave_Receive_IT(&hi2c1, &data, 1); // Start listening for data from Arduino
 
   /* USER CODE END I2C1_Init 2 */
 
@@ -384,27 +392,19 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
-void I2C1_EV_IRQHandler(void)
+// This function is called when an interrupt is received from the Arduino
+void HAL_I2C_SlaveRxCpltCallback(I2C_HandleTypeDef *hi2c)
 {
-	// Read specific byte to a specific I2C address
-	uint8_t data = 0;
-	HAL_I2C_Mem_Read(&hi2c1, I2C_ADDRESS, 0x00, I2C_MEMADD_SIZE_8BIT, &data, 1, HAL_MAX_DELAY);
-	// Check if the data received is an interrupt
-	if(data == 0x01)
-	{
-		// Capture the time when the interrupt is received
-		RTC_TimeTypeDef RTC_TimeStruct;
-		HAL_RTC_GetTime(&hrtc, &RTC_TimeStruct, RTC_FORMAT_BIN);
-		time_interrupt_received = RTC_TimeStruct.Seconds;
-		// Turn on the LED
-		HAL_GPIO_WritePin(LED_PORT, LED_PIN, GPIO_PIN_SET);
-	}
+	// Record current time with HAL_GetTick()
+	start_time = HAL_GetTick();
 }
 
-//
-void SysTick_Handler(void)
+void blink_led()
 {
-
+	HAL_GPIO_WritePin(LED_PORT, LED_PIN, GPIO_PIN_SET);
+	HAL_Delay(500);
+	HAL_GPIO_WritePin(LED_PORT, LED_PIN, GPIO_PIN_RESET);
+	HAL_Delay(500);
 }
 
 /* USER CODE END 4 */
