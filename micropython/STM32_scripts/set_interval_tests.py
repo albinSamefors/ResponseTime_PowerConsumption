@@ -32,25 +32,15 @@ def lightsleep_blinky_test(interval_in_ms, amount_of_loops):
 
 # DEEPSLEEP IS NOT YET TESTED!!
 
-def deepsleep_test(interval_in_ms, amount_of_loops):
-    results = []
-    run_counter = 0
-    while run_counter < amount_of_loops:
-        timer_start = utime.ticks_cpu()
-        machine.deepsleep(interval_in_ms)
-        timer_end = utime.ticks_cpu()
-        results.append([utime.ticks_diff(timer_end, timer_start)])
-        run_counter += 1
-    return results
+def deepsleep_test(interval_in_ms):
+    rtc = machine.RTC()
+    data = rtc.memory()
+    print(data)
 
-def deepsleep_blinky_test(interval_in_ms, amount_of_loops):
-    results = []
-    run_counter = 0
-    while run_counter < amount_of_loops:
-        timer_start = utime.ticks_cpu()
-        machine.deepsleep(interval_in_ms)
-        timer_end = utime.ticks_cpu()
-        blinky()
-        results.append(utime.ticks_diff(timer_end, timer_start))
-        run_counter += 1
-    return results
+    timer_start = utime.ticks_cpu()
+    machine.deepsleep(interval_in_ms)
+
+def deepsleep_blinky_test(interval_in_ms):
+    timer_start = utime.ticks_cpu()
+    machine.deepsleep(interval_in_ms)
+    blinky()

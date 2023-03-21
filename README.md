@@ -18,7 +18,7 @@ rshell> connect serial "PORT" "BAUDRATE" //Standard port is /dev/ttyACM0: Standa
 To load new code
 
 ```
-rshell> cp file_to_transfer.py /pyboard/flash/ // Transfers a single file
+rshell> cp file_to_transfer.py /pyboard/flash // Transfers a single file
 rshell> cp -r folder_to_transfer /pyboard/flash //Transfers entire folder
 ```
 To enter REPL
