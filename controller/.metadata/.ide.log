@@ -715,3 +715,128 @@
 2023-03-22 11:31:35,579 [INFO] ProjectBuilder:4505 - Time for Generating toolchain IDE Files: 1754mS.
 2023-03-22 11:31:35,579 [INFO] ProjectBuilder:2867 - Time for Copy CMSIS : 0mS.
 2023-03-22 11:31:35,580 [INFO] ProjectBuilder:2867 - Time for Copy CMSIS : 0mS.
+2023-03-22 12:56:31,931 [INFO] Gpio:273 - dependency for GPIO [RCC, SYS, USART1, USB]
+2023-03-22 12:57:04,707 [INFO] Gpio:273 - dependency for GPIO [RCC, SYS, USART1, USB]
+2023-03-22 12:57:04,743 [INFO] NvicIntPanel:101 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,0x0,invalid,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2023-03-22 12:57:04,803 [INFO] Gpio:273 - dependency for GPIO [RCC, SYS, USART1, USB]
+2023-03-22 12:57:04,845 [INFO] NvicIntPanel:101 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,0x0,invalid,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2023-03-22 12:57:04,953 [INFO] Gpio:273 - dependency for GPIO [RCC, SYS, USART1, USB]
+2023-03-22 12:57:04,992 [INFO] NvicIntPanel:101 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,0x0,invalid,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2023-03-22 13:00:11,122 [INFO] Gpio:273 - dependency for GPIO [RCC, SYS, USART1, USB]
+2023-03-22 13:00:35,873 [INFO] Gpio:273 - dependency for GPIO [RCC, SYS, USART1, USB]
+2023-03-22 13:02:47,539 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 320901704 Bytes (1073741824)
+2023-03-22 13:02:51,990 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 652773960 Bytes (1073741824)
+2023-03-22 13:02:52,218 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: NVIC
+2023-03-22 13:02:52,218 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: USART
+2023-03-22 13:02:52,218 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: TIM1_8WB5
+2023-03-22 13:02:52,218 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: USB
+2023-03-22 13:02:52,218 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: SYS
+2023-03-22 13:02:52,218 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: GPIO
+2023-03-22 13:02:52,218 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: RCC
+2023-03-22 13:02:52,220 [INFO] CodeGenerator:793 - code generatio: config db path: /opt/st/stm32cubeide_1.12.0/plugins/com.st.stm32cube.common.mx_6.8.0.202302231600//db/
+2023-03-22 13:02:52,430 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/license.tmp_save
+2023-03-22 13:02:52,522 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/license.tmp
+2023-03-22 13:02:52,550 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/gpio.tmp_save
+2023-03-22 13:02:52,642 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/gpio.tmp
+2023-03-22 13:02:52,836 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/stm32wbxx_it.c_save
+2023-03-22 13:02:53,037 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/stm32wbxx_it.c
+2023-03-22 13:02:53,038 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/stm32wbxx_it.h_save
+2023-03-22 13:02:53,104 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/stm32wbxx_it.h
+2023-03-22 13:02:53,108 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/stm32wbxx_hal_msp.c_save
+2023-03-22 13:02:53,232 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/stm32wbxx_hal_msp.c
+2023-03-22 13:02:53,233 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/system.tmp_save
+2023-03-22 13:02:53,293 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/system.tmp
+2023-03-22 13:02:53,296 [INFO] CodeEngine:311 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/stm32wbxx_hal_conf.h_save
+2023-03-22 13:02:53,357 [INFO] CodeEngine:335 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/stm32wbxx_hal_conf.h
+2023-03-22 13:02:53,365 [WARN] IPConfigManager:2937 - Warning: the RefConfig RCC_PClockConfig is not available in your config.xml file
+2023-03-22 13:02:53,369 [WARN] IPConfigManager:3431 - IP not found : TIM
+2023-03-22 13:02:53,369 [WARN] CodeGenerator:3754 - IP not found : null
+2023-03-22 13:02:53,371 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/main.h_save
+2023-03-22 13:02:53,460 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/main.h
+2023-03-22 13:02:53,462 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/main.c_save
+2023-03-22 13:02:53,567 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/main.c
+2023-03-22 13:02:54,237 [INFO] ProjectBuilder:2996 - Time for Copy HAL[1] : 71mS.
+2023-03-22 13:02:54,239 [INFO] ProjectBuilder:4304 - Project Generator version: 3.19.2
+2023-03-22 13:02:54,508 [INFO] ConfigFileManager:1483 - The Die is : DIE495
+2023-03-22 13:02:55,740 [INFO] ProjectBuilder:4505 - Time for Generating toolchain IDE Files: 1500mS.
+2023-03-22 13:02:55,740 [INFO] ProjectBuilder:2867 - Time for Copy CMSIS : 0mS.
+2023-03-22 13:02:55,741 [INFO] ProjectBuilder:2867 - Time for Copy CMSIS : 0mS.
+2023-03-22 13:04:08,832 [INFO] Gpio:273 - dependency for GPIO [RCC, SYS, USART1, USB]
+2023-03-22 13:04:13,836 [INFO] NvicIntPanel:101 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,2,26,495x700,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2023-03-22 13:04:24,065 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 584078080 Bytes (1073741824)
+2023-03-22 13:04:24,299 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: NVIC
+2023-03-22 13:04:24,299 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: USART
+2023-03-22 13:04:24,300 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: TIM1_8WB5
+2023-03-22 13:04:24,300 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: USB
+2023-03-22 13:04:24,300 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: SYS
+2023-03-22 13:04:24,300 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: GPIO
+2023-03-22 13:04:24,300 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: RCC
+2023-03-22 13:04:24,301 [INFO] CodeGenerator:793 - code generatio: config db path: /opt/st/stm32cubeide_1.12.0/plugins/com.st.stm32cube.common.mx_6.8.0.202302231600//db/
+2023-03-22 13:04:24,511 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/license.tmp_save
+2023-03-22 13:04:24,569 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/license.tmp
+2023-03-22 13:04:24,600 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/gpio.tmp_save
+2023-03-22 13:04:24,664 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/gpio.tmp
+2023-03-22 13:04:24,809 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/stm32wbxx_it.c_save
+2023-03-22 13:04:24,877 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/stm32wbxx_it.c
+2023-03-22 13:04:24,879 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/stm32wbxx_it.h_save
+2023-03-22 13:04:24,940 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/stm32wbxx_it.h
+2023-03-22 13:04:24,944 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/stm32wbxx_hal_msp.c_save
+2023-03-22 13:04:25,026 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/stm32wbxx_hal_msp.c
+2023-03-22 13:04:25,028 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/system.tmp_save
+2023-03-22 13:04:25,082 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/system.tmp
+2023-03-22 13:04:25,084 [INFO] CodeEngine:311 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/stm32wbxx_hal_conf.h_save
+2023-03-22 13:04:25,155 [INFO] CodeEngine:335 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/stm32wbxx_hal_conf.h
+2023-03-22 13:04:25,163 [WARN] IPConfigManager:2937 - Warning: the RefConfig RCC_PClockConfig is not available in your config.xml file
+2023-03-22 13:04:25,166 [WARN] IPConfigManager:3431 - IP not found : TIM
+2023-03-22 13:04:25,166 [WARN] CodeGenerator:3754 - IP not found : null
+2023-03-22 13:04:25,169 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/main.h_save
+2023-03-22 13:04:25,236 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/main.h
+2023-03-22 13:04:25,237 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/main.c_save
+2023-03-22 13:04:25,330 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/main.c
+2023-03-22 13:04:25,865 [INFO] ProjectBuilder:2996 - Time for Copy HAL[1] : 24mS.
+2023-03-22 13:04:25,867 [INFO] ProjectBuilder:4304 - Project Generator version: 3.19.2
+2023-03-22 13:04:26,160 [INFO] ConfigFileManager:1483 - The Die is : DIE495
+2023-03-22 13:04:27,188 [INFO] ProjectBuilder:4505 - Time for Generating toolchain IDE Files: 1320mS.
+2023-03-22 13:04:27,188 [INFO] ProjectBuilder:2867 - Time for Copy CMSIS : 0mS.
+2023-03-22 13:04:27,189 [INFO] ProjectBuilder:2867 - Time for Copy CMSIS : 0mS.
+2023-03-22 13:19:28,323 [INFO] NvicIntPanel:101 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,0x0,invalid,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2023-03-22 13:20:45,240 [INFO] Gpio:273 - dependency for GPIO [RCC, SYS, USART1, USB]
+2023-03-22 13:21:13,367 [INFO] NvicIntPanel:101 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,2,26,495x700,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2023-03-22 13:21:49,080 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 686472080 Bytes (1073741824)
+2023-03-22 13:21:50,365 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 755151760 Bytes (1073741824)
+2023-03-22 13:21:53,520 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 383136384 Bytes (1073741824)
+2023-03-22 13:21:53,684 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: NVIC
+2023-03-22 13:21:53,684 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: USART
+2023-03-22 13:21:53,684 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: TIM1_8WB5
+2023-03-22 13:21:53,684 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: USB
+2023-03-22 13:21:53,684 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: SYS
+2023-03-22 13:21:53,685 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: GPIO
+2023-03-22 13:21:53,685 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: RCC
+2023-03-22 13:21:53,685 [INFO] CodeGenerator:793 - code generatio: config db path: /opt/st/stm32cubeide_1.12.0/plugins/com.st.stm32cube.common.mx_6.8.0.202302231600//db/
+2023-03-22 13:21:53,841 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/license.tmp_save
+2023-03-22 13:21:53,931 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/license.tmp
+2023-03-22 13:21:53,966 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/gpio.tmp_save
+2023-03-22 13:21:54,041 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/gpio.tmp
+2023-03-22 13:21:54,186 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/stm32wbxx_it.c_save
+2023-03-22 13:21:54,314 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/stm32wbxx_it.c
+2023-03-22 13:21:54,314 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/stm32wbxx_it.h_save
+2023-03-22 13:21:54,372 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/stm32wbxx_it.h
+2023-03-22 13:21:54,375 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/stm32wbxx_hal_msp.c_save
+2023-03-22 13:21:54,487 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/stm32wbxx_hal_msp.c
+2023-03-22 13:21:54,489 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/system.tmp_save
+2023-03-22 13:21:54,543 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/system.tmp
+2023-03-22 13:21:54,544 [INFO] CodeEngine:311 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/stm32wbxx_hal_conf.h_save
+2023-03-22 13:21:54,599 [INFO] CodeEngine:335 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/stm32wbxx_hal_conf.h
+2023-03-22 13:21:54,607 [WARN] IPConfigManager:2937 - Warning: the RefConfig RCC_PClockConfig is not available in your config.xml file
+2023-03-22 13:21:54,610 [WARN] IPConfigManager:3431 - IP not found : TIM
+2023-03-22 13:21:54,610 [WARN] CodeGenerator:3754 - IP not found : null
+2023-03-22 13:21:54,611 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/main.h_save
+2023-03-22 13:21:54,690 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/main.h
+2023-03-22 13:21:54,691 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/main.c_save
+2023-03-22 13:21:54,790 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/main.c
+2023-03-22 13:21:55,338 [INFO] ProjectBuilder:2996 - Time for Copy HAL[1] : 24mS.
+2023-03-22 13:21:55,340 [INFO] ProjectBuilder:4304 - Project Generator version: 3.19.2
+2023-03-22 13:21:55,562 [INFO] ConfigFileManager:1483 - The Die is : DIE495
+2023-03-22 13:21:56,741 [INFO] ProjectBuilder:4505 - Time for Generating toolchain IDE Files: 1401mS.
+2023-03-22 13:21:56,741 [INFO] ProjectBuilder:2867 - Time for Copy CMSIS : 0mS.
+2023-03-22 13:21:56,742 [INFO] ProjectBuilder:2867 - Time for Copy CMSIS : 0mS.

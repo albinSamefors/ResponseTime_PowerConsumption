@@ -2,6 +2,13 @@ from STM32_scripts import interrupt_tests, set_interval_tests
 import machine
 import utime
 import os
+import uos
+
+SETUP_RX_PIN_NUMBER = 'B7'
+SETUP_TX_PIN_NUMBER = 'B6'
+uos.dupterm(None, 1)
+SETUP_UART = machine.UART(1, 115200)
+SETUP_UART.init(baudrate=115200,bits=8,parity=None,stop=1, tx=SETUP_TX_PIN_NUMBER,rx=SETUP_RX_PIN_NUMBER)
 
 STM32_CLOCK_FREQUENCY = 64000000
 STM32_PERIOD = 1/STM32_CLOCK_FREQUENCY
@@ -65,10 +72,14 @@ def load_and_print_data(file_name):
 
     file.close()
 
+
+
+
 #THESE ARE JUST HARD VALUES FOR THE RESET TYPES. 2 IS RESET BY BUTTON AND 4 IS DEEPSLEEP RESET
 if machine.reset_cause() == 2:
-    go = input("PRESS ENTER TO START")
-    set_interval_tests.lightsleep_test(100, 100)
+    SETUP_UART.write("Hello World!")
+    #go = input("PRESS ENTER TO START")
+    #set_interval_tests.lightsleep_test(100, 100)
 elif machine.reset_cause() == 4:
     print("DEEPSLEPT")
 
