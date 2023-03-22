@@ -2,7 +2,9 @@ import machine
 import utime
 
 STM32_CPU_CLOCK_SPEED = 64000000
+TIMER_PIN_NUMBER = "A1"
 GREEN_LED = machine.Pin("B0", machine.Pin.OUT)
+TIMER_PIN = machine.Pin(TIMER_PIN_NUMBER, machine.Pin.OUT)
 
 def blinky():
     GREEN_LED.high()
@@ -12,12 +14,15 @@ def lightsleep_test(interval_in_ms, amount_of_loops):
     results = []
     run_counter = 0
     while run_counter < amount_of_loops:
-        timer_start = utime.ticks_cpu()
+        TIMER_PIN.high()
+        utime.sleep(1)
+        TIMER_PIN.low()
         machine.lightsleep(interval_in_ms)
-        timer_end = utime.ticks_cpu()
-        results.append(utime.ticks_diff(timer_end, timer_start))
+        TIMER_PIN.high()
+        TIMER_PIN.low()
         run_counter += 1
     return results
+
 def lightsleep_blinky_test(interval_in_ms, amount_of_loops):
     results = []
     run_counter = 0
@@ -30,14 +35,11 @@ def lightsleep_blinky_test(interval_in_ms, amount_of_loops):
         run_counter += 1
     return results
 
-# DEEPSLEEP IS NOT YET TESTED!!
 
 def deepsleep_test(interval_in_ms):
-    rtc = machine.RTC()
-    data = rtc.memory()
-    print(data)
 
-    timer_start = utime.ticks_cpu()
+    TIMER_PIN.high()
+    TIMER_PIN.low()
     machine.deepsleep(interval_in_ms)
 
 def deepsleep_blinky_test(interval_in_ms):

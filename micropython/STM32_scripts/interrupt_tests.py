@@ -1,21 +1,18 @@
-from machine import Pin, lightsleep, deepsleep
+import machine
 
-PIN_NUMBER = 'A1'
-CALLBACK_PIN = Pin(PIN_NUMBER, Pin.OUT, Pin.PULL_DOWN)
+TIMER_PIN_NUMBER = 'A1'
+TIMER_PIN = machine.Pin(TIMER_PIN_NUMBER, machine.Pin.OUT, machine.Pin.PULL_DOWN)
+IRQ_PIN_NUMBER = 'A0'
+IRQ_PIN = machine.Pin(IRQ_PIN_NUMBER, machine.Pin.IN, machine.Pin.PULL_DOWN)
 
-def callback():
-    CALLBACK_PIN.on()
-    CALLBACK_PIN.off()
+def timer_signal():
+    TIMER_PIN.on()
+    TIMER_PIN.off()
 
-def lightsleep_blinky_test():
-    pass
+def lightsleep_test():
+    IRQ_PIN.irq(trigger=machine.IRQ_RISING, handler=timer_signal)
+    machine.lightsleep()
 
-def lightsleep_i2C_test():
-    lightsleep()
-    callback()
-
-def deepsleep_i2C_test():
-    deepsleep()
-    callback()
-
-
+def deepsleep_test():
+    IRQ_PIN.irq(trigger=machine.IRQ_RISING, handler=timer_signal)
+    machine.deepsleep()
