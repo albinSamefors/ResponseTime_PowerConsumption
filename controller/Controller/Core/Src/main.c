@@ -21,7 +21,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <string.h>
+#include <stdio.h>
+#include <stdbool.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -31,7 +33,6 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -40,30 +41,59 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-TIM_HandleTypeDef htim2;
+SPI_HandleTypeDef hspi1;
 
-UART_HandleTypeDef huart1;
+TIM_HandleTypeDef htim2;
 
 PCD_HandleTypeDef hpcd_USB_FS;
 
 /* USER CODE BEGIN PV */
+struct TimeCapture{
+	uint32_t startTime;
+	uint32_t endTime;
+};
+uint32_t captures = 0;
+uint16_t runs = 0;
 
+//DATA FETCHED FROM SPI
+uint8_t insides;
+uint16_t sleep_time;
+uint16_t max_amount_of_runs;
+uint16_t test_mode;
+//CREATE AFTER DATA HAS BEEN RECIEVED
+//struct TimeCapture data_us[MAX_AMOUNT_OF_RUNS];
+uint32_t timer_val;
+
+//SPI REGISTER DATA
+typedef enum Header {
+	SLEEP_TIME = 1,
+	RUN_AMOUNT = 2,
+	TEST_MODE = 3
+} Header;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 void PeriphCommonClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_USART1_UART_Init(void);
 static void MX_USB_PCD_Init(void);
 static void MX_TIM2_Init(void);
+static void MX_SPI1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint8_t rx_buff[10];
+_Bool recieve16Bit(uint16_t *read_to){
+
+	if(HAL_SPI_Receive(&hspi1, (uint8_t*)read_to, 2, 10) == HAL_OK) {
+		return true;
+	}
+
+	return false;
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -97,11 +127,11 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_USART1_UART_Init();
   MX_USB_PCD_Init();
   MX_TIM2_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_TIM_Base_Start(&htim2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -109,12 +139,31 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+	  uint8_t header;
+	  HAL_StatusTypeDef receive_status = HAL_SPI_Receive(&hspi1, &header, 1, 10);
+	  if(receive_status == HAL_OK) {
+		  insides = header;
+		  switch((Header)header) {
+		  	  case SLEEP_TIME:
+		  		  if(!recieve16Bit(&sleep_time)) {
+		  			  printf("ERROR COULD NOT RECIEVE SLEEP TIME");
+		  		  	  }
+				  break;
+			  case RUN_AMOUNT:
+				  if(!recieve16Bit(&max_amount_of_runs)){
+					  printf("ERROR COULD NOT RECIEVE AMOUNT OF RUNS");
+				  }
 
-    /* USER CODE BEGIN 3 */
-	  if(HAL_UART_Receive(&huart1,rx_buff, 10, 1000) == HAL_OK){
-		  __NOP();
+				  break;
+			  case TEST_MODE:
+				  if(!recieve16Bit(&test_mode)){
+					  printf("TEST MODE COULD NOT BE RECIEVED");
+				  }
+				  break;
+			  }
 	  }
-	  __NOP();
+    /* USER CODE BEGIN 3 */
+
   }
   /* USER CODE END 3 */
 }
@@ -209,6 +258,45 @@ void PeriphCommonClock_Config(void)
 }
 
 /**
+  * @brief SPI1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_SPI1_Init(void)
+{
+
+  /* USER CODE BEGIN SPI1_Init 0 */
+
+  /* USER CODE END SPI1_Init 0 */
+
+  /* USER CODE BEGIN SPI1_Init 1 */
+
+  /* USER CODE END SPI1_Init 1 */
+  /* SPI1 parameter configuration*/
+  hspi1.Instance = SPI1;
+  hspi1.Init.Mode = SPI_MODE_SLAVE;
+  hspi1.Init.Direction = SPI_DIRECTION_2LINES_RXONLY;
+  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi1.Init.NSS = SPI_NSS_HARD_INPUT;
+  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi1.Init.CRCPolynomial = 7;
+  hspi1.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
+  hspi1.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
+  if (HAL_SPI_Init(&hspi1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN SPI1_Init 2 */
+
+  /* USER CODE END SPI1_Init 2 */
+
+}
+
+/**
   * @brief TIM2 Initialization Function
   * @param None
   * @retval None
@@ -227,7 +315,7 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 0;
+  htim2.Init.Prescaler = 32-1;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim2.Init.Period = 4294967295;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -250,54 +338,6 @@ static void MX_TIM2_Init(void)
   /* USER CODE BEGIN TIM2_Init 2 */
 
   /* USER CODE END TIM2_Init 2 */
-
-}
-
-/**
-  * @brief USART1 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_USART1_UART_Init(void)
-{
-
-  /* USER CODE BEGIN USART1_Init 0 */
-
-  /* USER CODE END USART1_Init 0 */
-
-  /* USER CODE BEGIN USART1_Init 1 */
-
-  /* USER CODE END USART1_Init 1 */
-  huart1.Instance = USART1;
-  huart1.Init.BaudRate = 115200;
-  huart1.Init.WordLength = UART_WORDLENGTH_8B;
-  huart1.Init.StopBits = UART_STOPBITS_1;
-  huart1.Init.Parity = UART_PARITY_NONE;
-  huart1.Init.Mode = UART_MODE_TX_RX;
-  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
-  huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-  huart1.Init.ClockPrescaler = UART_PRESCALER_DIV1;
-  huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-  if (HAL_UART_Init(&huart1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  if (HAL_UARTEx_SetTxFifoThreshold(&huart1, UART_TXFIFO_THRESHOLD_1_8) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  if (HAL_UARTEx_SetRxFifoThreshold(&huart1, UART_RXFIFO_THRESHOLD_1_8) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  if (HAL_UARTEx_DisableFifoMode(&huart1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USART1_Init 2 */
-
-  /* USER CODE END USART1_Init 2 */
 
 }
 
@@ -370,12 +410,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   HAL_GPIO_Init(Interrupter_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : B1_Pin */
-  GPIO_InitStruct.Pin = B1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
-
   /*Configure GPIO pins : LD2_Pin LD3_Pin LD1_Pin */
   GPIO_InitStruct.Pin = LD2_Pin|LD3_Pin|LD1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -399,12 +433,25 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+
 	if(GPIO_Pin == TEST_INPUT_Pin){
 		/*
 		 * STOP A TIMER HERE DEPENDING ON THE RUN TYPE
 		 */
 		// SAVE THE TIME
 		//SEND THE TIME TO HANDLER
+		if(captures%2 == 0){
+			timer_val = __HAL_TIM_GET_COUNTER(&htim2);
+			//data_us[runs].startTime = timer_val;
+			captures++;
+		}
+		else{
+			timer_val = __HAL_TIM_GET_COUNTER(&htim2);
+			//data_us[runs].endTime = timer_val;
+			captures++;
+			runs++;
+
+		}
 
 
 	}

@@ -1,0 +1,1 @@
+{"firmware": {"ver": "1.19.1.post9", "port": "stm32", "arch": "", "sysname": "stm32", "name": "", "mpy": 0, "version": "1.19.1.post9", "machine": "", "build": "", "nodename": "stm32", "platform": "stm32", "family": ""}, "stubber": {"version": "1.19.1.post9"}, "modules": [], "name": "micropython-stm32-stubs"}

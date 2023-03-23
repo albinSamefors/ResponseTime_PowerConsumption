@@ -4,11 +4,17 @@ import utime
 import os
 import uos
 
-SETUP_RX_PIN_NUMBER = 'B7'
-SETUP_TX_PIN_NUMBER = 'B6'
-uos.dupterm(None, 1)
-SETUP_UART = machine.UART(1, 115200)
-SETUP_UART.init(baudrate=115200,bits=8,parity=None,stop=1, tx=SETUP_TX_PIN_NUMBER,rx=SETUP_RX_PIN_NUMBER)
+SS = machine.Pin('D10', mode=machine.Pin.OUT, value=1)
+SCK = machine.Pin('D13', mode=machine.Pin.OUT)
+MOSI = machine.Pin('D11', mode=machine.Pin.OUT)
+MISO = machine.Pin('D12', mode=machine.Pin.OUT)
+SPI = machine.SPI(1, baudrate=115200)
+SPI.init(baudrate=115200,polarity=0,phase=0,bits=8,firstbit=SPI.MSB)
+
+SLEEP_TIME_SPI_ADDR =    0b00000001
+RUN_AMMOUNT_SPI_ADDR =   0b00000010
+TEST_MODE_SPI_ADDR =     0b00000011
+
 
 STM32_CLOCK_FREQUENCY = 64000000
 STM32_PERIOD = 1/STM32_CLOCK_FREQUENCY
@@ -72,14 +78,46 @@ def load_and_print_data(file_name):
 
     file.close()
 
+def send_settings_spi(sleep_time, run_amount, run_type):
+    """
+    It takes in three parameters, sleep_time, run_amount, and run_type, and sends them to the
+    microcontroller via SPI
+    
+    :param sleep_time: The time in seconds the system will sleep
+    :param run_amount: The number of times the test will run
+    :param run_type: 0 = Interval mode, 1 = Interrupt mode
+    """
+    try:
+        timearr = sleep_time.to_bytes(2,'little')
+        SS.low()
+        SPI.write(bytearray([SLEEP_TIME_SPI_ADDR,
+                             timearr[0],
+                             timearr[1]]))
+    finally:
+        SS.high()
+    try:
+        amountarr = run_amount.to_bytes(2,'little')
+        SS.low()
+        SPI.write(bytearray([RUN_AMMOUNT_SPI_ADDR,
+                             amountarr[0],
+                             amountarr[1]]))
+    finally:
+        SS.high()
 
 
+    try:
+        typearr = run_type.to_bytes(2,'little')
+        SS.low()
+        SPI.write(bytearray([TEST_MODE_SPI_ADDR,
+                            typearr[0],
+                            typearr[1]]))
+    finally:
+        SS.high()
 
 #THESE ARE JUST HARD VALUES FOR THE RESET TYPES. 2 IS RESET BY BUTTON AND 4 IS DEEPSLEEP RESET
 if machine.reset_cause() == 2:
-    SETUP_UART.write("Hello World!")
-    #go = input("PRESS ENTER TO START")
-    #set_interval_tests.lightsleep_test(100, 100)
+    while True:
+        send_settings_spi(1000, 100, 1)
 elif machine.reset_cause() == 4:
     print("DEEPSLEPT")
 
