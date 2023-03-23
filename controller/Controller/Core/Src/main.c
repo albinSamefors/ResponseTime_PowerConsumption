@@ -60,6 +60,7 @@ uint8_t insides;
 uint16_t sleep_time;
 uint16_t max_amount_of_runs;
 uint16_t test_mode;
+int test_input_set = false;
 //CREATE AFTER DATA HAS BEEN RECIEVED
 //struct TimeCapture data_us[MAX_AMOUNT_OF_RUNS];
 uint32_t timer_val;
@@ -92,6 +93,35 @@ _Bool recieve16Bit(uint16_t *read_to){
 	}
 
 	return false;
+}
+
+void getStartInput(){
+	uint8_t header;
+		  HAL_StatusTypeDef receive_status = HAL_SPI_Receive(&hspi1, &header, 1, 10);
+		  if(receive_status == HAL_OK) {
+			  insides = header;
+			  switch((Header)header) {
+			  	  case SLEEP_TIME:
+			  		  if(!recieve16Bit(&sleep_time)) {
+			  			  printf("ERROR COULD NOT RECIEVE SLEEP TIME");
+			  		  	  }
+					  break;
+				  case RUN_AMOUNT:
+					  if(!recieve16Bit(&max_amount_of_runs)){
+						  printf("ERROR COULD NOT RECIEVE AMOUNT OF RUNS");
+					  }
+
+					  break;
+				  case TEST_MODE:
+					  if(!recieve16Bit(&test_mode)){
+						  printf("TEST MODE COULD NOT BE RECIEVED");
+					  }
+					  break;
+				  }
+		  }
+		  if(sleep_time != 0){
+			  test_input_set = true;
+		  }
 }
 
 /* USER CODE END 0 */
@@ -139,28 +169,16 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  uint8_t header;
-	  HAL_StatusTypeDef receive_status = HAL_SPI_Receive(&hspi1, &header, 1, 10);
-	  if(receive_status == HAL_OK) {
-		  insides = header;
-		  switch((Header)header) {
-		  	  case SLEEP_TIME:
-		  		  if(!recieve16Bit(&sleep_time)) {
-		  			  printf("ERROR COULD NOT RECIEVE SLEEP TIME");
-		  		  	  }
-				  break;
-			  case RUN_AMOUNT:
-				  if(!recieve16Bit(&max_amount_of_runs)){
-					  printf("ERROR COULD NOT RECIEVE AMOUNT OF RUNS");
-				  }
-
-				  break;
-			  case TEST_MODE:
-				  if(!recieve16Bit(&test_mode)){
-					  printf("TEST MODE COULD NOT BE RECIEVED");
-				  }
-				  break;
-			  }
+	  if(!test_input_set){
+	  	  getStartInput();
+	  }
+	  else{
+		  if(test_mode == 1){
+			  // RUN TESTS USING ITERRUPTS
+		  }
+		  else{
+			  //RUN TESTS USING INTERVALS
+		  }
 	  }
     /* USER CODE BEGIN 3 */
 
