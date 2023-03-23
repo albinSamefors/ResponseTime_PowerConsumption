@@ -43,5 +43,12 @@ green_led.low()
 ```
 ### controller
 Contains the code for the controller part of the test platform. The purpose of this is to have an indipendent measuring device to not burden the test mcu more than neccesary to ensure that the data collected is accurate.
+
+### SETUP
+#### SPI COMMUNICATION
+To be able to transfer the test data from the experiment mcu the controller communication is handled using SPI.
+
+Connect the MCUS accordingly
+
 ### measurments
 Contains all the measurments taken from the experiments
