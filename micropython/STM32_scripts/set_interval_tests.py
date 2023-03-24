@@ -2,9 +2,9 @@ import machine
 import utime
 
 STM32_CPU_CLOCK_SPEED = 64000000
-TIMER_PIN_NUMBER = "A1"
+TIMER_PIN_NUMBER = "A0"
 GREEN_LED = machine.Pin("B0", machine.Pin.OUT)
-TIMER_PIN = machine.Pin(TIMER_PIN_NUMBER, machine.Pin.OUT)
+TIMER_PIN = machine.Pin(TIMER_PIN_NUMBER, machine.Pin.OUT,machine.Pin.PULL_DOWN)
 
 def blinky():
     GREEN_LED.high()
@@ -15,7 +15,6 @@ def lightsleep_test(interval_in_ms, amount_of_loops):
     run_counter = 0
     while run_counter < amount_of_loops:
         TIMER_PIN.high()
-        utime.sleep(1)
         TIMER_PIN.low()
         machine.lightsleep(interval_in_ms)
         TIMER_PIN.high()

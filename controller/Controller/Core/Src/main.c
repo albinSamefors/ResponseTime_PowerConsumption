@@ -41,6 +41,8 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+RTC_HandleTypeDef hrtc;
+
 SPI_HandleTypeDef hspi1;
 
 TIM_HandleTypeDef htim2;
@@ -54,13 +56,15 @@ struct TimeCapture{
 };
 uint32_t captures = 0;
 struct TimeCapture timeBuff;
+struct TimeCapture lastBuff;
 _Bool timeBuffReady = false;
+_Bool run_test = false;
 
 //DATA FETCHED FROM SPI
-uint8_t insides;
-uint16_t sleep_time = 0;
-uint16_t max_amount_of_runs = 1;
-uint16_t test_mode = 0;
+uint32_t* data;
+uint16_t sleep_time;
+uint16_t max_amount_of_runs;
+uint16_t test_mode = 2;
 _Bool test_input_set = false;
 //CREATE AFTER DATA HAS BEEN RECIEVED
 //struct TimeCapture data_us[MAX_AMOUNT_OF_RUNS];
@@ -81,6 +85,7 @@ static void MX_GPIO_Init(void);
 static void MX_USB_PCD_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_SPI1_Init(void);
+static void MX_RTC_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -100,7 +105,6 @@ void getStartInput(){
 	uint8_t header;
 		  HAL_StatusTypeDef receive_status = HAL_SPI_Receive(&hspi1, &header, 1, 10);
 		  if(receive_status == HAL_OK) {
-			  insides = header;
 			  switch((Header)header) {
 			  	  case SLEEP_TIME:
 			  		  if(!recieve16Bit(&sleep_time)) {
@@ -120,18 +124,20 @@ void getStartInput(){
 					  break;
 				  }
 		  }
-		  if(sleep_time != 0){
+		  if(test_mode != 2){
 			  test_input_set = true;
 		  }
 }
 
 void calculateTestTimes(struct TimeCapture *data, uint32_t *times){
 	for(int i = 0; i < max_amount_of_runs; i++){
-		uint32_t start_time = data[i].startTime;
-		uint32_t end_time = data[i].endTime;
+		struct TimeCapture *time_ptr = &data[i];
+		uint32_t *ptr = &times[i];
+		uint32_t start_time = time_ptr->startTime;
+		uint32_t end_time = time_ptr->endTime;
 		uint32_t full_time = end_time - start_time;
 		uint32_t wake_up_time = full_time - (sleep_time * 1000);
-		times[i] = wake_up_time;
+		*ptr = wake_up_time;
 	}
 }
 
@@ -142,30 +148,54 @@ void sendInterrupt(){
 
 void testUsingInterrupts(struct TimeCapture *times){
 	_Bool interrupt_sent = false;
-	for(int i = 0; i < max_amount_of_runs; i++){
+	int i = 0;
+	while(run_test){
+		struct TimeCapture *time_ptr = &times[i];
 		if(!interrupt_sent){
 			sendInterrupt();
-			timeBuff.startTime = __HAL_TIM_GET_COUNTER(&htim2);
+			time_ptr->startTime = __HAL_TIM_GET_COUNTER(&htim2);
 			interrupt_sent = true;
 			captures++;
 		}
 		while(!timeBuffReady)
-		times[i] = timeBuff;
+		time_ptr->endTime = timeBuff.endTime;
 		timeBuffReady = false;
-
+		i++;
 	}
 
 }
 
 void testUsingIntervals(struct TimeCapture *times){
-	for(int i = 0; i < max_amount_of_runs; i++){
+	int i = 0;
+	while(run_test){
+		struct TimeCapture *time_ptr = &times[i];
 		while(!timeBuffReady);
-		times[i] = timeBuff;
+		*time_ptr = timeBuff;
+		i++;
+		lastBuff = timeBuff;
 		timeBuff.startTime = 0;
 		timeBuff.endTime = 0;
 		timeBuffReady = false;
 
 	}
+}
+void addDataToNewFile(uint32_t *data){
+	FILE *data_container;
+	RTC_TimeTypeDef sTime;
+	RTC_DateTypeDef sDate;
+	char time[30];
+	char date[30];
+	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+	sprintf(date,"%02d_%02d_%02d_",sDate.Year,sDate.Month, sDate.Date);
+	sprintf(time,"%02d_%02d_%02d.txt", sTime.Hours, sTime.Minutes, sTime.Seconds);
+	char *filename = strcat(date,time);
+	data_container = fopen(filename, "w");
+	for(int i = 0; i < max_amount_of_runs; i++){
+		uint32_t *ptr = &data[i];
+		putw(*ptr, data_container);
+	}
+	fclose(data_container);
 }
 
 /* USER CODE END 0 */
@@ -204,6 +234,7 @@ int main(void)
   MX_USB_PCD_Init();
   MX_TIM2_Init();
   MX_SPI1_Init();
+  MX_RTC_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start(&htim2);
   /* USER CODE END 2 */
@@ -212,27 +243,29 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
 	  if(!test_input_set){
-	  	  getStartInput();
-	  }
-	  else{
-		  struct TimeCapture times[max_amount_of_runs];
-		  if(test_mode == 1){
-			  // RUN TESTS USING ITERRUPTS
+	 	  	  getStartInput();
+	 	  }
+	 	  else{
+	 		  struct TimeCapture times[max_amount_of_runs];
+	 		  if(test_mode == 1){
+	 			  // RUN TESTS USING ITERRUPTS
+	 			  run_test = true;
+	 			  testUsingInterrupts(times);
+	 			  uint32_t test_times[max_amount_of_runs];
+	 			  calculateTestTimes(times,test_times);
+	 			  addDataToNewFile(test_times);
+	 		  }
+	 		  else{
+	 			  run_test = true;
+	 			  testUsingIntervals(times);
+	 			  uint32_t test_times[max_amount_of_runs];
+	 			  calculateTestTimes(times, test_times);
+	 			  addDataToNewFile(test_times);
+	 		  }
+	 	  }
+    /* USER CODE END WHILE */
 
-			  testUsingInterrupts(&times);
-			  uint32_t test_times[max_amount_of_runs];
-			  calculateTestTimes(&times, &test_times);
-
-		  }
-		  else{
-			  testUsingIntervals(&times);
-
-			  uint32_t test_times[max_amount_of_runs];
-			  calculateTestTimes(&times, &test_times);
-		  }
-	  }
     /* USER CODE BEGIN 3 */
 
   }
@@ -268,8 +301,9 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_HSE
-                              |RCC_OSCILLATORTYPE_LSE|RCC_OSCILLATORTYPE_MSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSI1
+                              |RCC_OSCILLATORTYPE_HSE|RCC_OSCILLATORTYPE_LSE
+                              |RCC_OSCILLATORTYPE_MSI;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.LSEState = RCC_LSE_ON;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
@@ -277,6 +311,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.MSICalibrationValue = RCC_MSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_6;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
@@ -326,6 +361,71 @@ void PeriphCommonClock_Config(void)
   /* USER CODE BEGIN Smps */
 
   /* USER CODE END Smps */
+}
+
+/**
+  * @brief RTC Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_RTC_Init(void)
+{
+
+  /* USER CODE BEGIN RTC_Init 0 */
+
+  /* USER CODE END RTC_Init 0 */
+
+  RTC_TimeTypeDef sTime = {0};
+  RTC_DateTypeDef sDate = {0};
+
+  /* USER CODE BEGIN RTC_Init 1 */
+
+  /* USER CODE END RTC_Init 1 */
+
+  /** Initialize RTC Only
+  */
+  hrtc.Instance = RTC;
+  hrtc.Init.HourFormat = RTC_HOURFORMAT_24;
+  hrtc.Init.AsynchPrediv = 127;
+  hrtc.Init.SynchPrediv = 255;
+  hrtc.Init.OutPut = RTC_OUTPUT_DISABLE;
+  hrtc.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
+  hrtc.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
+  hrtc.Init.OutPutRemap = RTC_OUTPUT_REMAP_NONE;
+  if (HAL_RTC_Init(&hrtc) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /* USER CODE BEGIN Check_RTC_BKUP */
+
+  /* USER CODE END Check_RTC_BKUP */
+
+  /** Initialize RTC and set the Time and Date
+  */
+  sTime.Hours = 0x0;
+  sTime.Minutes = 0x0;
+  sTime.Seconds = 0x0;
+  sTime.SubSeconds = 0x0;
+  sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
+  sTime.StoreOperation = RTC_STOREOPERATION_RESET;
+  if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BCD) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sDate.WeekDay = RTC_WEEKDAY_MONDAY;
+  sDate.Month = RTC_MONTH_JANUARY;
+  sDate.Date = 0x1;
+  sDate.Year = 0x0;
+
+  if (HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BCD) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN RTC_Init 2 */
+
+  /* USER CODE END RTC_Init 2 */
+
 }
 
 /**
@@ -508,7 +608,12 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 	if(GPIO_Pin == TEST_INPUT_Pin){
 		if(captures%2 == 0){
 			timeBuff.startTime = __HAL_TIM_GET_COUNTER(&htim2);
+			if(captures  < max_amount_of_runs*2){
 			captures++;
+			}
+			else{
+				run_test = false;
+			}
 		}
 		else{
 			timeBuff.endTime = __HAL_TIM_GET_COUNTER(&htim2);

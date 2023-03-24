@@ -117,7 +117,8 @@ def send_settings_spi(sleep_time, run_amount, run_type):
 #THESE ARE JUST HARD VALUES FOR THE RESET TYPES. 2 IS RESET BY BUTTON AND 4 IS DEEPSLEEP RESET
 if machine.reset_cause() == 2:
     while True:
-        send_settings_spi(1000, 100, 1)
+        send_settings_spi(100, 50, 0)
+        set_interval_tests.lightsleep_test(100,50)
 elif machine.reset_cause() == 4:
     print("DEEPSLEPT")
 
