@@ -53,14 +53,15 @@ struct TimeCapture{
 	uint32_t endTime;
 };
 uint32_t captures = 0;
-uint16_t runs = 0;
+struct TimeCapture timeBuff;
+_Bool timeBuffReady = false;
 
 //DATA FETCHED FROM SPI
 uint8_t insides;
-uint16_t sleep_time;
-uint16_t max_amount_of_runs;
-uint16_t test_mode;
-int test_input_set = false;
+uint16_t sleep_time = 0;
+uint16_t max_amount_of_runs = 1;
+uint16_t test_mode = 0;
+_Bool test_input_set = false;
 //CREATE AFTER DATA HAS BEEN RECIEVED
 //struct TimeCapture data_us[MAX_AMOUNT_OF_RUNS];
 uint32_t timer_val;
@@ -124,6 +125,49 @@ void getStartInput(){
 		  }
 }
 
+void calculateTestTimes(struct TimeCapture *data, uint32_t *times){
+	for(int i = 0; i < max_amount_of_runs; i++){
+		uint32_t start_time = data[i].startTime;
+		uint32_t end_time = data[i].endTime;
+		uint32_t full_time = end_time - start_time;
+		uint32_t wake_up_time = full_time - (sleep_time * 1000);
+		times[i] = wake_up_time;
+	}
+}
+
+void sendInterrupt(){
+	HAL_GPIO_WritePin(Interrupter_GPIO_Port, Interrupter_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(Interrupter_GPIO_Port, Interrupter_Pin, GPIO_PIN_RESET);
+}
+
+void testUsingInterrupts(struct TimeCapture *times){
+	_Bool interrupt_sent = false;
+	for(int i = 0; i < max_amount_of_runs; i++){
+		if(!interrupt_sent){
+			sendInterrupt();
+			timeBuff.startTime = __HAL_TIM_GET_COUNTER(&htim2);
+			interrupt_sent = true;
+			captures++;
+		}
+		while(!timeBuffReady)
+		times[i] = timeBuff;
+		timeBuffReady = false;
+
+	}
+
+}
+
+void testUsingIntervals(struct TimeCapture *times){
+	for(int i = 0; i < max_amount_of_runs; i++){
+		while(!timeBuffReady);
+		times[i] = timeBuff;
+		timeBuff.startTime = 0;
+		timeBuff.endTime = 0;
+		timeBuffReady = false;
+
+	}
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -173,11 +217,20 @@ int main(void)
 	  	  getStartInput();
 	  }
 	  else{
+		  struct TimeCapture times[max_amount_of_runs];
 		  if(test_mode == 1){
 			  // RUN TESTS USING ITERRUPTS
+
+			  testUsingInterrupts(&times);
+			  uint32_t test_times[max_amount_of_runs];
+			  calculateTestTimes(&times, &test_times);
+
 		  }
 		  else{
-			  //RUN TESTS USING INTERVALS
+			  testUsingIntervals(&times);
+
+			  uint32_t test_times[max_amount_of_runs];
+			  calculateTestTimes(&times, &test_times);
 		  }
 	  }
     /* USER CODE BEGIN 3 */
@@ -453,21 +506,14 @@ static void MX_GPIO_Init(void)
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 
 	if(GPIO_Pin == TEST_INPUT_Pin){
-		/*
-		 * STOP A TIMER HERE DEPENDING ON THE RUN TYPE
-		 */
-		// SAVE THE TIME
-		//SEND THE TIME TO HANDLER
 		if(captures%2 == 0){
-			timer_val = __HAL_TIM_GET_COUNTER(&htim2);
-			//data_us[runs].startTime = timer_val;
+			timeBuff.startTime = __HAL_TIM_GET_COUNTER(&htim2);
 			captures++;
 		}
 		else{
-			timer_val = __HAL_TIM_GET_COUNTER(&htim2);
-			//data_us[runs].endTime = timer_val;
+			timeBuff.endTime = __HAL_TIM_GET_COUNTER(&htim2);
+			timeBuffReady = true;
 			captures++;
-			runs++;
 
 		}
 
