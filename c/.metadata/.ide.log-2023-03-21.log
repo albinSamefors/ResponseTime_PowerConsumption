@@ -1,0 +1,74 @@
+2023-03-23 10:38:38,040 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 304334144 Bytes (556793856)
+2023-03-23 10:38:38,688 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: RTC
+2023-03-23 10:38:38,688 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: NVIC
+2023-03-23 10:38:38,688 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: SYS
+2023-03-23 10:38:38,689 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: GPIO
+2023-03-23 10:38:38,689 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: RCC
+2023-03-23 10:38:38,689 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: I2C
+2023-03-23 10:38:38,690 [INFO] CodeGenerator:793 - code generatio: config db path: /opt/st/stm32cubeide_1.12.0/plugins/com.st.stm32cube.common.mx_6.8.0.202302231600//db/
+2023-03-23 10:38:39,036 [INFO] CodeEngine:255 - oldGeneratedFile, /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/MXTmpFiles/license.tmp_save
+2023-03-23 10:38:39,508 [INFO] CodeEngine:279 - Generated code: /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/MXTmpFiles/license.tmp
+2023-03-23 10:38:39,734 [INFO] CodeEngine:255 - oldGeneratedFile, /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/MXTmpFiles/gpio.tmp_save
+2023-03-23 10:38:39,917 [INFO] CodeEngine:279 - Generated code: /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/MXTmpFiles/gpio.tmp
+2023-03-23 10:38:40,234 [INFO] CodeEngine:255 - oldGeneratedFile, /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Src/stm32wbxx_it.c_save
+2023-03-23 10:38:40,349 [INFO] CodeEngine:279 - Generated code: /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Src/stm32wbxx_it.c
+2023-03-23 10:38:40,351 [INFO] CodeEngine:255 - oldGeneratedFile, /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Inc/stm32wbxx_it.h_save
+2023-03-23 10:38:40,420 [INFO] CodeEngine:279 - Generated code: /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Inc/stm32wbxx_it.h
+2023-03-23 10:38:40,425 [INFO] CodeEngine:255 - oldGeneratedFile, /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Src/stm32wbxx_hal_msp.c_save
+2023-03-23 10:38:40,552 [INFO] CodeEngine:279 - Generated code: /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Src/stm32wbxx_hal_msp.c
+2023-03-23 10:38:40,554 [INFO] CodeEngine:255 - oldGeneratedFile, /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/MXTmpFiles/system.tmp_save
+2023-03-23 10:38:40,624 [INFO] CodeEngine:279 - Generated code: /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/MXTmpFiles/system.tmp
+2023-03-23 10:38:40,628 [INFO] CodeEngine:311 - oldGeneratedFile, /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Inc/stm32wbxx_hal_conf.h_save
+2023-03-23 10:38:40,810 [INFO] CodeEngine:335 - Generated code: /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Inc/stm32wbxx_hal_conf.h
+2023-03-23 10:38:40,839 [WARN] IPConfigManager:2937 - Warning: the RefConfig RCC_PClockConfig is not available in your config.xml file
+2023-03-23 10:38:40,859 [INFO] CodeEngine:255 - oldGeneratedFile, /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Inc/main.h_save
+2023-03-23 10:38:41,044 [INFO] CodeEngine:279 - Generated code: /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Inc/main.h
+2023-03-23 10:38:41,046 [INFO] CodeEngine:255 - oldGeneratedFile, /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Src/main.c_save
+2023-03-23 10:38:41,268 [INFO] CodeEngine:279 - Generated code: /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Src/main.c
+2023-03-23 10:38:42,104 [INFO] ProjectBuilder:2996 - Time for Copy HAL[1] : 80mS.
+2023-03-23 10:38:42,117 [INFO] ProjectBuilder:4304 - Project Generator version: 3.19.2
+2023-03-23 10:38:42,614 [INFO] ConfigFileManager:1483 - The Die is : DIE495
+2023-03-23 10:38:42,628 [INFO] ApiDbMcu:507 - Load IP Config File for FATFS
+2023-03-23 10:38:42,634 [INFO] ApiDbMcu:507 - Load IP Config File for FREERTOS
+2023-03-23 10:38:42,653 [INFO] ApiDbMcu:507 - Load IP Config File for STM32_WPAN
+2023-03-23 10:38:42,665 [INFO] ApiDbMcu:507 - Load IP Config File for TOUCHSENSING
+2023-03-23 10:38:42,676 [INFO] ApiDbMcu:507 - Load IP Config File for USB_Device
+2023-03-23 10:38:44,645 [INFO] ProjectBuilder:4505 - Time for Generating toolchain IDE Files: 2526mS.
+2023-03-23 10:38:44,646 [INFO] ProjectBuilder:2867 - Time for Copy CMSIS : 0mS.
+2023-03-23 10:38:44,648 [INFO] ProjectBuilder:2867 - Time for Copy CMSIS : 0mS.
+2023-03-23 10:38:51,377 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 320756288 Bytes (762314752)
+2023-03-23 10:38:51,576 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: RTC
+2023-03-23 10:38:51,577 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: NVIC
+2023-03-23 10:38:51,577 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: SYS
+2023-03-23 10:38:51,577 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: GPIO
+2023-03-23 10:38:51,577 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: RCC
+2023-03-23 10:38:51,577 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: I2C
+2023-03-23 10:38:51,577 [INFO] CodeGenerator:793 - code generatio: config db path: /opt/st/stm32cubeide_1.12.0/plugins/com.st.stm32cube.common.mx_6.8.0.202302231600//db/
+2023-03-23 10:38:51,875 [INFO] CodeEngine:255 - oldGeneratedFile, /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/MXTmpFiles/license.tmp_save
+2023-03-23 10:38:51,964 [INFO] CodeEngine:279 - Generated code: /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/MXTmpFiles/license.tmp
+2023-03-23 10:38:52,008 [INFO] CodeEngine:255 - oldGeneratedFile, /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/MXTmpFiles/gpio.tmp_save
+2023-03-23 10:38:52,074 [INFO] CodeEngine:279 - Generated code: /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/MXTmpFiles/gpio.tmp
+2023-03-23 10:38:52,277 [INFO] CodeEngine:255 - oldGeneratedFile, /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Src/stm32wbxx_it.c_save
+2023-03-23 10:38:52,395 [INFO] CodeEngine:279 - Generated code: /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Src/stm32wbxx_it.c
+2023-03-23 10:38:52,396 [INFO] CodeEngine:255 - oldGeneratedFile, /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Inc/stm32wbxx_it.h_save
+2023-03-23 10:38:52,454 [INFO] CodeEngine:279 - Generated code: /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Inc/stm32wbxx_it.h
+2023-03-23 10:38:52,457 [INFO] CodeEngine:255 - oldGeneratedFile, /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Src/stm32wbxx_hal_msp.c_save
+2023-03-23 10:38:52,550 [INFO] CodeEngine:279 - Generated code: /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Src/stm32wbxx_hal_msp.c
+2023-03-23 10:38:52,551 [INFO] CodeEngine:255 - oldGeneratedFile, /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/MXTmpFiles/system.tmp_save
+2023-03-23 10:38:52,612 [INFO] CodeEngine:279 - Generated code: /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/MXTmpFiles/system.tmp
+2023-03-23 10:38:52,614 [INFO] CodeEngine:311 - oldGeneratedFile, /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Inc/stm32wbxx_hal_conf.h_save
+2023-03-23 10:38:52,673 [INFO] CodeEngine:335 - Generated code: /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Inc/stm32wbxx_hal_conf.h
+2023-03-23 10:38:52,686 [WARN] IPConfigManager:2937 - Warning: the RefConfig RCC_PClockConfig is not available in your config.xml file
+2023-03-23 10:38:52,692 [INFO] CodeEngine:255 - oldGeneratedFile, /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Inc/main.h_save
+2023-03-23 10:38:52,753 [INFO] CodeEngine:279 - Generated code: /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Inc/main.h
+2023-03-23 10:38:52,755 [INFO] CodeEngine:255 - oldGeneratedFile, /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Src/main.c_save
+2023-03-23 10:38:52,846 [INFO] CodeEngine:279 - Generated code: /home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/Core/Src/main.c
+2023-03-23 10:38:53,364 [INFO] ProjectBuilder:2996 - Time for Copy HAL[1] : 18mS.
+2023-03-23 10:38:53,365 [INFO] ProjectBuilder:4304 - Project Generator version: 3.19.2
+2023-03-23 10:38:53,719 [INFO] ConfigFileManager:1483 - The Die is : DIE495
+2023-03-23 10:38:55,208 [INFO] ProjectBuilder:4505 - Time for Generating toolchain IDE Files: 1843mS.
+2023-03-23 10:38:55,209 [INFO] ProjectBuilder:2867 - Time for Copy CMSIS : 1mS.
+2023-03-23 10:38:55,209 [INFO] ProjectBuilder:2867 - Time for Copy CMSIS : 0mS.
+2023-03-23 10:49:17,742 [INFO] I2cTimingTraitement:330 - 0x00707CBB
+2023-03-23 10:49:29,336 [INFO] I2cTimingTraitement:330 - 0x00707CBB
+2023-03-23 10:49:29,453 [INFO] NvicIntPanel:101 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,0x0,invalid,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]

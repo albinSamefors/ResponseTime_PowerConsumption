@@ -1,0 +1,2 @@
+2023-03-22 14:06:52,428 [INFO] Gpio:273 - dependency for GPIO [I2C1, RCC, RTC, SYS]
+2023-03-22 14:07:44,181 [INFO] I2cTimingTraitement:330 - 0x00707CBB

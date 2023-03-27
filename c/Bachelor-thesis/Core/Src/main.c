@@ -37,9 +37,6 @@
 // I2C Address that the Arduino UNO will write to
 #define I2C_ADDRESS 0x20
 
-#define LED_PIN 	GPIO_PIN_0
-#define LED_PORT 	GPIOA
-
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -57,7 +54,8 @@ RTC_HandleTypeDef hrtc;
 volatile uint32_t wakeup_count = 0;
 volatile uint32_t start_time = 0;
 volatile uint32_t end_time = 0;
-uint8_t data;
+volatile uint8_t error_flag = 0;
+volatile uint8_t data = 0;
 
 /* USER CODE END PV */
 
@@ -111,20 +109,17 @@ int main(void)
   MX_RTC_Init();
   /* USER CODE BEGIN 2 */
 
-  HAL_GPIO_WritePin(LED_PORT, LED_PIN, GPIO_PIN_RESET);
-  // Set up the STM32WB55RG to enter sleep mode
-  // Enter Stop mode
-  // Enable the low-power regulator
-  HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
-
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  // Is called within the infinite loop to receive I2C messages from the Arduino
 	  if (HAL_I2C_Slave_Receive_IT(&hi2c1, &data, 1) == HAL_OK)
 	  {
+		  // When an I2C message is received, the 'HAL_I2C_Slave_RxCpltCallback()' function is called
+		  HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
 		  end_time = HAL_GetTick();
 		  blink_led();
 		  wakeup_count++;
@@ -133,8 +128,7 @@ int main(void)
 		  printf("Wake up counter: %lu /r/n", wakeup_count);
 	  }
 
-	  /* USER CODE END WHILE */
-
+    /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
   }
@@ -227,7 +221,7 @@ static void MX_I2C1_Init(void)
   /* USER CODE END I2C1_Init 1 */
   hi2c1.Instance = I2C1;
   hi2c1.Init.Timing = 0x00707CBB;
-  hi2c1.Init.OwnAddress1 = 0;
+  hi2c1.Init.OwnAddress1 = 64;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
   hi2c1.Init.OwnAddress2 = 0;
@@ -395,8 +389,11 @@ static void MX_GPIO_Init(void)
 // This function is called when an interrupt is received from the Arduino
 void HAL_I2C_SlaveRxCpltCallback(I2C_HandleTypeDef *hi2c)
 {
-	// Record current time with HAL_GetTick()
-	start_time = HAL_GetTick();
+	if (hi2c->Instance == I2C1)
+	{
+		// Record current time with HAL_GetTick()
+		start_time = HAL_GetTick();
+	}
 }
 
 void blink_led()
