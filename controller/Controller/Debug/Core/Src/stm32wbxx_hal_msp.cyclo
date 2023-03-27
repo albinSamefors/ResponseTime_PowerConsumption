@@ -9,8 +9,8 @@ stm32wbxx_hal_msp.c:63:6:HAL_MspInit	1
 stm32wbxx_hal_msp.c:82:6:HAL_RTC_MspInit	3
 stm32wbxx_hal_msp.c:116:6:HAL_RTC_MspDeInit	2
 stm32wbxx_hal_msp.c:139:6:HAL_SPI_MspInit	2
-stm32wbxx_hal_msp.c:176:6:HAL_SPI_MspDeInit	2
-stm32wbxx_hal_msp.c:206:6:HAL_TIM_Base_MspInit	2
-stm32wbxx_hal_msp.c:228:6:HAL_TIM_Base_MspDeInit	2
-stm32wbxx_hal_msp.c:250:6:HAL_PCD_MspInit	3
-stm32wbxx_hal_msp.c:301:6:HAL_PCD_MspDeInit	2
+stm32wbxx_hal_msp.c:177:6:HAL_SPI_MspDeInit	2
+stm32wbxx_hal_msp.c:208:6:HAL_TIM_Base_MspInit	2
+stm32wbxx_hal_msp.c:230:6:HAL_TIM_Base_MspDeInit	2
+stm32wbxx_hal_msp.c:252:6:HAL_PCD_MspInit	3
+stm32wbxx_hal_msp.c:303:6:HAL_PCD_MspDeInit	2

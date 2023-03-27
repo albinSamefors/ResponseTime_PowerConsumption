@@ -54,14 +54,14 @@ struct TimeCapture{
 	uint32_t startTime;
 	uint32_t endTime;
 };
-uint32_t captures = 0;
+uint16_t captures = 0;
 struct TimeCapture timeBuff;
 struct TimeCapture lastBuff;
 _Bool timeBuffReady = false;
 _Bool run_test = false;
 
 //DATA FETCHED FROM SPI
-uint32_t* data;
+_Bool RecievedTransmitHeader = false;
 uint16_t sleep_time;
 uint16_t max_amount_of_runs;
 uint16_t test_mode = 2;
@@ -69,7 +69,7 @@ _Bool test_input_set = false;
 //CREATE AFTER DATA HAS BEEN RECIEVED
 //struct TimeCapture data_us[MAX_AMOUNT_OF_RUNS];
 uint32_t timer_val;
-
+uint32_t debug_value = 1000;
 //SPI REGISTER DATA
 typedef enum Header {
 	SLEEP_TIME = 1,
@@ -101,6 +101,14 @@ _Bool recieve16Bit(uint16_t *read_to){
 	return false;
 }
 
+_Bool send16Bit(uint16_t *send){
+	if(HAL_SPI_Transmit(&hspi1, (uint8_t*)send, 2,10) == HAL_OK){
+		return true;
+
+	}
+	return false;
+}
+
 void getStartInput(){
 	uint8_t header;
 		  HAL_StatusTypeDef receive_status = HAL_SPI_Receive(&hspi1, &header, 1, 10);
@@ -128,6 +136,39 @@ void getStartInput(){
 			  test_input_set = true;
 		  }
 }
+void sendTestData(uint32_t *times){
+	uint16_t index = 0;
+	uint16_t bajs = 10;
+	HAL_GPIO_WritePin(TransmitReady_GPIO_Port, TransmitReady_Pin, GPIO_PIN_SET);
+	while(index < max_amount_of_runs){
+		uint8_t header;
+		uint32_t *ptr = &times[index];
+		uint16_t value = *((uint16_t*)ptr);
+		HAL_StatusTypeDef recieve_status = HAL_SPI_Receive(&hspi1, &header, 1, 10);
+		if(recieve_status == HAL_OK){
+			if(header == 4){
+				if(!send16Bit(&value)){
+					printf("COULD NOT SEND DATA");
+				}
+				index++;
+			}
+			else{
+				printf("STUB");
+			}
+		}
+	}
+	HAL_GPIO_WritePin(TransmitReady_GPIO_Port, TransmitReady_Pin, GPIO_PIN_RESET);
+}
+
+void sendData(uint32_t *data){
+
+		for(int i = 0; i < max_amount_of_runs; i++){
+			uint32_t *ptr = &data[i];
+			uint16_t value = *((uint16_t*)ptr);
+			send16Bit(&value);
+
+	}
+}
 
 void calculateTestTimes(struct TimeCapture *data, uint32_t *times){
 	for(int i = 0; i < max_amount_of_runs; i++){
@@ -137,6 +178,7 @@ void calculateTestTimes(struct TimeCapture *data, uint32_t *times){
 		uint32_t end_time = time_ptr->endTime;
 		uint32_t full_time = end_time - start_time;
 		uint32_t wake_up_time = full_time - (sleep_time * 1000);
+		debug_value = full_time;
 		*ptr = wake_up_time;
 	}
 }
@@ -176,6 +218,9 @@ void testUsingIntervals(struct TimeCapture *times){
 		timeBuff.startTime = 0;
 		timeBuff.endTime = 0;
 		timeBuffReady = false;
+		if(captures == max_amount_of_runs * 2){
+			run_test = false;
+		}
 
 	}
 }
@@ -254,14 +299,15 @@ int main(void)
 	 			  testUsingInterrupts(times);
 	 			  uint32_t test_times[max_amount_of_runs];
 	 			  calculateTestTimes(times,test_times);
-	 			  addDataToNewFile(test_times);
+	 			  sendData(test_times);
 	 		  }
 	 		  else{
 	 			  run_test = true;
 	 			  testUsingIntervals(times);
 	 			  uint32_t test_times[max_amount_of_runs];
 	 			  calculateTestTimes(times, test_times);
-	 			  addDataToNewFile(test_times);
+	 			  sendTestData(test_times);
+	 			  int bajs = 10000;
 	 		  }
 	 	  }
     /* USER CODE END WHILE */
@@ -446,7 +492,7 @@ static void MX_SPI1_Init(void)
   /* SPI1 parameter configuration*/
   hspi1.Instance = SPI1;
   hspi1.Init.Mode = SPI_MODE_SLAVE;
-  hspi1.Init.Direction = SPI_DIRECTION_2LINES_RXONLY;
+  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
@@ -566,7 +612,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(Interrupter_GPIO_Port, Interrupter_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LD2_Pin|LD3_Pin|LD1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, LD2_Pin|LD3_Pin|TransmitReady_Pin|LD1_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : TEST_INPUT_Pin */
   GPIO_InitStruct.Pin = TEST_INPUT_Pin;
@@ -581,8 +627,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   HAL_GPIO_Init(Interrupter_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LD2_Pin LD3_Pin LD1_Pin */
-  GPIO_InitStruct.Pin = LD2_Pin|LD3_Pin|LD1_Pin;
+  /*Configure GPIO pins : LD2_Pin LD3_Pin TransmitReady_Pin LD1_Pin */
+  GPIO_InitStruct.Pin = LD2_Pin|LD3_Pin|TransmitReady_Pin|LD1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -611,14 +657,16 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 			if(captures  < max_amount_of_runs*2){
 			captures++;
 			}
-			else{
-				run_test = false;
-			}
+
 		}
 		else{
 			timeBuff.endTime = __HAL_TIM_GET_COUNTER(&htim2);
 			timeBuffReady = true;
-			captures++;
+			if(captures < max_amount_of_runs*2){
+				captures++;
+			}
+
+
 
 		}
 

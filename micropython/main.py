@@ -3,17 +3,19 @@ import machine
 import utime
 import os
 import uos
-
+import sys
+RECIEVE_READY = machine.Pin('B4', machine.Pin.IN)
 SS = machine.Pin('D10', mode=machine.Pin.OUT, value=1)
 SCK = machine.Pin('D13', mode=machine.Pin.OUT)
 MOSI = machine.Pin('D11', mode=machine.Pin.OUT)
 MISO = machine.Pin('D12', mode=machine.Pin.OUT)
-SPI = machine.SPI(1, baudrate=115200)
-SPI.init(baudrate=115200,polarity=0,phase=0,bits=8,firstbit=SPI.MSB)
+SPI = machine.SPI(1, baudrate=9600)
+SPI.init(baudrate=9600,polarity=0,phase=0,bits=8,firstbit=SPI.MSB)
 
 SLEEP_TIME_SPI_ADDR =    0b00000001
 RUN_AMMOUNT_SPI_ADDR =   0b00000010
 TEST_MODE_SPI_ADDR =     0b00000011
+RECIEVE_DATA_ADDR =      0b00000100
 
 
 STM32_CLOCK_FREQUENCY = 64000000
@@ -114,11 +116,38 @@ def send_settings_spi(sleep_time, run_amount, run_type):
     finally:
         SS.high()
 
+def recieve_data_SPI(run_amount):
+    bytesread = []
+    print("PIN VALUE {}".format(RECIEVE_READY.value()))
+    while RECIEVE_READY.value() == 0:
+        print("WAITING")
+    for i in range(run_amount*2):
+        try:
+            SS.low()
+            spi_data = SPI.read(2, RECIEVE_DATA_ADDR)
+            bytesread.append(spi_data)
+        finally:
+            SS.high()
+    datasetLOL = []
+    for i in range(len(bytesread)):
+        if i % 2 == 0:
+            pass
+        else:
+            datasetLOL.append(int.from_bytes(bytesread[i], "little"))
+    for byte in datasetLOL:
+        print("VALUE: {}".format(byte))
+
+    print(len(datasetLOL))
+    return spi_data
+
+
 #THESE ARE JUST HARD VALUES FOR THE RESET TYPES. 2 IS RESET BY BUTTON AND 4 IS DEEPSLEEP RESET
 if machine.reset_cause() == 2:
     while True:
-        send_settings_spi(100, 50, 0)
-        set_interval_tests.lightsleep_test(100,50)
+        send_settings_spi(10, 500, 0)
+        set_interval_tests.lightsleep_test(10,500)
+        data = recieve_data_SPI(500)
+        sys.exit()
 elif machine.reset_cause() == 4:
     print("DEEPSLEPT")
 

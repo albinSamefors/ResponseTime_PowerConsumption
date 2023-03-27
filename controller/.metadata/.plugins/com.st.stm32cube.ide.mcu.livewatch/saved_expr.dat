@@ -1,3 +1,7 @@
-sleep_time
+timeBuff
+timeBuffReady
+captures
 max_amount_of_runs
+lastBuff
+sleep_time
 test_mode
