@@ -5,3 +5,6 @@ max_amount_of_runs
 lastBuff
 sleep_time
 test_mode
+debug_value
+RecievedTransmitHeader
+run_test
