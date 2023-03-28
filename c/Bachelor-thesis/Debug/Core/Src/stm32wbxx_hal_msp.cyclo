@@ -1,8 +1,19 @@
 stm32wbxx_ll_bus.h:539:22:LL_AHB2_GRP1_EnableClock	1
 stm32wbxx_ll_bus.h:939:22:LL_APB1_GRP1_EnableClock	1
 stm32wbxx_ll_bus.h:1038:22:LL_APB1_GRP1_DisableClock	1
+stm32wbxx_ll_bus.h:1274:22:LL_APB2_GRP1_EnableClock	1
+stm32wbxx_ll_bus.h:1328:22:LL_APB2_GRP1_DisableClock	1
 stm32wbxx_hal_msp.c:63:6:HAL_MspInit	1
+<<<<<<< Updated upstream
 stm32wbxx_hal_msp.c:82:6:HAL_I2C_MspInit	3
 stm32wbxx_hal_msp.c:131:6:HAL_I2C_MspDeInit	2
 stm32wbxx_hal_msp.c:164:6:HAL_PCD_MspInit	3
 stm32wbxx_hal_msp.c:215:6:HAL_PCD_MspDeInit	2
+=======
+stm32wbxx_hal_msp.c:82:6:HAL_RTC_MspInit	3
+stm32wbxx_hal_msp.c:132:6:HAL_RTC_MspDeInit	2
+stm32wbxx_hal_msp.c:163:6:HAL_SPI_MspInit	2
+stm32wbxx_hal_msp.c:201:6:HAL_SPI_MspDeInit	2
+stm32wbxx_hal_msp.c:232:6:HAL_TIM_Base_MspInit	2
+stm32wbxx_hal_msp.c:254:6:HAL_TIM_Base_MspDeInit	2
+>>>>>>> Stashed changes
