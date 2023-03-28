@@ -1,4 +1,36 @@
-14:12:24 **** Incremental Build of configuration Debug for project Controller ****
+10:33:49 **** Incremental Build of configuration Debug for project Controller ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'sendTestData':
+../Core/Src/main.c:141:11: warning: unused variable 'bajs' [-Wunused-variable]
+  141 |  uint16_t bajs = 10;
+      |           ^~~~
+arm-none-eabi-gcc -o "Controller.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Controller.elf
+ 
+arm-none-eabi-size   Controller.elf 
+arm-none-eabi-objdump -h -S  Controller.elf  > "Controller.list"
+   text	   data	    bss	    dec	    hex	filename
+  24732	    128	   2584	  27444	   6b34	Controller.elf
+Finished building: default.size.stdout
+ 
+Finished building: Controller.list
+ 
+10:34:40 **** Incremental Build of configuration Debug for project Controller ****
+make -j12 all 
+arm-none-eabi-size   Controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  24732	    128	   2584	  27444	   6b34	Controller.elf
+Finished building: default.size.stdout
+ 
+10:36:12 **** Incremental Build of configuration Debug for project Controller ****
+make -j12 all 
+arm-none-eabi-size   Controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  24732	    128	   2584	  27444	   6b34	Controller.elf
+Finished building: default.size.stdout
+ 
+10:48:15 **** Incremental Build of configuration Debug for project Controller ****
 make -j12 all 
 arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.o"
 arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.o"
@@ -26,17 +58,9 @@ arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_ll_usb.c" -mcpu
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 arm-none-eabi-gcc "../Core/Src/stm32wbxx_hal_msp.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32wbxx_hal_msp.d" -MT"Core/Src/stm32wbxx_hal_msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32wbxx_hal_msp.o"
 ../Core/Src/main.c: In function 'sendTestData':
-../Core/Src/main.c:152:19: warning: passing argument 1 of 'send16Bit' makes pointer from integer without a cast [-Wint-conversion]
-  152 |     if(!send16Bit(bajs)){
-      |                   ^~~~
-      |                   |
-      |                   uint16_t {aka short unsigned int}
-../Core/Src/main.c:104:27: note: expected 'uint16_t *' {aka 'short unsigned int *'} but argument is of type 'uint16_t' {aka 'short unsigned int'}
-  104 | _Bool send16Bit(uint16_t *send){
-      |                 ~~~~~~~~~~^~~~
-../Core/Src/main.c:147:12: warning: unused variable 'value' [-Wunused-variable]
-  147 |   uint16_t value = *((uint16_t*)ptr);
-      |            ^~~~~
+../Core/Src/main.c:141:11: warning: unused variable 'bajs' [-Wunused-variable]
+  141 |  uint16_t bajs = 10;
+      |           ^~~~
 arm-none-eabi-gcc "../Core/Src/stm32wbxx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32wbxx_it.d" -MT"Core/Src/stm32wbxx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32wbxx_it.o"
 arm-none-eabi-gcc "../Core/Src/system_stm32wbxx.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/system_stm32wbxx.d" -MT"Core/Src/system_stm32wbxx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/system_stm32wbxx.o"
 arm-none-eabi-gcc -o "Controller.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
@@ -45,286 +69,8 @@ Finished building target: Controller.elf
 arm-none-eabi-size   Controller.elf 
 arm-none-eabi-objdump -h -S  Controller.elf  > "Controller.list"
    text	   data	    bss	    dec	    hex	filename
-  24668	    128	   2592	  27388	   6afc	Controller.elf
+  24732	    128	   2584	  27444	   6b34	Controller.elf
 Finished building: default.size.stdout
  
 Finished building: Controller.list
- 
-14:13:11 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-size   Controller.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24668	    128	   2592	  27388	   6afc	Controller.elf
-Finished building: default.size.stdout
- 
-14:15:05 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-size   Controller.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24668	    128	   2592	  27388	   6afc	Controller.elf
-Finished building: default.size.stdout
- 
-14:16:10 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-size   Controller.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24668	    128	   2592	  27388	   6afc	Controller.elf
-Finished building: default.size.stdout
- 
-14:18:04 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-size   Controller.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24668	    128	   2592	  27388	   6afc	Controller.elf
-Finished building: default.size.stdout
- 
-14:18:39 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-size   Controller.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24668	    128	   2592	  27388	   6afc	Controller.elf
-Finished building: default.size.stdout
- 
-14:30:02 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-size   Controller.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24668	    128	   2592	  27388	   6afc	Controller.elf
-Finished building: default.size.stdout
- 
-14:31:09 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'sendTestData':
-../Core/Src/main.c:151:19: warning: passing argument 1 of 'send16Bit' makes pointer from integer without a cast [-Wint-conversion]
-  151 |     if(!send16Bit(bajs)){
-      |                   ^~~~
-      |                   |
-      |                   uint16_t {aka short unsigned int}
-../Core/Src/main.c:104:27: note: expected 'uint16_t *' {aka 'short unsigned int *'} but argument is of type 'uint16_t' {aka 'short unsigned int'}
-  104 | _Bool send16Bit(uint16_t *send){
-      |                 ~~~~~~~~~~^~~~
-../Core/Src/main.c:146:12: warning: unused variable 'value' [-Wunused-variable]
-  146 |   uint16_t value = *((uint16_t*)ptr);
-      |            ^~~~~
-arm-none-eabi-gcc -o "Controller.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Controller.elf
- 
-arm-none-eabi-size   Controller.elf 
-arm-none-eabi-objdump -h -S  Controller.elf  > "Controller.list"
-   text	   data	    bss	    dec	    hex	filename
-  24664	    128	   2592	  27384	   6af8	Controller.elf
-Finished building: default.size.stdout
- 
-Finished building: Controller.list
- 
-14:32:12 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-size   Controller.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24664	    128	   2592	  27384	   6af8	Controller.elf
-Finished building: default.size.stdout
- 
-14:35:29 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'sendTestData':
-../Core/Src/main.c:146:12: warning: unused variable 'value' [-Wunused-variable]
-  146 |   uint16_t value = *((uint16_t*)ptr);
-      |            ^~~~~
-arm-none-eabi-gcc -o "Controller.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Controller.elf
- 
-arm-none-eabi-size   Controller.elf 
-arm-none-eabi-objdump -h -S  Controller.elf  > "Controller.list"
-   text	   data	    bss	    dec	    hex	filename
-  24668	    128	   2592	  27388	   6afc	Controller.elf
-Finished building: default.size.stdout
- 
-Finished building: Controller.list
- 
-14:36:10 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-size   Controller.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24668	    128	   2592	  27388	   6afc	Controller.elf
-Finished building: default.size.stdout
- 
-14:36:54 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-size   Controller.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24668	    128	   2592	  27388	   6afc	Controller.elf
-Finished building: default.size.stdout
- 
-14:40:14 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-size   Controller.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24668	    128	   2592	  27388	   6afc	Controller.elf
-Finished building: default.size.stdout
- 
-14:44:55 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'sendTestData':
-../Core/Src/main.c:146:12: warning: unused variable 'value' [-Wunused-variable]
-  146 |   uint16_t value = *((uint16_t*)ptr);
-      |            ^~~~~
-arm-none-eabi-gcc -o "Controller.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Controller.elf
- 
-arm-none-eabi-size   Controller.elf 
-arm-none-eabi-objdump -h -S  Controller.elf  > "Controller.list"
-   text	   data	    bss	    dec	    hex	filename
-  24668	    128	   2592	  27388	   6afc	Controller.elf
-Finished building: default.size.stdout
- 
-Finished building: Controller.list
- 
-14:47:20 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'sendTestData':
-../Core/Src/main.c:141:11: warning: unused variable 'bajs' [-Wunused-variable]
-  141 |  uint16_t bajs = 10;
-      |           ^~~~
-arm-none-eabi-gcc -o "Controller.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Controller.elf
- 
-arm-none-eabi-size   Controller.elf 
-arm-none-eabi-objdump -h -S  Controller.elf  > "Controller.list"
-   text	   data	    bss	    dec	    hex	filename
-  24668	    128	   2592	  27388	   6afc	Controller.elf
-Finished building: default.size.stdout
- 
-Finished building: Controller.list
- 
-14:49:09 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'sendTestData':
-../Core/Src/main.c:141:11: warning: unused variable 'bajs' [-Wunused-variable]
-  141 |  uint16_t bajs = 10;
-      |           ^~~~
-../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:311:12: warning: unused variable 'bajs' [-Wunused-variable]
-  311 |        int bajs = 10000;
-      |            ^~~~
-arm-none-eabi-gcc -o "Controller.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Controller.elf
- 
-arm-none-eabi-size   Controller.elf 
-arm-none-eabi-objdump -h -S  Controller.elf  > "Controller.list"
-   text	   data	    bss	    dec	    hex	filename
-  24672	    128	   2592	  27392	   6b00	Controller.elf
-Finished building: default.size.stdout
- 
-Finished building: Controller.list
- 
-14:51:24 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-size   Controller.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24672	    128	   2592	  27392	   6b00	Controller.elf
-Finished building: default.size.stdout
- 
-15:04:11 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-size   Controller.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24672	    128	   2592	  27392	   6b00	Controller.elf
-Finished building: default.size.stdout
- 
-15:06:40 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-size   Controller.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24672	    128	   2592	  27392	   6b00	Controller.elf
-Finished building: default.size.stdout
- 
-15:16:56 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'sendTestData':
-../Core/Src/main.c:141:11: warning: unused variable 'bajs' [-Wunused-variable]
-  141 |  uint16_t bajs = 10;
-      |           ^~~~
-../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:310:12: warning: unused variable 'bajs' [-Wunused-variable]
-  310 |        int bajs = 10000;
-      |            ^~~~
-arm-none-eabi-gcc -o "Controller.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Controller.elf
- 
-arm-none-eabi-size   Controller.elf 
-arm-none-eabi-objdump -h -S  Controller.elf  > "Controller.list"
-   text	   data	    bss	    dec	    hex	filename
-  24660	    128	   2584	  27372	   6aec	Controller.elf
-Finished building: default.size.stdout
- 
-Finished building: Controller.list
- 
-15:20:10 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-size   Controller.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24660	    128	   2584	  27372	   6aec	Controller.elf
-Finished building: default.size.stdout
- 
-15:23:14 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-size   Controller.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24660	    128	   2584	  27372	   6aec	Controller.elf
-Finished building: default.size.stdout
- 
-15:25:39 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-size   Controller.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24660	    128	   2584	  27372	   6aec	Controller.elf
-Finished building: default.size.stdout
- 
-15:32:19 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-size   Controller.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24660	    128	   2584	  27372	   6aec	Controller.elf
-Finished building: default.size.stdout
- 
-15:33:03 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-size   Controller.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24660	    128	   2584	  27372	   6aec	Controller.elf
-Finished building: default.size.stdout
- 
-15:37:00 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-size   Controller.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24660	    128	   2584	  27372	   6aec	Controller.elf
-Finished building: default.size.stdout
- 
-15:37:54 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-size   Controller.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24660	    128	   2584	  27372	   6aec	Controller.elf
-Finished building: default.size.stdout
- 
-15:38:33 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-size   Controller.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24660	    128	   2584	  27372	   6aec	Controller.elf
-Finished building: default.size.stdout
- 
-15:40:09 **** Incremental Build of configuration Debug for project Controller ****
-make -j12 all 
-arm-none-eabi-size   Controller.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24660	    128	   2584	  27372	   6aec	Controller.elf
-Finished building: default.size.stdout
  

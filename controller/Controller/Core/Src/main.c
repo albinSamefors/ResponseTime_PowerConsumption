@@ -189,22 +189,20 @@ void sendInterrupt(){
 }
 
 void testUsingInterrupts(struct TimeCapture *times){
-	_Bool interrupt_sent = false;
 	int i = 0;
 	while(run_test){
 		struct TimeCapture *time_ptr = &times[i];
-		if(!interrupt_sent){
-			sendInterrupt();
-			time_ptr->startTime = __HAL_TIM_GET_COUNTER(&htim2);
-			interrupt_sent = true;
-			captures++;
-		}
-		while(!timeBuffReady)
-		time_ptr->endTime = timeBuff.endTime;
-		timeBuffReady = false;
+		HAL_Delay(sleep_time);
+		sendInterrupt();
+		while(!timeBuffReady);
+		*time_ptr = timeBuff;
 		i++;
+		timeBuff.startTime = 0;
+		timeBuff.endTime = 0;
+		if(captures == max_amount_of_runs * 2){
+			run_test = false;
+		}
 	}
-
 }
 
 void testUsingIntervals(struct TimeCapture *times){
@@ -307,7 +305,6 @@ int main(void)
 	 			  uint32_t test_times[max_amount_of_runs];
 	 			  calculateTestTimes(times, test_times);
 	 			  sendTestData(test_times);
-	 			  int bajs = 10000;
 	 		  }
 	 	  }
     /* USER CODE END WHILE */
@@ -624,7 +621,7 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pin = Interrupter_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(Interrupter_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : LD2_Pin LD3_Pin TransmitReady_Pin LD1_Pin */

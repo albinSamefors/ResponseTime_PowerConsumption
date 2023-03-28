@@ -143,11 +143,10 @@ def recieve_data_SPI(run_amount):
 
 #THESE ARE JUST HARD VALUES FOR THE RESET TYPES. 2 IS RESET BY BUTTON AND 4 IS DEEPSLEEP RESET
 if machine.reset_cause() == 2:
-    while True:
-        send_settings_spi(10, 500, 0)
-        set_interval_tests.lightsleep_test(10,500)
-        data = recieve_data_SPI(500)
-        sys.exit()
+    send_settings_spi(10, 500, 1)
+    set_interval_tests.lightsleep_test(10,500)
+    data = recieve_data_SPI(500)
+    sys.exit()
 elif machine.reset_cause() == 4:
     print("DEEPSLEPT")
 
