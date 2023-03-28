@@ -109,39 +109,6 @@ void send_settings_spi(float sleep_time, uint16_t run_amount, uint8_t run_type){
 	HAL_GPIO_WritePin(GPIOB, SS, GPIO_PIN_SET);
 }
 
-void receive_data_SPI(uint16_t run_amount){
-	uint8_t bytesread[run_amount * 2][2]; // Define a two-dimensional array to store the data read from SPI
-	uint16_t datasetLOL[run_amount]; // Define an array to store the processed data
-	uint16_t spi_data = 0; // Initialize a variable to hold the final SPI data
-
-	while (HAL_GPIO_ReadPin(RECEIVE_READY_GPIO_Port, RECEIVE_READY_Pin) == GPIO_PIN_RESET);
-	{
-		// Wait for the RECEIVE_READY_Pin to go high before proceeding
-	}
-
-	for (int i = 0; i < run_amount * 2; i++){
-		HAL_GPIO_WritePin(GPIOB, SS, GPIO_PIN_RESET); // Pull the SS pin low to initiate a SPI transfer
-		HAL_SPI_Receive(&hspi1, bytesread[i], 2, HAL_MAX_DELAY); // Receive two bytes of data over SPI
-		HAL_GPIO_WritePin(GPIOB, SS, GPIO_PIN_SET); // Pull the SS pin high to end the SPI transfer
-	}
-
-	// Process the received data and store it in datasetLOL
-	int j = 0;
-	for (int i = 0; i < run_amount * 2; i += 2){
-		datasetLOL[j] = bytesread[i + 1][0] | (bytesread[i + 1][1] << 8);
-		// Combine the two bytes of data into a single uint16_t value and store it in datasetLOL
-		j++;
-	}
-	// Print the values in datasetLOL to the console
-	for (int i = 0; i < run_amount; i++){
-		printf("VALUE: %d\n", datasetLOL[i]);
-	}
-
-	printf("%d\n", run_amount); // Print the number of SPI transfers made
-	spi_data = datasetLOL[run_amount -1]; // Set the final SPI data to the last value in datasetLOL
-	return spi_data;
-}
-
 /* USER CODE END 0 */
 
 /**
@@ -475,12 +442,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : RECEIVE_READY_Pin */
-  GPIO_InitStruct.Pin = RECEIVE_READY_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(RECEIVE_READY_GPIO_Port, &GPIO_InitStruct);
-
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
 }
@@ -506,7 +467,7 @@ void lightsleep_test(uint32_t interval_in_ms, uint16_t amount_of_loops){
 	}
 }
 
-void lightsleep_blinky_test(uint32_t interval_in_ms, uint32_t amount_of_loops){
+void lightsleep_blinky_test(uint32_t interval_in_ms, uint16_t amount_of_loops){
 	uint32_t timer_start, timer_end, result;
 	uint32_t results[amount_of_loops];
 	uint32_t run_counter = 0;
@@ -522,14 +483,6 @@ void lightsleep_blinky_test(uint32_t interval_in_ms, uint32_t amount_of_loops){
 		run_counter++;
 	}
 }
-
-void deepsleep_test(uint32_t interval_in_ms){
-	HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_RESET);
-	HAL_PWR_EnterSTANDBYMode();
-}
-
-
 
 /* USER CODE END 4 */
 

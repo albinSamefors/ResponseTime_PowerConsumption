@@ -137,8 +137,7 @@ void receive_data_SPI(uint16_t run_amount){
 		printf("VALUE: %d\n", datasetLOL[i]);
 	}
 
-	printf("%d\n", run_amount); // Print the number of SPI transfers made
-	spi_data = datasetLOL[run_amount -1]; // Set the final SPI data to the last value in datasetLOL
+	printf("%d\n", run_amount);
 	return spi_data;
 }
 
