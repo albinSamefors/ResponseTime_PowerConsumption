@@ -44,9 +44,6 @@
 #define SLEEP_TIME_ADDR 0b00000001
 #define RUN_AMOUNT_ADDR 0b00000010
 #define TEST_MODE_ADDR	0b00000011
-
-#define STM32_CLOCK_FREQUENCY = 32000000
-#define STM32_PERIOD = 1/STM32_CLOCK_FREQUENCY
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -95,23 +92,9 @@ void lightsleep_test_runner(void (*test)(uint32_t, uint32_t), uint32_t data_per_
     sprintf(file_name, "lightsleep_test_data/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
     FILE *file = fopen(file_name, "w+");
     if (file == NULL){
-    	printf("ERROR: Failed to open file\n");
+    	printf("ERROR: Failed to open file/n");
     	return;
     }
-
-    uint32_t *cycles = test(sleep_interval_ms, data_per_run);
-    for (int i = 0; i < data_per_run; i++){
-    	fprintf(file, "%f\n", cycles[i] * STM32_PERIOD * 1000 * 1000);
-    }
-
-    fclose(file);
-    printf("DATA STORED IN FILE: %s\n", file_name);
-    load_and_print_data(file_name);
-}
-
-void load_and_print_data(char *file_name){
-
-}
 
 void send_settings_spi(float sleep_time, uint16_t run_amount, uint8_t run_type){
 	uint16_t timeArr, amountArr, typeArr;
