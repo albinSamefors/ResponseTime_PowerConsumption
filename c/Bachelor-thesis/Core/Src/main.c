@@ -21,9 +21,12 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stm32wbxx_hal.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <time.h>
+#include <stdlib.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -45,8 +48,7 @@
 #define RUN_AMOUNT_ADDR 0b00000010
 #define TEST_MODE_ADDR	0b00000011
 
-#define STM32_CLOCK_FREQUENCY = 32000000
-#define STM32_PERIOD = 1/STM32_CLOCK_FREQUENCY
+#define STM32_PERIOD 0.000000032 // period of the STM32 clock in seconds
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -82,35 +84,67 @@ static void MX_TIM2_Init(void);
 
 void lightsleep_test_runner(void (*test)(uint32_t, uint32_t), uint32_t data_per_run, uint32_t sleep_interval_ms){
 	printf("RUNNING LIGHTSLEEP TEST\n");
-
-	// Get current time for timestamp
-	RTC_TimeTypeDef sTime;
-	RTC_DateTypeDef sDate;
+	time_t rawtime;
+	struct tm *timeinfo;
 	char timestamp[20];
-	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
-	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-	sprintf(timestamp, "%02d%02d%02d_%02d%02d%02d", sDate.Year, sDate.Month, sDate.Date, sTime.Hours, sTime.Minutes, sTime.Seconds);
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+	strftime(timestamp, 20, "%Y%m%d%H%M%S", timeinfo);
 
+	// Create file name with current timestamp
 	char file_name[50];
-    sprintf(file_name, "lightsleep_test_data/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-    FILE *file = fopen(file_name, "w+");
-    if (file == NULL){
-    	printf("ERROR: Failed to open file\n");
-    	return;
-    }
+	sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
 
-    uint32_t *cycles = test(sleep_interval_ms, data_per_run);
-    for (int i = 0; i < data_per_run; i++){
-    	fprintf(file, "%f\n", cycles[i] * STM32_PERIOD * 1000 * 1000);
-    }
+	// Open file for writing
+	FILE *file = fopen(file_name, "w+");
 
-    fclose(file);
-    printf("DATA STORED IN FILE: %s\n", file_name);
-    load_and_print_data(file_name);
+	// Call test function and write results to file
+	uint32_t *cycles = test(sleep_interval_ms, data_per_run);
+	for (uint32_t i = 0; i < data_per_run; i++){
+		fprintf(file, "%f\n", (float)cycles[i] * STM32_PERIOD * 1000 * 1000);
+	}
+
+	// Close file and print file name
+	fclose(file);
+	printf("DATA STORED IN FILE: %s\n", file_name);
+
+	// Load and print test statistics
+	load_and_print_data(file_name);
 }
 
 void load_and_print_data(char *file_name){
+	// Open file for reading
+	FILE *file = fopen(file_name, "r");
 
+	// Read results from file and store in array
+	float results[50];
+	uint32_t i = 0;
+	char line[20];
+	while (fgets(line, 20, file)){
+		results[i++] = strtof(line, NULL);
+	}
+
+	// Close file and calculate test statistics
+	fclose(file);
+	uint32_t len = i;
+	float sum = 0.0, min = results[0], max = results[0];
+	for (i = 0; i < len; i++){
+		sum += results[i];
+		if (results[i] < i){
+			min = results[i];
+		}
+		if (results[i] > max){
+			max = results[i];
+		}
+	}
+
+	// Print test statistics
+    printf("-----------------------TEST STATS-----------------------\n");
+    printf("Amount of collected data:       %d\n", len);
+    printf("Average response time us:       %f\n", sum / len);
+    printf("Fastest response time us:       %f\n", min);
+    printf("Slowest response time us:       %f\n", max);
+    printf("--------------------------------------------------------\n");
 }
 
 void send_settings_spi(float sleep_time, uint16_t run_amount, uint8_t run_type){
@@ -145,37 +179,33 @@ void send_settings_spi(float sleep_time, uint16_t run_amount, uint8_t run_type){
 	HAL_GPIO_WritePin(GPIOB, SS, GPIO_PIN_SET);
 }
 
-void receive_data_SPI(uint16_t run_amount){
-	uint8_t bytesread[run_amount * 2][2]; // Define a two-dimensional array to store the data read from SPI
-	uint16_t datasetLOL[run_amount]; // Define an array to store the processed data
-	uint16_t spi_data = 0; // Initialize a variable to hold the final SPI data
-
-	while (HAL_GPIO_ReadPin(RECEIVE_READY_GPIO_Port, RECEIVE_READY_Pin) == GPIO_PIN_RESET);
-	{
-		// Wait for the RECEIVE_READY_Pin to go high before proceeding
+uint16_t* receive_data_SPI(uint16_t run_amount){
+	uint8_t bytesread[run_amount * 2];
+	uint16_t *received_data = malloc(run_amount * sizeof(uint16_t));
+	if (received_data == NULL){
+		// Handle error
 	}
 
-	for (int i = 0; i < run_amount * 2; i++){
+	// Wait for the RECEIVE_READY_Pin to go high before proceeding
+	while (HAL_GPIO_ReadPin(RECEIVE_READY_GPIO_Port, RECEIVE_READY_Pin) == GPIO_PIN_RESET);
+	{
+		// add timeout or yield to other tasks here if necessary
+	}
+
+	for (int i = 0; i < run_amount * 2; i += 2){
 		HAL_GPIO_WritePin(GPIOB, SS, GPIO_PIN_RESET); // Pull the SS pin low to initiate a SPI transfer
-		HAL_SPI_Receive(&hspi1, bytesread[i], 2, HAL_MAX_DELAY); // Receive two bytes of data over SPI
+		HAL_SPI_Receive(&hspi1, &bytesread[i], 2, HAL_MAX_DELAY); // Receive two bytes of data over SPI
 		HAL_GPIO_WritePin(GPIOB, SS, GPIO_PIN_SET); // Pull the SS pin high to end the SPI transfer
 	}
 
-	// Process the received data and store it in datasetLOL
-	int j = 0;
-	for (int i = 0; i < run_amount * 2; i += 2){
-		datasetLOL[j] = bytesread[i + 1][0] | (bytesread[i + 1][1] << 8);
-		// Combine the two bytes of data into a single uint16_t value and store it in datasetLOL
-		j++;
-	}
-	// Print the values in datasetLOL to the console
+	// Process the received data and store it in received_data
 	for (int i = 0; i < run_amount; i++){
-		printf("VALUE: %d\n", datasetLOL[i]);
+		uint16_t data = bytesread[i * 2 + 1] << 8 | bytesread[i * 2];
+		received_data[i] = data;
 	}
 
 	printf("%d\n", run_amount); // Print the number of SPI transfers made
-	spi_data = datasetLOL[run_amount -1]; // Set the final SPI data to the last value in datasetLOL
-	return spi_data;
+	return received_data;
 }
 
 /* USER CODE END 0 */
@@ -534,10 +564,11 @@ void lightsleep_test(uint32_t interval_in_ms, uint16_t amount_of_loops){
 	while (run_counter < amount_of_loops){
 		HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_SET);
 		HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_RESET);
-		HAL_PWR_EnterSLEEPMode(PWR_LOWPOWERREGULATOR_ON, PWR_SLEEPENTRY_WFI);
-		HAL_Delay(interval_in_ms);
+		HAL_Delay(1);
 		HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_SET);
 		HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_RESET);
+		HAL_PWR_EnterSLEEPMode(PWR_LOWPOWERREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+		HAL_Delay(interval_in_ms - 1);
 		run_counter++;
 	}
 }

@@ -1,0 +1,56 @@
+22:57:08 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:96:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+   96 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                  ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                   |                    |
+      |                                                                   int                  uint32_t {aka long unsigned int}
+      |                                                                  %ld
+../Core/Src/main.c:102:21: error: void value not ignored as it ought to be
+  102 |  uint32_t *cycles = test(sleep_interval_ms, data_per_run);
+      |                     ^~~~
+../Core/Src/main.c:112:2: warning: implicit declaration of function 'load_and_print_data' [-Wimplicit-function-declaration]
+  112 |  load_and_print_data(file_name);
+      |  ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:115:6: warning: conflicting types for 'load_and_print_data'
+  115 | void load_and_print_data(char *file_name){
+      |      ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:112:2: note: previous implicit declaration of 'load_and_print_data' was here
+  112 |  load_and_print_data(file_name);
+      |  ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'load_and_print_data':
+../Core/Src/main.c:143:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  143 |     printf("Amount of collected data:       %d\n", len);
+      |                                             ~^     ~~~
+      |                                              |     |
+      |                                              int   uint32_t {aka long unsigned int}
+      |                                             %ld
+../Core/Src/main.c: In function 'receive_data_SPI':
+../Core/Src/main.c:190:2: warning: this 'while' clause does not guard... [-Wmisleading-indentation]
+  190 |  while (HAL_GPIO_ReadPin(RECEIVE_READY_GPIO_Port, RECEIVE_READY_Pin) == GPIO_PIN_RESET);
+      |  ^~~~~
+../Core/Src/main.c:191:2: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'while'
+  191 |  {
+      |  ^
+../Core/Src/main.c: In function 'lightsleep_blinky_test':
+../Core/Src/main.c:578:11: warning: variable 'results' set but not used [-Wunused-but-set-variable]
+  578 |  uint32_t results[amount_of_loops];
+      |           ^~~~~~~
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:96:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
+   96 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                               ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:96:21: note: using the range [-2147483648, 2147483647] for directive argument
+   96 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:96:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
+   96 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+
+22:57:09 Build Failed. 2 errors, 7 warnings. (took 443ms)
+
