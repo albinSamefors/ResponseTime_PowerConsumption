@@ -69,8 +69,6 @@ void Error_Handler(void);
 #define JTMS_GPIO_Port GPIOA
 #define JTCK_Pin GPIO_PIN_14
 #define JTCK_GPIO_Port GPIOA
-#define B2_Pin GPIO_PIN_0
-#define B2_GPIO_Port GPIOD
 #define B3_Pin GPIO_PIN_1
 #define B3_GPIO_Port GPIOD
 #define JTDO_Pin GPIO_PIN_3
@@ -79,6 +77,8 @@ void Error_Handler(void);
 #define CHIP_SELECT_GPIO_Port GPIOB
 #define LD1_Pin GPIO_PIN_5
 #define LD1_GPIO_Port GPIOB
+#define RECEIVE_READY_Pin GPIO_PIN_6
+#define RECEIVE_READY_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

@@ -55,11 +55,7 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-<<<<<<< Updated upstream
-extern I2C_HandleTypeDef hi2c1;
-=======
 extern RTC_HandleTypeDef hrtc;
->>>>>>> Stashed changes
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -203,19 +199,6 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
-<<<<<<< Updated upstream
-  * @brief This function handles I2C1 event interrupt.
-  */
-void I2C1_EV_IRQHandler(void)
-{
-  /* USER CODE BEGIN I2C1_EV_IRQn 0 */
-
-  /* USER CODE END I2C1_EV_IRQn 0 */
-  HAL_I2C_EV_IRQHandler(&hi2c1);
-  /* USER CODE BEGIN I2C1_EV_IRQn 1 */
-
-  /* USER CODE END I2C1_EV_IRQn 1 */
-=======
   * @brief This function handles RTC wake-up interrupt through EXTI line 19.
   */
 void RTC_WKUP_IRQHandler(void)
@@ -227,7 +210,6 @@ void RTC_WKUP_IRQHandler(void)
   /* USER CODE BEGIN RTC_WKUP_IRQn 1 */
 
   /* USER CODE END RTC_WKUP_IRQn 1 */
->>>>>>> Stashed changes
 }
 
 /* USER CODE BEGIN 1 */
