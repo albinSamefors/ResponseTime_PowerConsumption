@@ -150,9 +150,9 @@ def recieve_data_SPI(run_amount):
 #THESE ARE JUST HARD VALUES FOR THE RESET TYPES. 2 IS RESET BY BUTTON AND 4 IS DEEPSLEEP RESET
 if machine.reset_cause() == 2:
     print("SENDING SETTINGS")
-    send_settings_spi(1000, 10, 1)
+    send_settings_spi(1000, 10, 0)
     print("SETTINGS SENT, STARTING TESTS")
-    interrupt_tests.lightsleep_test(10)
+    set_interval_tests.lightsleep_test(1000,10)
     print("TESTS FINISHED, FETCHING DATA")
     data = recieve_data_SPI(10)
     print("DATA FETCHED!")

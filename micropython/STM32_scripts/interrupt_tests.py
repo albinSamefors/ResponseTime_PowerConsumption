@@ -28,7 +28,12 @@ IRQ_PIN.irq(trigger=machine.Pin.IRQ_RISING, handler=callback)
 
 def lightsleep_test(amount_of_runs):
     global captures
-    while captures < amount_of_runs:
+    while True:
+        if(captures == amount_of_runs):
+            break
         send_start_signal()
+        print("WENT TO SLEEP round {} of {}".format(captures, amount_of_runs))
         machine.lightsleep()
+        print("WOKE UP round {} of {}".format(captures, amount_of_runs))
+    print("EXITED FUNCTION")
         

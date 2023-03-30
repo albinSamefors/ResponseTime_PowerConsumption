@@ -204,6 +204,8 @@ void testUsingInterrupts(struct TimeCapture *times){
 		timeBuff.endTime = 0;
 		timeBuffReady = false;
 		if(captures == max_amount_of_runs * 2){
+			//FINAL WAKE
+			sendInterrupt();
 			run_test = false;
 		}
 	}
@@ -284,7 +286,7 @@ int main(void)
 	 			  testUsingInterrupts(times);
 	 			  uint32_t test_times[max_amount_of_runs];
 	 			  calculateTestTimes(times,test_times);
-	 			  sendData(test_times);
+	 			  sendTestData(test_times);
 	 			  finished = true;
 	 		  }
 	 		  else{

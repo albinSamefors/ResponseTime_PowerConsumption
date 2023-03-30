@@ -47,3 +47,99 @@ arm-none-eabi-size   Controller.elf
   23168	    128	   2552	  25848	   64f8	Controller.elf
 Finished building: default.size.stdout
  
+15:40:16 **** Incremental Build of configuration Debug for project Controller ****
+make -j12 all 
+arm-none-eabi-size   Controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  23168	    128	   2552	  25848	   64f8	Controller.elf
+Finished building: default.size.stdout
+ 
+15:42:52 **** Incremental Build of configuration Debug for project Controller ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'testUsingInterrupts':
+../Core/Src/main.c:208:19: error: expected ';' before 'run_test'
+  208 |    sendInterrupt()
+      |                   ^
+      |                   ;
+  209 |    run_test = false;
+      |    ~~~~~~~~        
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+15:43:12 **** Incremental Build of configuration Debug for project Controller ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "Controller.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Controller.elf
+ 
+arm-none-eabi-size   Controller.elf 
+arm-none-eabi-objdump -h -S  Controller.elf  > "Controller.list"
+   text	   data	    bss	    dec	    hex	filename
+  23172	    128	   2552	  25852	   64fc	Controller.elf
+Finished building: default.size.stdout
+ 
+Finished building: Controller.list
+ 
+15:45:07 **** Incremental Build of configuration Debug for project Controller ****
+make -j12 all 
+arm-none-eabi-size   Controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  23172	    128	   2552	  25852	   64fc	Controller.elf
+Finished building: default.size.stdout
+ 
+15:47:21 **** Incremental Build of configuration Debug for project Controller ****
+make -j12 all 
+arm-none-eabi-size   Controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  23172	    128	   2552	  25852	   64fc	Controller.elf
+Finished building: default.size.stdout
+ 
+15:48:34 **** Incremental Build of configuration Debug for project Controller ****
+make -j12 all 
+arm-none-eabi-size   Controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  23172	    128	   2552	  25852	   64fc	Controller.elf
+Finished building: default.size.stdout
+ 
+15:50:54 **** Incremental Build of configuration Debug for project Controller ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "Controller.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Controller.elf
+ 
+arm-none-eabi-size   Controller.elf 
+arm-none-eabi-objdump -h -S  Controller.elf  > "Controller.list"
+   text	   data	    bss	    dec	    hex	filename
+  23100	    128	   2552	  25780	   64b4	Controller.elf
+Finished building: default.size.stdout
+ 
+Finished building: Controller.list
+ 
+15:54:07 **** Incremental Build of configuration Debug for project Controller ****
+make -j12 all 
+arm-none-eabi-size   Controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  23100	    128	   2552	  25780	   64b4	Controller.elf
+Finished building: default.size.stdout
+ 
+15:56:11 **** Incremental Build of configuration Debug for project Controller ****
+make -j12 all 
+arm-none-eabi-size   Controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  23100	    128	   2552	  25780	   64b4	Controller.elf
+Finished building: default.size.stdout
+ 
+15:57:03 **** Incremental Build of configuration Debug for project Controller ****
+make -j12 all 
+arm-none-eabi-size   Controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  23100	    128	   2552	  25780	   64b4	Controller.elf
+Finished building: default.size.stdout
+ 
+15:58:34 **** Incremental Build of configuration Debug for project Controller ****
+make -j12 all 
+arm-none-eabi-size   Controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  23100	    128	   2552	  25780	   64b4	Controller.elf
+Finished building: default.size.stdout
+ 
