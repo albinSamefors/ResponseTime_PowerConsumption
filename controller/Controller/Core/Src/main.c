@@ -41,8 +41,6 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-RTC_HandleTypeDef hrtc;
-
 SPI_HandleTypeDef hspi1;
 
 TIM_HandleTypeDef htim2;
@@ -59,6 +57,7 @@ struct TimeCapture timeBuff;
 struct TimeCapture lastBuff;
 _Bool timeBuffReady = false;
 _Bool run_test = false;
+_Bool finished = false;
 
 //DATA FETCHED FROM SPI
 _Bool RecievedTransmitHeader = false;
@@ -85,7 +84,6 @@ static void MX_GPIO_Init(void);
 static void MX_USB_PCD_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_SPI1_Init(void);
-static void MX_RTC_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -138,7 +136,6 @@ void getStartInput(){
 }
 void sendTestData(uint32_t *times){
 	uint16_t index = 0;
-	uint16_t bajs = 10;
 	HAL_GPIO_WritePin(TransmitReady_GPIO_Port, TransmitReady_Pin, GPIO_PIN_SET);
 	while(index < max_amount_of_runs){
 		uint8_t header;
@@ -176,9 +173,15 @@ void calculateTestTimes(struct TimeCapture *data, uint32_t *times){
 		uint32_t *ptr = &times[i];
 		uint32_t start_time = time_ptr->startTime;
 		uint32_t end_time = time_ptr->endTime;
-		uint32_t full_time = end_time - start_time;
-		uint32_t wake_up_time = full_time - (sleep_time * 1000);
-		debug_value = full_time;
+		uint32_t fullTime;
+		if(end_time >= start_time){
+			fullTime = end_time - start_time;
+		}
+		else{
+			fullTime = (TIM2->ARR - start_time) + end_time;
+		}
+		uint32_t wake_up_time = fullTime - (sleep_time * 1000);
+		debug_value = fullTime;
 		*ptr = wake_up_time;
 	}
 }
@@ -199,6 +202,7 @@ void testUsingInterrupts(struct TimeCapture *times){
 		i++;
 		timeBuff.startTime = 0;
 		timeBuff.endTime = 0;
+		timeBuffReady = false;
 		if(captures == max_amount_of_runs * 2){
 			run_test = false;
 		}
@@ -222,24 +226,7 @@ void testUsingIntervals(struct TimeCapture *times){
 
 	}
 }
-void addDataToNewFile(uint32_t *data){
-	FILE *data_container;
-	RTC_TimeTypeDef sTime;
-	RTC_DateTypeDef sDate;
-	char time[30];
-	char date[30];
-	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
-	sprintf(date,"%02d_%02d_%02d_",sDate.Year,sDate.Month, sDate.Date);
-	sprintf(time,"%02d_%02d_%02d.txt", sTime.Hours, sTime.Minutes, sTime.Seconds);
-	char *filename = strcat(date,time);
-	data_container = fopen(filename, "w");
-	for(int i = 0; i < max_amount_of_runs; i++){
-		uint32_t *ptr = &data[i];
-		putw(*ptr, data_container);
-	}
-	fclose(data_container);
-}
+
 
 /* USER CODE END 0 */
 
@@ -277,7 +264,6 @@ int main(void)
   MX_USB_PCD_Init();
   MX_TIM2_Init();
   MX_SPI1_Init();
-  MX_RTC_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start(&htim2);
   /* USER CODE END 2 */
@@ -286,6 +272,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  if(!finished){
 	  if(!test_input_set){
 	 	  	  getStartInput();
 	 	  }
@@ -298,6 +285,7 @@ int main(void)
 	 			  uint32_t test_times[max_amount_of_runs];
 	 			  calculateTestTimes(times,test_times);
 	 			  sendData(test_times);
+	 			  finished = true;
 	 		  }
 	 		  else{
 	 			  run_test = true;
@@ -305,12 +293,14 @@ int main(void)
 	 			  uint32_t test_times[max_amount_of_runs];
 	 			  calculateTestTimes(times, test_times);
 	 			  sendTestData(test_times);
+	 			  finished = true;
 	 		  }
 	 	  }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
 
+	  }
   }
   /* USER CODE END 3 */
 }
@@ -344,9 +334,8 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSI1
-                              |RCC_OSCILLATORTYPE_HSE|RCC_OSCILLATORTYPE_LSE
-                              |RCC_OSCILLATORTYPE_MSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_HSE
+                              |RCC_OSCILLATORTYPE_LSE|RCC_OSCILLATORTYPE_MSI;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.LSEState = RCC_LSE_ON;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
@@ -354,7 +343,6 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.MSICalibrationValue = RCC_MSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_6;
-  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
@@ -404,71 +392,6 @@ void PeriphCommonClock_Config(void)
   /* USER CODE BEGIN Smps */
 
   /* USER CODE END Smps */
-}
-
-/**
-  * @brief RTC Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_RTC_Init(void)
-{
-
-  /* USER CODE BEGIN RTC_Init 0 */
-
-  /* USER CODE END RTC_Init 0 */
-
-  RTC_TimeTypeDef sTime = {0};
-  RTC_DateTypeDef sDate = {0};
-
-  /* USER CODE BEGIN RTC_Init 1 */
-
-  /* USER CODE END RTC_Init 1 */
-
-  /** Initialize RTC Only
-  */
-  hrtc.Instance = RTC;
-  hrtc.Init.HourFormat = RTC_HOURFORMAT_24;
-  hrtc.Init.AsynchPrediv = 127;
-  hrtc.Init.SynchPrediv = 255;
-  hrtc.Init.OutPut = RTC_OUTPUT_DISABLE;
-  hrtc.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
-  hrtc.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
-  hrtc.Init.OutPutRemap = RTC_OUTPUT_REMAP_NONE;
-  if (HAL_RTC_Init(&hrtc) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-  /* USER CODE BEGIN Check_RTC_BKUP */
-
-  /* USER CODE END Check_RTC_BKUP */
-
-  /** Initialize RTC and set the Time and Date
-  */
-  sTime.Hours = 0x0;
-  sTime.Minutes = 0x0;
-  sTime.Seconds = 0x0;
-  sTime.SubSeconds = 0x0;
-  sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
-  sTime.StoreOperation = RTC_STOREOPERATION_RESET;
-  if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BCD) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sDate.WeekDay = RTC_WEEKDAY_MONDAY;
-  sDate.Month = RTC_MONTH_JANUARY;
-  sDate.Date = 0x1;
-  sDate.Year = 0x0;
-
-  if (HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BCD) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN RTC_Init 2 */
-
-  /* USER CODE END RTC_Init 2 */
-
 }
 
 /**
@@ -611,11 +534,11 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, LD2_Pin|LD3_Pin|TransmitReady_Pin|LD1_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : TEST_INPUT_Pin */
-  GPIO_InitStruct.Pin = TEST_INPUT_Pin;
+  /*Configure GPIO pin : TestStartInput_Pin */
+  GPIO_InitStruct.Pin = TestStartInput_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
-  HAL_GPIO_Init(TEST_INPUT_GPIO_Port, &GPIO_InitStruct);
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(TestStartInput_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : Interrupter_Pin */
   GPIO_InitStruct.Pin = Interrupter_Pin;
@@ -623,6 +546,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(Interrupter_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : TestStopInput_Pin */
+  GPIO_InitStruct.Pin = TestStopInput_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(TestStopInput_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : LD2_Pin LD3_Pin TransmitReady_Pin LD1_Pin */
   GPIO_InitStruct.Pin = LD2_Pin|LD3_Pin|TransmitReady_Pin|LD1_Pin;
@@ -641,6 +570,9 @@ static void MX_GPIO_Init(void)
   HAL_NVIC_SetPriority(EXTI0_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 
+  HAL_NVIC_SetPriority(EXTI2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI2_IRQn);
+
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
 }
@@ -648,26 +580,23 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 
-	if(GPIO_Pin == TEST_INPUT_Pin){
-		if(captures%2 == 0){
-			timeBuff.startTime = __HAL_TIM_GET_COUNTER(&htim2);
-			if(captures  < max_amount_of_runs*2){
+	if(GPIO_Pin == TestStartInput_Pin){
+		timeBuff.startTime = __HAL_TIM_GET_COUNTER(&htim2);
+
+		if(captures < max_amount_of_runs*2){
 			captures++;
-			}
-
-		}
-		else{
-			timeBuff.endTime = __HAL_TIM_GET_COUNTER(&htim2);
-			timeBuffReady = true;
-			if(captures < max_amount_of_runs*2){
-				captures++;
-			}
-
-
-
 		}
 
+	}
 
+	if(GPIO_Pin == TestStopInput_Pin){
+		timeBuff.endTime = __HAL_TIM_GET_COUNTER(&htim2);
+		if(timeBuff.endTime != 0){
+		timeBuffReady = true;
+		}
+		if(captures < max_amount_of_runs * 2){
+			captures++;
+		}
 	}
 
 }

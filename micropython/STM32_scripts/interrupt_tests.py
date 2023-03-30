@@ -1,18 +1,34 @@
 import machine
-import pyb
-IRQ_PIN = pyb.Pin('A1', pyb.Pin.IN, pyb.Pin.PULL_DOWN) 
-IRQ_TRIGGER = pyb.ExtInt.IRQ_RISING
-
+import utime
+IRQ_PIN = machine.Pin('A1', machine.Pin.IN, machine.Pin.PULL_DOWN)
 TIMER_PIN_NUMBER = 'A0'
 TIMER_PIN = machine.Pin(TIMER_PIN_NUMBER, machine.Pin.OUT, machine.Pin.PULL_DOWN)
+RESPONSE_PIN_NUMBER = 'A5'
+RESPONSE_PIN = machine.Pin(RESPONSE_PIN_NUMBER,machine.Pin.OUT, machine.Pin.PULL_DOWN)
+captures = 0
 
-def timer_signal():
-    TIMER_PIN.on()
-    TIMER_PIN.off()
+RUN_EXPERIMENT = True
+def send_start_signal():
+    TIMER_PIN.high()
+    TIMER_PIN.low()
 
-IRQ = pyb.ExtInt(IRQ_PIN,IRQ_TRIGGER,pyb.Pin.PULL_NONE, timer_signal)
-def lightsleep_test():
-    pyb.wfi()
+def send_stop_signal():
+    RESPONSE_PIN.high()
+    RESPONSE_PIN.low()
+   
 
-def deepsleep_test():
-    pyb.stop() 
+def callback(pin):
+    RESPONSE_PIN.high()
+    RESPONSE_PIN.low()
+    global captures
+    captures +=1
+
+
+IRQ_PIN.irq(trigger=machine.Pin.IRQ_RISING, handler=callback)
+
+def lightsleep_test(amount_of_runs):
+    global captures
+    while captures < amount_of_runs:
+        send_start_signal()
+        machine.lightsleep()
+        

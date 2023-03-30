@@ -3,6 +3,9 @@ import utime
 TIMER_PIN_NUMBER = "A0"
 GREEN_LED = machine.Pin("B0", machine.Pin.OUT)
 TIMER_PIN = machine.Pin(TIMER_PIN_NUMBER, machine.Pin.OUT,machine.Pin.PULL_DOWN)
+RESPONSE_PIN_NUMBER ='A5'
+RESPONSE_PIN = machine.Pin(RESPONSE_PIN_NUMBER, machine.Pin.OUT, machine.Pin.PULL_DOWN)
+
 
 def blinky():
     GREEN_LED.high()
@@ -15,8 +18,8 @@ def lightsleep_test(interval_in_ms, amount_of_loops):
         TIMER_PIN.high()
         TIMER_PIN.low()
         machine.lightsleep(interval_in_ms)
-        TIMER_PIN.high()
-        TIMER_PIN.low()
+        RESPONSE_PIN.high()
+        RESPONSE_PIN.low()
         run_counter += 1
     return results
 
