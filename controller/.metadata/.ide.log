@@ -992,3 +992,41 @@
 2023-04-05 10:18:12,030 [INFO] ProjectBuilder:4505 - Time for Generating toolchain IDE Files: 2437mS.
 2023-04-05 10:18:12,031 [INFO] ProjectBuilder:2867 - Time for Copy CMSIS : 1mS.
 2023-04-05 10:18:12,032 [INFO] ProjectBuilder:2867 - Time for Copy CMSIS : 0mS.
+2023-04-05 10:29:08,219 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 756145696 Bytes (926941184)
+2023-04-05 10:29:09,685 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 323146640 Bytes (926941184)
+2023-04-05 10:29:11,855 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 446682032 Bytes (926941184)
+2023-04-05 10:29:12,049 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: SPI
+2023-04-05 10:29:12,049 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: NVIC
+2023-04-05 10:29:12,049 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: TIM1_8WB5
+2023-04-05 10:29:12,049 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: USB
+2023-04-05 10:29:12,049 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: SYS
+2023-04-05 10:29:12,050 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: GPIO
+2023-04-05 10:29:12,050 [INFO] BlockDiagram:2759 - set Specific Code input for plugin: RCC
+2023-04-05 10:29:12,050 [INFO] CodeGenerator:793 - code generatio: config db path: /opt/st/stm32cubeide_1.12.0/plugins/com.st.stm32cube.common.mx_6.8.0.202302231600//db/
+2023-04-05 10:29:12,208 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/license.tmp_save
+2023-04-05 10:29:12,288 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/license.tmp
+2023-04-05 10:29:12,351 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/gpio.tmp_save
+2023-04-05 10:29:12,428 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/gpio.tmp
+2023-04-05 10:29:12,755 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/stm32wbxx_it.c_save
+2023-04-05 10:29:12,837 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/stm32wbxx_it.c
+2023-04-05 10:29:12,839 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/stm32wbxx_it.h_save
+2023-04-05 10:29:12,906 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/stm32wbxx_it.h
+2023-04-05 10:29:12,913 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/stm32wbxx_hal_msp.c_save
+2023-04-05 10:29:13,023 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/stm32wbxx_hal_msp.c
+2023-04-05 10:29:13,025 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/system.tmp_save
+2023-04-05 10:29:13,093 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/MXTmpFiles/system.tmp
+2023-04-05 10:29:13,096 [INFO] CodeEngine:311 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/stm32wbxx_hal_conf.h_save
+2023-04-05 10:29:13,154 [INFO] CodeEngine:335 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/stm32wbxx_hal_conf.h
+2023-04-05 10:29:13,165 [WARN] IPConfigManager:2937 - Warning: the RefConfig RCC_PClockConfig is not available in your config.xml file
+2023-04-05 10:29:13,169 [WARN] IPConfigManager:3431 - IP not found : TIM
+2023-04-05 10:29:13,169 [WARN] CodeGenerator:3754 - IP not found : null
+2023-04-05 10:29:13,171 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/main.h_save
+2023-04-05 10:29:13,230 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Inc/main.h
+2023-04-05 10:29:13,232 [INFO] CodeEngine:255 - oldGeneratedFile, /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/main.c_save
+2023-04-05 10:29:13,358 [INFO] CodeEngine:279 - Generated code: /home/albin/Documents/GitHub/ResponseTime_PowerConsumption/controller/Controller/Core/Src/main.c
+2023-04-05 10:29:13,836 [INFO] ProjectBuilder:2996 - Time for Copy HAL[1] : 31mS.
+2023-04-05 10:29:13,839 [INFO] ProjectBuilder:4304 - Project Generator version: 3.19.2
+2023-04-05 10:29:14,047 [INFO] ConfigFileManager:1483 - The Die is : DIE495
+2023-04-05 10:29:15,289 [INFO] ProjectBuilder:4505 - Time for Generating toolchain IDE Files: 1449mS.
+2023-04-05 10:29:15,289 [INFO] ProjectBuilder:2867 - Time for Copy CMSIS : 0mS.
+2023-04-05 10:29:15,289 [INFO] ProjectBuilder:2867 - Time for Copy CMSIS : 0mS.

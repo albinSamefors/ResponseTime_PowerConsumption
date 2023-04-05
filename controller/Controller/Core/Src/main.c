@@ -64,6 +64,7 @@ _Bool RecievedTransmitHeader = false;
 uint16_t sleep_time;
 uint16_t max_amount_of_runs;
 uint16_t test_mode = 2;
+uint16_t sleep_type = 2;
 _Bool test_input_set = false;
 //CREATE AFTER DATA HAS BEEN RECIEVED
 //struct TimeCapture data_us[MAX_AMOUNT_OF_RUNS];
@@ -73,7 +74,8 @@ uint32_t debug_value = 1000;
 typedef enum Header {
 	SLEEP_TIME = 1,
 	RUN_AMOUNT = 2,
-	TEST_MODE = 3
+	TEST_MODE = 3,
+	SLEEP_TYPE = 4
 } Header;
 /* USER CODE END PV */
 
@@ -128,6 +130,12 @@ void getStartInput(){
 						  printf("TEST MODE COULD NOT BE RECIEVED");
 					  }
 					  break;
+
+				  case SLEEP_TYPE:
+					  if(!recieve16Bit(&sleep_type)){
+						  printf("SLEEP TYPE IS NOT SET");
+					  }
+					  break;
 				  }
 		  }
 		  if(test_mode != 2){
@@ -143,7 +151,7 @@ void sendTestData(uint32_t *times){
 		uint16_t value = *((uint16_t*)ptr);
 		HAL_StatusTypeDef recieve_status = HAL_SPI_Receive(&hspi1, &header, 1, 10);
 		if(recieve_status == HAL_OK){
-			if(header == 4){
+			if(header == 5){
 				if(!send16Bit(&value)){
 					printf("COULD NOT SEND DATA");
 				}
@@ -157,6 +165,36 @@ void sendTestData(uint32_t *times){
 	HAL_GPIO_WritePin(TransmitReady_GPIO_Port, TransmitReady_Pin, GPIO_PIN_RESET);
 }
 
+void sendParams(){
+	HAL_GPIO_WriteMultipleStatePin(TransmitReady_GPIO_Port, TransmitReady_Pin, GPIO_PIN_SET);
+	uint8_t header;
+	HAL_StatusTypeDef recieve_status = HAL_SPI_Receive(&hspi1,&header ,1, 10)
+			if(recieve_status == HAL_OK){
+				switch((Header)header){
+				case SLEEP_TIME:
+					if(!send16Bit(&sleep_time)){
+						printf("TRANSFER FAILED AT SLEEP TIME");
+					}
+					break;
+				case RUN_AMOUNT:
+					if(!send16Bit(&max_amount_of_runs)){
+						printf("Max amount of runs could not be sent");
+					}
+					break;
+				case TEST_MODE:
+					if(!send16Bit(&test_mode)){
+						printf("TEST MODE FAILED");
+					}
+					break;
+				case SLEEP_TYPE:
+					if(!send16Bit(&sleep_type)){
+						printf("SLEEP TYPE FAILED");
+					}
+					break;
+				}
+			}
+}
+
 void sendData(uint32_t *data){
 
 		for(int i = 0; i < max_amount_of_runs; i++){
@@ -166,7 +204,6 @@ void sendData(uint32_t *data){
 
 	}
 }
-
 void calculateTestTimes(struct TimeCapture *data, uint32_t *times){
 	for(int i = 0; i < max_amount_of_runs; i++){
 		struct TimeCapture *time_ptr = &data[i];
@@ -190,13 +227,22 @@ void sendInterrupt(){
 	HAL_GPIO_WritePin(Interrupter_GPIO_Port, Interrupter_Pin, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(Interrupter_GPIO_Port, Interrupter_Pin, GPIO_PIN_RESET);
 }
+void deepsleepWakeUp(){
+	HAL_GPIO_WritePin(DeepseepWakeup_GPIO_Port, DeepseepWakeup_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(DeepseepWakeup_GPIO_Port, DeepseepWakeup_Pin, GPIO_PIN_SET);
+}
 
 void testUsingInterrupts(struct TimeCapture *times){
 	int i = 0;
 	while(run_test){
 		struct TimeCapture *time_ptr = &times[i];
 		HAL_Delay(sleep_time);
+		if(sleep_type){
 		sendInterrupt();
+		}
+		else{
+			deepsleepWakeUp();
+		}
 		while(!timeBuffReady);
 		*time_ptr = timeBuff;
 		i++;
@@ -531,7 +577,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, Interrupter_Pin|DeepseepWakeup_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(Interrupter_GPIO_Port, Interrupter_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(DeepseepWakeup_GPIO_Port, DeepseepWakeup_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, LD2_Pin|LD3_Pin|TransmitReady_Pin|LD1_Pin, GPIO_PIN_RESET);

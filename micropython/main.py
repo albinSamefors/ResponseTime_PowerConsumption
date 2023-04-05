@@ -4,6 +4,9 @@ import utime
 import os
 import uos
 import sys
+
+
+#SPI SETUP
 RECIEVE_READY = machine.Pin('B4', machine.Pin.IN)
 SS = machine.Pin('D10', mode=machine.Pin.OUT, value=1)
 SCK = machine.Pin('D13', mode=machine.Pin.OUT)
@@ -14,29 +17,19 @@ SPI.init(baudrate=9600,polarity=0,phase=0,bits=8,firstbit=SPI.MSB)
 
 DEBUG_MODE = False
 
+#SPI WRITE ADDS
 SLEEP_TIME_SPI_ADDR =    0b00000001
 RUN_AMMOUNT_SPI_ADDR =   0b00000010
 TEST_MODE_SPI_ADDR =     0b00000011
-RECIEVE_DATA_ADDR =      0b00000100
+SLEEP_MODE_SPI_ADDR =    0b00000100
 
+RECIEVE_DATA_ADDR =      0b00000101
+RECIEVE_PARAMS_ADDR =    0b00000110
 
-STM32_CLOCK_FREQUENCY = 64000000
-STM32_PERIOD = 1/STM32_CLOCK_FREQUENCY
-
-def lightsleep_test_runner(test, data_per_run, sleep_interval_ms):
-    print("RUNNING LIGHTSLEEP TEST")
-    time_now = utime.gmtime()
-    timestamp = str(time_now[0]) + str(time_now[1]) + str(time_now[2]) + str(time_now[3]) + str(time_now[4]) + str(time_now[5])
-    file_name = test.__name__ +"_sleep_interval_ms_"+ str(sleep_interval_ms) + "_" + str(timestamp) + ".txt"
-    os.chdir('lightsleep_test_data')
-    file = open(file_name, 'w+')
-    cycles = test(sleep_interval_ms, data_per_run)
-    for cycle in cycles:
-        file.write(str(cycle * STM32_PERIOD * 1000 * 1000) + "\n")
-    file.close()
-    print("DATA STORED IN FILE: {}".format(file_name))
-    load_and_print_data(file_name)
-
+USING_DEEPSLEEP = 1
+USING_LIGHTSLEEP = 0
+USING_INTERRUPTS = 1
+USING_INTERVALS = 0
 
 def send_settings_spi(sleep_time, run_amount, run_type):
     """
@@ -102,6 +95,34 @@ def recieve_data_SPI(run_amount):
     print(len(datasetLOL))
     return spi_data
 
+def recieve_params_SPI():
+    bytesread = []
+    while RECIEVE_READY.value() == 0:
+        print("Waiting")
+    
+    try:
+        SS.low()
+        sleep_time = SPI.read(2, SLEEP_TIME_SPI_ADDR)
+    finally:
+        SS.high()
+    try:
+        SS.low()
+        run_amount = SPI.read(2, RUN_AMMOUNT_SPI_ADDR)
+    finally:
+        SS.high()
+    try:
+        SS.low()
+        test_mode = SPI.read(2, TEST_MODE_SPI_ADDR)
+    finally:
+        SS.high()
+    try:
+        SS.low()
+        sleep_mode = SPI.read(2, SLEEP_MODE_SPI_ADDR)
+    finally:
+        SS.high
+    return int.from_bytes(sleep_time, 'little'), int.from_bytes(run_amount, 'little'), int.from_bytes(test_mode, 'little'), int.from_bytes(sleep_mode, 'little')
+
+
 
 #THESE ARE JUST HARD VALUES FOR THE RESET TYPES. 2 IS RESET BY BUTTON AND 4 IS DEEPSLEEP RESET
 if machine.reset_cause() == 2:
@@ -113,6 +134,6 @@ if machine.reset_cause() == 2:
     data = recieve_data_SPI(10)
     print("DATA FETCHED!")
     sys.exit()
-elif machine.reset_cause() == 4:
-    print("DEEPSLEPT")
+elif machine.reset_cause() == machine.DEEPSLEEP_RESET:
+    sleep_time, run_amount, test_mode, sleep_mode = recieve_data_SPI()
 
