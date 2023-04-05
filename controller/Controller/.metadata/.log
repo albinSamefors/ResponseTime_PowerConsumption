@@ -1,0 +1,22 @@
+!SESSION 2023-04-05 10:02:05.721 -----------------------------------------------
+eclipse.buildId=Version 1.12.0
+java.version=11.0.17
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2023-04-05 10:02:30.228
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2023-04-05 10:02:30.229
+!MESSAGE Log4j2 initialized with config file /home/felix/ResponseTime_PowerConsumption/controller/Controller/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2023-04-05 10:02:32.878
+!MESSAGE Started RMI Server, listening on port 41338
+
+!ENTRY org.eclipse.core.resources 4 77 2023-04-05 10:17:22.876
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2023-04-05 10:17:22.876
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2023-04-05 10:17:22.876
+!MESSAGE /home/felix/ResponseTime_PowerConsumption/controller overlaps the workspace location: /home/felix/ResponseTime_PowerConsumption/controller/Controller
