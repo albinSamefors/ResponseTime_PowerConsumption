@@ -37,50 +37,6 @@ def lightsleep_test_runner(test, data_per_run, sleep_interval_ms):
     print("DATA STORED IN FILE: {}".format(file_name))
     load_and_print_data(file_name)
 
-def deepsleep_test_runner(test, data_per_run, sleep_interval_ms):
-
-    # RESET CAUSE 4 IMPLIES A DEEP SLEEP RESET
-    if machine.reset_cause() != 4:
-        #SENDING WELCOME MESSAGE IF THE USER RESTARTED THE MCU
-        time_now = utime.gmtime()
-        timestamp = str(time_now[0]) + str(time_now[1]) + str(time_now[2]) + str(time_now[3]) + str(time_now[4]) + str(time_now[5])
-        file_name = test.__name__ +"_sleep_interval_ms_"+ str(sleep_interval_ms) + "_" + str(timestamp) + ".txt"
-        os.chdir('deepsleep_test_data')
-        #file = open(file_name, 'a')
-        #file.close()
-        print("RUNNING DEEPSLEEP TEST")
-        rtc = machine.RTC()
-        #SAVING DATA TO THE STATIC RTC RAM TO BE ABLE TO KEEP RUNNING THE TEST
-        rtc.memory([file_name, test, data_per_run, sleep_interval_ms, 0])
-        test()
-    else:
-        end_time = utime.ticks_cpu()
-        print("DEATH")
-        #THE MCU WAS RESETTED BY DEEPSLEEP CHECK FIRST LINE
-        pass
-        
-
-def interrupt_test_runner(test):
-    pass
-
-def get_cycles_from_time(duration_s, sleep_interval_ms):
-    sleep_interval_s = sleep_interval_ms/1000
-    cycles = int((duration_s/sleep_interval_s))
-    return cycles, sleep_interval_ms
-
-def load_and_print_data(file_name):
-    file = open(file_name, 'r')
-    results = []
-    for line in file.readlines():
-        results.append(float(line))
-    print("-----------------------TEST STATS-----------------------")
-    print("Amount of collected data:       {}".format(len(results)))
-    print("Average response time us:       {}".format((sum(results)/len(results))))
-    print("Fastest response time us:       {}".format(min(results)))
-    print("Slowest response time us:       {}".format(max(results)))
-    print("--------------------------------------------------------")
-
-    file.close()
 
 def send_settings_spi(sleep_time, run_amount, run_type):
     """
