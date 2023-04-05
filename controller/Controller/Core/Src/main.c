@@ -75,7 +75,8 @@ typedef enum Header {
 	SLEEP_TIME = 1,
 	RUN_AMOUNT = 2,
 	TEST_MODE = 3,
-	SLEEP_TYPE = 4
+	SLEEP_TYPE = 4,
+	CURRENT_RUN = 5
 } Header;
 /* USER CODE END PV */
 
@@ -191,6 +192,11 @@ void sendParams(){
 						printf("SLEEP TYPE FAILED");
 					}
 					break;
+				case CURRENT_RUN:
+					uint16_t current_run = captures/2;
+					if(!send16Bit(&current_run)){
+						printf("CURRENT RUN COULD NOT BE SENT");
+					}
 				}
 			}
 }
@@ -246,6 +252,9 @@ void testUsingInterrupts(struct TimeCapture *times){
 		while(!timeBuffReady);
 		*time_ptr = timeBuff;
 		i++;
+		if(sleep_type){
+			sendParams();
+		}
 		timeBuff.startTime = 0;
 		timeBuff.endTime = 0;
 		timeBuffReady = false;

@@ -22,6 +22,7 @@ SLEEP_TIME_SPI_ADDR =    0b00000001
 RUN_AMMOUNT_SPI_ADDR =   0b00000010
 TEST_MODE_SPI_ADDR =     0b00000011
 SLEEP_MODE_SPI_ADDR =    0b00000100
+CURRENT_RUN_SPI_ADDR =   0b00000101
 
 RECIEVE_DATA_ADDR =      0b00000101
 RECIEVE_PARAMS_ADDR =    0b00000110
@@ -120,7 +121,12 @@ def recieve_params_SPI():
         sleep_mode = SPI.read(2, SLEEP_MODE_SPI_ADDR)
     finally:
         SS.high
-    return int.from_bytes(sleep_time, 'little'), int.from_bytes(run_amount, 'little'), int.from_bytes(test_mode, 'little'), int.from_bytes(sleep_mode, 'little')
+    try:
+        SS.low()
+        current_run = SPI.read(2, CURRENT_RUN_SPI_ADDR)
+    finally:
+        SS.high()
+    return int.from_bytes(sleep_time, 'little'), int.from_bytes(run_amount, 'little'), int.from_bytes(test_mode, 'little'), int.from_bytes(sleep_mode, 'little'), int.from_bytes(current_run, 'little')
 
 
 
@@ -134,6 +140,17 @@ if machine.reset_cause() == 2:
     data = recieve_data_SPI(10)
     print("DATA FETCHED!")
     sys.exit()
+    
+#DEEPSLEEP RESETS WILL BE HANDLED HERE
 elif machine.reset_cause() == machine.DEEPSLEEP_RESET:
-    sleep_time, run_amount, test_mode, sleep_mode = recieve_data_SPI()
+    interrupt_tests.send_stop_signal()
+    sleep_time, run_amount, test_mode, sleep_mode, current_run = recieve_data_SPI()
+    if(test_mode == USING_INTERRUPTS):
+        if(run_amount != current_run):
+            interrupt_tests.deepsleep_test()
+        else:
+            data = recieve_data_SPI()
+    else:
+        pass
+
 
