@@ -1,21 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+<<<<<<< Updated upstream
 		<item key="selection" value="Enter"/>
+=======
+		<item key="selection" value="ss"/>
+>>>>>>> Stashed changes
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+<<<<<<< Updated upstream
 			<item value="enter"/>
+=======
+			<item value="SS"/>
+			<item value="CHIP_SELECT"/>
+			<item value="TIMER_PIN"/>
+			<item value="reset_cause"/>
+			<item value="reset"/>
+>>>>>>> Stashed changes
 		</list>
 		<list key="replacehistory">
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+<<<<<<< Updated upstream
 		<item key="DIALOG_X_ORIGIN" value="782"/>
 		<item key="DIALOG_Y_ORIGIN" value="193"/>
+=======
+		<item key="DIALOG_X_ORIGIN" value="1198"/>
+		<item key="DIALOG_Y_ORIGIN" value="175"/>
+>>>>>>> Stashed changes
 		<item key="DIALOG_WIDTH" value="363"/>
 		<item key="DIALOG_HEIGHT" value="437"/>
 		<item key="DIALOG_FONT_NAME" value="1|Ubuntu|11.0|0|GTK|1|"/>

@@ -1,5 +1,9 @@
+<<<<<<< Updated upstream
 DeviceConfigurationTool.AskToSwitchToCdtPerspective=false
 DeviceConfigurationTool.AskToSwitchToCubeMxPerspective=false
 DeviceConfigurationTool.SwitchToCdtPerspective=true
 DeviceConfigurationTool.SwitchToCubeMxPerspective=true
+=======
+DeviceConfigurationTool.AskToSwitchToCubeMxPerspective=false
+>>>>>>> Stashed changes
 eclipse.preferences.version=1

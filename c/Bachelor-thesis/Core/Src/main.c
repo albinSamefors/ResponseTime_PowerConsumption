@@ -34,10 +34,13 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 //----------------------------------
+<<<<<<< Updated upstream
 #define SS 	 PB2
 #define SCK  PA5
 #define MOSI PA7
 #define MISO PB4
+=======
+>>>>>>> Stashed changes
 
 #define GREEN_LED GPIO_PIN_0
 
@@ -60,6 +63,9 @@ TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
 
+volatile uint32_t captures = 0;
+int test = 0;
+
 
 /* USER CODE END PV */
 
@@ -77,15 +83,170 @@ static void MX_TIM2_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+<<<<<<< Updated upstream
+=======
+void load_and_print_data(char *file_name){
+	// Open file for reading
+	FILE *file = fopen(file_name, "r");
+
+	// Read results from file and store in array
+	float results[50];
+	uint32_t i = 0;
+	char line[20];
+	while (fgets(line, 20, file)){
+		results[i++] = strtof(line, NULL);
+	}
+
+	// Close file and calculate test statistics
+	fclose(file);
+	uint32_t len = i;
+	float sum = 0.0, min = results[0], max = results[0];
+	for (i = 0; i < len; i++){
+		sum += results[i];
+		if (results[i] < i){
+			min = results[i];
+		}
+		if (results[i] > max){
+			max = results[i];
+		}
+	}
+
+	// Print test statistics
+    printf("-----------------------TEST STATS-----------------------\n");
+    printf("Amount of collected data:       %d\n", len);
+    printf("Average response time us:       %f\n", sum / len);
+    printf("Fastest response time us:       %f\n", min);
+    printf("Slowest response time us:       %f\n", max);
+    printf("--------------------------------------------------------\n");
+}
+
+void send_start_signal(){
+	HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_RESET);
+}
+
+void lightsleep_test(uint32_t interval_in_ms, uint32_t amount_of_loops)
+{
+    uint32_t run_counter = 0;
+
+    while (run_counter < amount_of_loops)
+    {
+        // Assuming you have initialized TIMER_PIN, change the pin name accordingly
+        HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_RESET);
+
+        // Delay using HAL_Delay which puts the CPU in sleep mode while waiting
+        HAL_Delay(interval_in_ms);
+
+
+        HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_RESET);
+
+        run_counter++;
+    }
+}
+
+void lightsleep_test_interrupt(uint32_t amount_of_runs){
+    while(1){
+        if(captures == amount_of_runs){
+            break;
+        }
+        send_start_signal();
+        printf("WENT TO SLEEP round %lu of %lu\n", captures, amount_of_runs);
+        HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+        printf("WOKE UP round %lu of %lu\n", captures, amount_of_runs);
+    }
+    printf("EXITED FUNCTION\n");
+}
+
+void lightsleep_test_runner(uint32_t* (*test)(uint32_t, uint32_t), uint32_t data_per_run, uint32_t sleep_interval_ms){
+	printf("RUNNING LIGHTSLEEP TEST\n");
+	time_t rawtime;
+	struct tm *timeinfo;
+	char timestamp[20];
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+	strftime(timestamp, 20, "%Y%m%d%H%M%S", timeinfo);
+
+	// Create file name with current timestamp
+	char file_name[50];
+	sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+
+	// Open file for writing
+	FILE *file = fopen(file_name, "w+");
+
+	// Call test function and write results to file
+	uint32_t *cycles = test(sleep_interval_ms, data_per_run);
+	for (uint32_t i = 0; i < data_per_run; i++){
+		fprintf(file, "%f\n", (float)cycles[i] * STM32_PERIOD * 1000 * 1000);
+	}
+
+	// Close file and print file name
+	fclose(file);
+	printf("DATA STORED IN FILE: %s\n", file_name);
+
+	// Load and print test statistics
+	load_and_print_data(file_name);
+}
+
+// The test function pointer type
+typedef void(*TestFunc)(void);
+void deepsleep_test_runner(TestFunc test, uint32_t data_per_run, uint32_t sleep_interval_ms){
+	extern RTC_HandleTypeDef hrtc;
+
+	// Get the reset cause
+	uint32_t reset_cause = __HAL_RCC_GET_FLAG(RCC_FLAG_SFTRST);
+
+	if (reset_cause != 1){ // Soft reset flag (deepsleep reset)
+		// Sending welcoming message if the user restarted the MCU
+		printf("RUNNING DEEPSLEEP TEST\n");
+
+        // Get current timestamp
+        time_t rawtime;
+        struct tm *timeinfo;
+        char timestamp[20];
+        time(&rawtime);
+        timeinfo = localtime(&rawtime);
+        strftime(timestamp, 20, "%Y%m%d%H%M%S", timeinfo);
+
+        // Create file name with current timestamp
+        char file_name[50];
+        sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+
+        // Open file for writing
+        FILE *file = fopen(file_name, "w+");
+        fclose(file);
+
+        // Save data to RTC backup registers
+        // Assuming the necessary RTC backup registers are initialized
+        HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR0, data_per_run);
+        HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR1, sleep_interval_ms);
+
+        // Call the test function
+        test();
+
+        // Enter deepsleep mode
+        HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
+	} else {
+        // MCU was reset by deepsleep
+        printf("DEATH\n");
+    }
+}
+
+
+>>>>>>> Stashed changes
 void send_settings_spi(float sleep_time, uint16_t run_amount, uint8_t run_type){
 	uint16_t timeArr, amountArr, typeArr;
 	uint8_t buffer[9]; // Declare a buffer to hold the data to be transmitted
 
+	test = 1;
 	// Convert sleep_time to bytes and add to buffer
 	timeArr = (uint16_t)(sleep_time * 1000);
 	buffer[0] = SLEEP_TIME_ADDR;
 	buffer[1] = (uint8_t)(timeArr & 0b11111111);
 	buffer[2] = (uint8_t)((timeArr >> 8) & 0b11111111);
+
+	test = 2;
 
 	// Convert run_amount to bytes and add to buffer
 	amountArr = (uint16_t)__builtin_bswap16(run_amount);
@@ -93,22 +254,52 @@ void send_settings_spi(float sleep_time, uint16_t run_amount, uint8_t run_type){
 	buffer[4] = (uint8_t)(amountArr & 0b11111111);
 	buffer[5] = (uint8_t)((amountArr >> 8) & 0b11111111);
 
+	test = 3;
+
 	// Add run_type to buffer
 	typeArr = (uint16_t)run_type;
 	buffer[6] = TEST_MODE_ADDR;
 	buffer[7] = (uint8_t)(typeArr & 0b11111111);
 	buffer[8] = (uint8_t)((typeArr >> 8) & 0b11111111);
 
-	// Set the SS pin low to begin SPI transmission
-	HAL_GPIO_WritePin(GPIOB, SS, GPIO_PIN_RESET);
+	test = 4;
 
 	// Transmit the buffer over SPI using the hspi1 handle and wait for transmission to complete
 	HAL_SPI_Transmit(&hspi1, buffer, sizeof(buffer), HAL_MAX_DELAY);
 
-	// Set the SS pin to high to end SPI transmission
-	HAL_GPIO_WritePin(GPIOB, SS, GPIO_PIN_SET);
+	test = 5;
 }
 
+<<<<<<< Updated upstream
+=======
+uint16_t* receive_data_SPI(uint16_t run_amount){
+	uint8_t bytesread[run_amount * 2];
+	uint16_t *received_data = malloc(run_amount * sizeof(uint16_t));
+	if (received_data == NULL){
+		// Handle error
+	}
+
+	// Wait for the RECEIVE_READY_Pin to go high before proceeding
+	while (HAL_GPIO_ReadPin(RECEIVE_READY_GPIO_Port, RECEIVE_READY_Pin) == GPIO_PIN_RESET)
+	{
+		// add timeout or yield to other tasks here if necessary
+	}
+
+	for (int i = 0; i < run_amount * 2; i += 2){
+		HAL_SPI_Receive(&hspi1, &bytesread[i], 2, HAL_MAX_DELAY); // Receive two bytes of data over SPI
+	}
+
+	// Process the received data and store it in received_data
+	for (int i = 0; i < run_amount; i++){
+		uint16_t data = bytesread[i * 2 + 1] << 8 | bytesread[i * 2];
+		received_data[i] = data;
+	}
+
+	printf("%d\n", run_amount); // Print the number of SPI transfers made
+	return received_data;
+}
+
+>>>>>>> Stashed changes
 /* USER CODE END 0 */
 
 /**
@@ -146,6 +337,22 @@ int main(void)
   MX_SPI1_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
+
+
+  printf("SENDING SETTINGS\n");
+  send_settings_spi(1000, 10, 0);
+  printf("SETTINGS SENT, STARTING TESTS\n");
+  lightsleep_test(1000, 10);
+  printf("TESTS FINISHED, FETCHING DATA\n");
+
+  uint16_t *data = receive_data_SPI(10);
+  printf("DATA FETCHED!\n");
+
+  // Free the allocated memory for received_data
+  free(data);
+
+  // Reset the MCU to simulate sys.exit() behavior
+  NVIC_SystemReset();
 
   /* USER CODE END 2 */
 
@@ -331,17 +538,17 @@ static void MX_SPI1_Init(void)
   hspi1.Instance = SPI1;
   hspi1.Init.Mode = SPI_MODE_MASTER;
   hspi1.Init.Direction = SPI_DIRECTION_2LINES;
-  hspi1.Init.DataSize = SPI_DATASIZE_4BIT;
+  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
-  hspi1.Init.NSS = SPI_NSS_HARD_INPUT;
+  hspi1.Init.NSS = SPI_NSS_HARD_OUTPUT;
   hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
   hspi1.Init.CRCPolynomial = 7;
   hspi1.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
-  hspi1.Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
+  hspi1.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
   if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
     Error_Handler();
@@ -415,17 +622,23 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, TIMER_PIN_Pin|RESPONSE_PIN_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, LD2_Pin|LD3_Pin|LD1_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : TIMER_PIN_Pin */
-  GPIO_InitStruct.Pin = TIMER_PIN_Pin;
+  /*Configure GPIO pins : TIMER_PIN_Pin RESPONSE_PIN_Pin */
+  GPIO_InitStruct.Pin = TIMER_PIN_Pin|RESPONSE_PIN_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(TIMER_PIN_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : IRQ_PIN_Pin */
+  GPIO_InitStruct.Pin = IRQ_PIN_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(IRQ_PIN_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : B1_Pin */
   GPIO_InitStruct.Pin = B1_Pin;
@@ -457,12 +670,22 @@ void blinky(){
 	HAL_GPIO_WritePin(GPIOB, GREEN_LED, GPIO_PIN_RESET);
 }
 
+<<<<<<< Updated upstream
 void lightsleep_test(uint32_t interval_in_ms, uint16_t amount_of_loops){
 	uint16_t run_counter = 0;
 
 	while (run_counter < amount_of_loops){
 		HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_SET);
 		HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_RESET);
+=======
+void lightsleep_blinky_test(uint32_t interval_in_ms, uint32_t amount_of_loops){
+	uint32_t timer_start, timer_end, result;
+	uint32_t results[amount_of_loops];
+	uint32_t run_counter = 0;
+
+	while (run_counter < amount_of_loops){
+		timer_start = HAL_GetTick();
+>>>>>>> Stashed changes
 		HAL_PWR_EnterSLEEPMode(PWR_LOWPOWERREGULATOR_ON, PWR_SLEEPENTRY_WFI);
 		HAL_Delay(interval_in_ms);
 		HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_SET);
@@ -471,6 +694,24 @@ void lightsleep_test(uint32_t interval_in_ms, uint16_t amount_of_loops){
 	}
 }
 
+<<<<<<< Updated upstream
+=======
+void deepsleep_test(uint32_t interval_in_ms){
+	HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_RESET);
+	HAL_PWR_EnterSTANDBYMode();
+}
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+
+	if (GPIO_Pin == RESPONSE_PIN_Pin){
+		 HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_SET);
+		 HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_RESET);
+		 captures += 1;
+	}
+}
+
+>>>>>>> Stashed changes
 /* USER CODE END 4 */
 
 /**
