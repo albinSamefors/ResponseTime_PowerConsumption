@@ -657,9 +657,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 		if(captures < max_amount_of_runs * 2){
 			captures++;
 		}
-		if(sleep_type == 1){
-			sendParams();
-		}
 	}
 
 }

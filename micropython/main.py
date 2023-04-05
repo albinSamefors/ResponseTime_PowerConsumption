@@ -151,6 +151,9 @@ elif machine.reset_cause() == machine.DEEPSLEEP_RESET:
         else:
             data = recieve_data_SPI()
     else:
-        pass
+        if(run_amount != current_run):
+            set_interval_tests.deepsleep_test(sleep_time)
+        else:
+            data = recieve_data_SPI()
 
 

@@ -11,6 +11,14 @@ def blinky():
     GREEN_LED.high()
     GREEN_LED.low()
 
+def send_start_signal():
+    TIMER_PIN.high()
+    TIMER_PIN.low()
+
+def send_stop_signal():
+    RESPONSE_PIN.high()
+    RESPONSE_PIN.low()
+
 def lightsleep_test(interval_in_ms, amount_of_loops):
     results = []
     run_counter = 0
