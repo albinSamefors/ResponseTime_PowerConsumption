@@ -1,38 +1,326 @@
-<<<<<<< Updated upstream
-15:06:18 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+13:51:53 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
 make -j8 all 
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_exti.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_exti.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_exti.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_exti.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_gpio.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_gpio.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_gpio.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_gpio.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_hsem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_hsem.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_hsem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_hsem.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_i2c.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_i2c.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_i2c.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_i2c.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_i2c_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_i2c_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_i2c_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_i2c_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_ll_rcc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_ll_rcc.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_ll_rcc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_ll_rcc.o"
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32wb55rgvx.d" -MT"Core/Startup/startup_stm32wb55rgvx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32wb55rgvx.o" "../Core/Startup/startup_stm32wb55rgvx.s"
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:129:5: warning: implicit declaration of function 'blink_led' [-Wimplicit-function-declaration]
-  129 |     blink_led();
-      |     ^~~~~~~~~
+arm-none-eabi-gcc "../Core/Src/stm32wbxx_hal_msp.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32wbxx_hal_msp.d" -MT"Core/Src/stm32wbxx_hal_msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32wbxx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/stm32wbxx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32wbxx_it.d" -MT"Core/Src/stm32wbxx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32wbxx_it.o"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../Core/Src/system_stm32wbxx.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/system_stm32wbxx.d" -MT"Core/Src/system_stm32wbxx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/system_stm32wbxx.o"
+In file included from ../Core/Src/main.c:20:
+../Core/Inc/main.h:60:1: error: version control conflict marker in file
+   60 | <<<<<<< Updated upstream
+      | ^~~~~~~
+In file included from ../Core/Src/stm32wbxx_it.c:21:
+../Core/Inc/main.h:60:1: error: version control conflict marker in file
+   60 | <<<<<<< Updated upstream
+      | ^~~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/stm32wbxx_it.o] Error 1
+make: *** Waiting for unfinished jobs....
+In file included from /opt/st/stm32cubeide_1.12.0/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.linux64_1.0.200.202301161003/tools/arm-none-eabi/include/sys/reent.h:15,
+                 from /opt/st/stm32cubeide_1.12.0/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.linux64_1.0.200.202301161003/tools/arm-none-eabi/include/string.h:11,
+                 from ../Core/Src/main.c:24:
+/opt/st/stm32cubeide_1.12.0/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.linux64_1.0.200.202301161003/tools/arm-none-eabi/include/sys/_types.h:167:5: error: unknown type name 'wint_t'
+  167 |     wint_t __wch;
+      |     ^~~~~~
+../Core/Src/main.c:37:1: error: version control conflict marker in file
+   37 | <<<<<<< Updated upstream
+      | ^~~~~~~
+In file included from ../Core/Src/stm32wbxx_hal_msp.c:22:
+../Core/Inc/main.h:60:1: error: version control conflict marker in file
+   60 | <<<<<<< Updated upstream
+      | ^~~~~~~
+../Core/Src/main.c:60:1: error: unknown type name 'SPI_HandleTypeDef'; did you mean 'RTC_HandleTypeDef'?
+   60 | SPI_HandleTypeDef hspi1;
+      | ^~~~~~~~~~~~~~~~~
+      | RTC_HandleTypeDef
+make: *** [Core/Src/subdir.mk:34: Core/Src/stm32wbxx_hal_msp.o] Error 1
+../Core/Src/main.c:62:1: error: unknown type name 'TIM_HandleTypeDef'; did you mean 'RTC_HandleTypeDef'?
+   62 | TIM_HandleTypeDef htim2;
+      | ^~~~~~~~~~~~~~~~~
+      | RTC_HandleTypeDef
+../Core/Src/main.c:86:1: error: version control conflict marker in file
+   86 | <<<<<<< Updated upstream
+      | ^~~~~~~
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:167:2: warning: implicit declaration of function 'time' [-Wimplicit-function-declaration]
+  167 |  time(&rawtime);
+      |  ^~~~
+../Core/Src/main.c:168:13: warning: implicit declaration of function 'localtime' [-Wimplicit-function-declaration]
+  168 |  timeinfo = localtime(&rawtime);
+      |             ^~~~~~~~~
+../Core/Src/main.c:168:11: warning: assignment to 'struct tm *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  168 |  timeinfo = localtime(&rawtime);
+      |           ^
+../Core/Src/main.c:169:2: warning: implicit declaration of function 'strftime' [-Wimplicit-function-declaration]
+  169 |  strftime(timestamp, 20, "%Y%m%d%H%M%S", timeinfo);
+      |  ^~~~~~~~
+../Core/Src/main.c:169:2: warning: incompatible implicit declaration of built-in function 'strftime'
+../Core/Src/main.c:27:1: note: include '<time.h>' or provide a declaration of 'strftime'
+   26 | #include <stdbool.h>
+  +++ |+#include <time.h>
+   27 | /* USER CODE END Includes */
+../Core/Src/main.c:173:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  173 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                  ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                   |                    |
+      |                                                                   int                  uint32_t {aka long unsigned int}
+      |                                                                  %ld
+../Core/Src/main.c:181:44: error: 'STM32_PERIOD' undeclared (first use in this function)
+  181 |   fprintf(file, "%f\n", (float)cycles[i] * STM32_PERIOD * 1000 * 1000);
+      |                                            ^~~~~~~~~~~~
+../Core/Src/main.c:181:44: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:189:2: warning: implicit declaration of function 'load_and_print_data' [-Wimplicit-function-declaration]
+  189 |  load_and_print_data(file_name);
+      |  ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:209:18: warning: assignment to 'struct tm *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  209 |         timeinfo = localtime(&rawtime);
+      |                  ^
+../Core/Src/main.c:210:9: warning: incompatible implicit declaration of built-in function 'strftime'
+  210 |         strftime(timestamp, 20, "%Y%m%d%H%M%S", timeinfo);
+      |         ^~~~~~~~
+../Core/Src/main.c:210:9: note: include '<time.h>' or provide a declaration of 'strftime'
+../Core/Src/main.c:214:73: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  214 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                        ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                         |                    |
+      |                                                                         int                  uint32_t {aka long unsigned int}
+      |                                                                        %ld
 ../Core/Src/main.c: At top level:
-../Core/Src/main.c:402:6: warning: conflicting types for 'blink_led'
-  402 | void blink_led()
-      |      ^~~~~~~~~
-../Core/Src/main.c:129:5: note: previous implicit declaration of 'blink_led' was here
-  129 |     blink_led();
-      |     ^~~~~~~~~
-arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Bachelor-thesis.elf
- 
-=======
-13:49:24 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
->>>>>>> Stashed changes
-arm-none-eabi-size   Bachelor-thesis.elf 
-   text	   data	    bss	    dec	    hex	filename
-<<<<<<< Updated upstream
-  24136	    120	   1728	  25984	   6580	Bachelor-thesis.elf
-=======
-  34432	    484	   1804	  36720	   8f70	Bachelor-thesis.elf
->>>>>>> Stashed changes
-Finished building: default.size.stdout
- 
+../Core/Src/main.c:237:1: error: version control conflict marker in file
+  237 | >>>>>>> Stashed changes
+      | ^~~~~~~
+../Core/Src/main.c:273:1: error: version control conflict marker in file
+  273 | <<<<<<< Updated upstream
+      | ^~~~~~~
+../Core/Src/main.c:302:1: error: version control conflict marker in file
+  302 | >>>>>>> Stashed changes
+      | ^~~~~~~
+../Core/Src/main.c: In function 'SystemClock_Config':
+../Core/Src/main.c:393:3: warning: implicit declaration of function 'HAL_PWREx_EnableUltraLowPower'; did you mean 'HAL_PWREx_EnableFlashPowerDown'? [-Wimplicit-function-declaration]
+  393 |   HAL_PWREx_EnableUltraLowPower();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |   HAL_PWREx_EnableFlashPowerDown
+../Core/Src/main.c:394:3: warning: implicit declaration of function 'HAL_PWREx_EnableFastWakeUp'; did you mean 'HAL_PWREx_EnableWakeUpPin'? [-Wimplicit-function-declaration]
+  394 |   HAL_PWREx_EnableFastWakeUp();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+      |   HAL_PWREx_EnableWakeUpPin
+../Core/Src/main.c: In function 'MX_RTC_Init':
+../Core/Src/main.c:464:3: error: 'hrtc' undeclared (first use in this function)
+  464 |   hrtc.Instance = RTC;
+      |   ^~~~
+../Core/Src/main.c: In function 'MX_SPI1_Init':
+../Core/Src/main.c:538:8: error: request for member 'Instance' in something not a structure or union
+  538 |   hspi1.Instance = SPI1;
+      |        ^
+../Core/Src/main.c:539:8: error: request for member 'Init' in something not a structure or union
+  539 |   hspi1.Init.Mode = SPI_MODE_MASTER;
+      |        ^
+../Core/Src/main.c:539:21: error: 'SPI_MODE_MASTER' undeclared (first use in this function); did you mean 'HAL_I2C_MODE_MASTER'?
+  539 |   hspi1.Init.Mode = SPI_MODE_MASTER;
+      |                     ^~~~~~~~~~~~~~~
+      |                     HAL_I2C_MODE_MASTER
+../Core/Src/main.c:540:8: error: request for member 'Init' in something not a structure or union
+  540 |   hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+      |        ^
+../Core/Src/main.c:540:26: error: 'SPI_DIRECTION_2LINES' undeclared (first use in this function)
+  540 |   hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+      |                          ^~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:541:8: error: request for member 'Init' in something not a structure or union
+  541 |   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+      |        ^
+../Core/Src/main.c:541:25: error: 'SPI_DATASIZE_8BIT' undeclared (first use in this function)
+  541 |   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+      |                         ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:542:8: error: request for member 'Init' in something not a structure or union
+  542 |   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+      |        ^
+../Core/Src/main.c:542:28: error: 'SPI_POLARITY_LOW' undeclared (first use in this function); did you mean 'PWR_PIN_POLARITY_LOW'?
+  542 |   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+      |                            ^~~~~~~~~~~~~~~~
+      |                            PWR_PIN_POLARITY_LOW
+../Core/Src/main.c:543:8: error: request for member 'Init' in something not a structure or union
+  543 |   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+      |        ^
+../Core/Src/main.c:543:25: error: 'SPI_PHASE_1EDGE' undeclared (first use in this function)
+  543 |   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+      |                         ^~~~~~~~~~~~~~~
+../Core/Src/main.c:544:8: error: request for member 'Init' in something not a structure or union
+  544 |   hspi1.Init.NSS = SPI_NSS_HARD_OUTPUT;
+      |        ^
+../Core/Src/main.c:544:20: error: 'SPI_NSS_HARD_OUTPUT' undeclared (first use in this function)
+  544 |   hspi1.Init.NSS = SPI_NSS_HARD_OUTPUT;
+      |                    ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:545:8: error: request for member 'Init' in something not a structure or union
+  545 |   hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+      |        ^
+../Core/Src/main.c:545:34: error: 'SPI_BAUDRATEPRESCALER_2' undeclared (first use in this function)
+  545 |   hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+      |                                  ^~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:546:8: error: request for member 'Init' in something not a structure or union
+  546 |   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+      |        ^
+../Core/Src/main.c:546:25: error: 'SPI_FIRSTBIT_MSB' undeclared (first use in this function)
+  546 |   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+      |                         ^~~~~~~~~~~~~~~~
+../Core/Src/main.c:547:8: error: request for member 'Init' in something not a structure or union
+  547 |   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+      |        ^
+../Core/Src/main.c:547:23: error: 'SPI_TIMODE_DISABLE' undeclared (first use in this function); did you mean 'SPI_TIMODE_DISABLED'?
+  547 |   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+      |                       ^~~~~~~~~~~~~~~~~~
+      |                       SPI_TIMODE_DISABLED
+../Core/Src/main.c:548:8: error: request for member 'Init' in something not a structure or union
+  548 |   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+      |        ^
+../Core/Src/main.c:548:31: error: 'SPI_CRCCALCULATION_DISABLE' undeclared (first use in this function); did you mean 'SPI_CRCCALCULATION_DISABLED'?
+  548 |   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+      |                               ^~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                               SPI_CRCCALCULATION_DISABLED
+../Core/Src/main.c:549:8: error: request for member 'Init' in something not a structure or union
+  549 |   hspi1.Init.CRCPolynomial = 7;
+      |        ^
+../Core/Src/main.c:550:8: error: request for member 'Init' in something not a structure or union
+  550 |   hspi1.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
+      |        ^
+../Core/Src/main.c:550:26: error: 'SPI_CRC_LENGTH_DATASIZE' undeclared (first use in this function)
+  550 |   hspi1.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
+      |                          ^~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:551:8: error: request for member 'Init' in something not a structure or union
+  551 |   hspi1.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
+      |        ^
+../Core/Src/main.c:551:25: error: 'SPI_NSS_PULSE_DISABLE' undeclared (first use in this function); did you mean 'SPI_NSS_PULSE_DISABLED'?
+  551 |   hspi1.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
+      |                         ^~~~~~~~~~~~~~~~~~~~~
+      |                         SPI_NSS_PULSE_DISABLED
+../Core/Src/main.c:552:7: warning: implicit declaration of function 'HAL_SPI_Init'; did you mean 'HAL_GPIO_Init'? [-Wimplicit-function-declaration]
+  552 |   if (HAL_SPI_Init(&hspi1) != HAL_OK)
+      |       ^~~~~~~~~~~~
+      |       HAL_GPIO_Init
+../Core/Src/main.c: In function 'MX_TIM2_Init':
+../Core/Src/main.c:574:3: error: unknown type name 'TIM_ClockConfigTypeDef'; did you mean 'EXTI_ConfigTypeDef'?
+  574 |   TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+      |   ^~~~~~~~~~~~~~~~~~~~~~
+      |   EXTI_ConfigTypeDef
+../Core/Src/main.c:575:3: error: unknown type name 'TIM_MasterConfigTypeDef'
+  575 |   TIM_MasterConfigTypeDef sMasterConfig = {0};
+      |   ^~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:580:8: error: request for member 'Instance' in something not a structure or union
+  580 |   htim2.Instance = TIM2;
+      |        ^
+../Core/Src/main.c:581:8: error: request for member 'Init' in something not a structure or union
+  581 |   htim2.Init.Prescaler = 32-1;
+      |        ^
+../Core/Src/main.c:582:8: error: request for member 'Init' in something not a structure or union
+  582 |   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+      |        ^
+../Core/Src/main.c:582:28: error: 'TIM_COUNTERMODE_UP' undeclared (first use in this function)
+  582 |   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+      |                            ^~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:583:8: error: request for member 'Init' in something not a structure or union
+  583 |   htim2.Init.Period = 4294967295;
+      |        ^
+../Core/Src/main.c:584:8: error: request for member 'Init' in something not a structure or union
+  584 |   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+      |        ^
+../Core/Src/main.c:584:30: error: 'TIM_CLOCKDIVISION_DIV1' undeclared (first use in this function)
+  584 |   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+      |                              ^~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:585:8: error: request for member 'Init' in something not a structure or union
+  585 |   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+      |        ^
+../Core/Src/main.c:585:34: error: 'TIM_AUTORELOAD_PRELOAD_DISABLE' undeclared (first use in this function)
+  585 |   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+      |                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:586:7: warning: implicit declaration of function 'HAL_TIM_Base_Init' [-Wimplicit-function-declaration]
+  586 |   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
+      |       ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:590:21: error: request for member 'ClockSource' in something not a structure or union
+  590 |   sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+      |                     ^
+../Core/Src/main.c:590:36: error: 'TIM_CLOCKSOURCE_INTERNAL' undeclared (first use in this function)
+  590 |   sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+      |                                    ^~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:591:7: warning: implicit declaration of function 'HAL_TIM_ConfigClockSource'; did you mean 'LL_RCC_ConfigRNGClockSource'? [-Wimplicit-function-declaration]
+  591 |   if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~
+      |       LL_RCC_ConfigRNGClockSource
+../Core/Src/main.c:595:16: error: request for member 'MasterOutputTrigger' in something not a structure or union
+  595 |   sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+      |                ^
+../Core/Src/main.c:595:39: error: 'TIM_TRGO_RESET' undeclared (first use in this function)
+  595 |   sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+      |                                       ^~~~~~~~~~~~~~
+../Core/Src/main.c:596:16: error: request for member 'MasterSlaveMode' in something not a structure or union
+  596 |   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+      |                ^
+../Core/Src/main.c:596:35: error: 'TIM_MASTERSLAVEMODE_DISABLE' undeclared (first use in this function)
+  596 |   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+      |                                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:597:7: warning: implicit declaration of function 'HAL_TIMEx_MasterConfigSynchronization'; did you mean 'LL_CRS_ConfigSynchronization'? [-Wimplicit-function-declaration]
+  597 |   if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |       LL_CRS_ConfigSynchronization
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:673:1: error: version control conflict marker in file
+  673 | <<<<<<< Updated upstream
+      | ^~~~~~~
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:173:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
+  173 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                               ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:173:21: note: using the range [-2147483648, 2147483647] for directive argument
+  173 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:173:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
+  173 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:214:53: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 7 and 28 [-Wformat-overflow=]
+  214 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                     ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:214:28: note: using the range [-2147483648, 2147483647] for directive argument
+  214 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:214:9: note: 'sprintf' output between 48 and 98 bytes into a destination of size 50
+  214 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+At top level:
+../Core/Src/main.c:612:13: warning: 'MX_GPIO_Init' defined but not used [-Wunused-function]
+  612 | static void MX_GPIO_Init(void)
+      |             ^~~~~~~~~~~~
+../Core/Src/main.c:567:13: warning: 'MX_TIM2_Init' defined but not used [-Wunused-function]
+  567 | static void MX_TIM2_Init(void)
+      |             ^~~~~~~~~~~~
+../Core/Src/main.c:527:13: warning: 'MX_SPI1_Init' defined but not used [-Wunused-function]
+  527 | static void MX_SPI1_Init(void)
+      |             ^~~~~~~~~~~~
+../Core/Src/main.c:448:13: warning: 'MX_RTC_Init' defined but not used [-Wunused-function]
+  448 | static void MX_RTC_Init(void)
+      |             ^~~~~~~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
 
-<<<<<<< Updated upstream
-15:06:19 Build Finished. 0 errors, 2 warnings. (took 521ms)
-=======
-13:49:24 Build Finished. 0 errors, 0 warnings. (took 236ms)
->>>>>>> Stashed changes
+13:51:55 Build Failed. 61 errors, 22 warnings. (took 2s.223ms)
 
