@@ -1,0 +1,10 @@
+14:37:52 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j12 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  29360	    484	   1804	  31648	   7ba0	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+
+14:37:53 Build Finished. 0 errors, 0 warnings. (took 305ms)
+

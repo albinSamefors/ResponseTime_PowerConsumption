@@ -81,3 +81,193 @@ arm-none-eabi-size   Controller.elf
   23100	    128	   2552	  25780	   64b4	Controller.elf
 Finished building: default.size.stdout
  
+14:29:45 **** Clean-only build of configuration Debug for project Bachelor-thesis ****
+make -j12 clean 
+makefile:63: *** multiple target patterns.  Stop.
+"make -j12 clean" terminated with exit code 2. Build might be incomplete.
+14:29:45 **** Build of configuration Debug for project Bachelor-thesis ****
+make -j12 all 
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_exti.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_exti.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_exti.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_exti.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_gpio.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_gpio.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_gpio.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_gpio.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_hsem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_hsem.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_hsem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_hsem.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim_ex.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32wbxx_hal_msp.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32wbxx_hal_msp.d" -MT"Core/Src/stm32wbxx_hal_msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32wbxx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/stm32wbxx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32wbxx_it.d" -MT"Core/Src/stm32wbxx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32wbxx_it.o"
+arm-none-eabi-gcc "../Core/Src/system_stm32wbxx.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/system_stm32wbxx.d" -MT"Core/Src/system_stm32wbxx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/system_stm32wbxx.o"
+../Core/Src/main.c: In function 'load_and_print_data':
+../Core/Src/main.c:113:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  113 |     printf("Amount of collected data:       %d\n", len);
+      |                                             ~^     ~~~
+      |                                              |     |
+      |                                              int   uint32_t {aka long unsigned int}
+      |                                             %ld
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:131:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  131 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                  ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                   |                    |
+      |                                                                   int                  uint32_t {aka long unsigned int}
+      |                                                                  %ld
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:172:73: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  172 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                        ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                         |                    |
+      |                                                                         int                  uint32_t {aka long unsigned int}
+      |                                                                        %ld
+../Core/Src/main.c: In function 'lightsleep_blinky_test':
+../Core/Src/main.c:623:11: warning: variable 'results' set but not used [-Wunused-but-set-variable]
+  623 |  uint32_t results[amount_of_loops];
+      |           ^~~~~~~
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:131:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
+  131 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                               ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:131:21: note: using the range [-2147483648, 2147483647] for directive argument
+  131 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:131:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
+  131 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:172:53: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 7 and 28 [-Wformat-overflow=]
+  172 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                     ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:172:28: note: using the range [-2147483648, 2147483647] for directive argument
+  172 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:172:9: note: 'sprintf' output between 48 and 98 bytes into a destination of size 50
+  172 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/albin/Documents/GitHub/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bachelor-thesis.elf
+ 
+arm-none-eabi-size   Bachelor-thesis.elf 
+arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
+   text	   data	    bss	    dec	    hex	filename
+  29360	    484	   1804	  31648	   7ba0	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bachelor-thesis.list
+ 
+14:29:48 **** Incremental Build of configuration Debug for project Controller ****
+make -j12 all 
+arm-none-eabi-size   Controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  23100	    128	   2552	  25780	   64b4	Controller.elf
+Finished building: default.size.stdout
+ 
+14:30:07 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j12 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  29360	    484	   1804	  31648	   7ba0	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+14:30:08 **** Incremental Build of configuration Debug for project Controller ****
+make -j12 all 
+arm-none-eabi-size   Controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  23100	    128	   2552	  25780	   64b4	Controller.elf
+Finished building: default.size.stdout
+ 
+14:31:03 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j12 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  29360	    484	   1804	  31648	   7ba0	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+14:31:54 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j12 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  29360	    484	   1804	  31648	   7ba0	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+14:31:54 **** Incremental Build of configuration Debug for project Controller ****
+make -j12 all 
+arm-none-eabi-size   Controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  23100	    128	   2552	  25780	   64b4	Controller.elf
+Finished building: default.size.stdout
+ 
+14:32:21 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j12 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  29360	    484	   1804	  31648	   7ba0	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+14:32:21 **** Incremental Build of configuration Debug for project Controller ****
+make -j12 all 
+arm-none-eabi-size   Controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  23100	    128	   2552	  25780	   64b4	Controller.elf
+Finished building: default.size.stdout
+ 
+14:33:30 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j12 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  29360	    484	   1804	  31648	   7ba0	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+14:33:30 **** Incremental Build of configuration Debug for project Controller ****
+make -j12 all 
+arm-none-eabi-size   Controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  23100	    128	   2552	  25780	   64b4	Controller.elf
+Finished building: default.size.stdout
+ 
+14:33:47 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j12 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  29360	    484	   1804	  31648	   7ba0	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+14:34:20 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j12 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  29360	    484	   1804	  31648	   7ba0	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+14:34:21 **** Incremental Build of configuration Debug for project Controller ****
+make -j12 all 
+arm-none-eabi-size   Controller.elf 
+   text	   data	    bss	    dec	    hex	filename
+  23100	    128	   2552	  25780	   64b4	Controller.elf
+Finished building: default.size.stdout
+ 
+14:34:43 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j12 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  29360	    484	   1804	  31648	   7ba0	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+14:37:52 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j12 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  29360	    484	   1804	  31648	   7ba0	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 

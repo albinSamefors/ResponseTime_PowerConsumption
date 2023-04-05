@@ -290,7 +290,20 @@ int main(void)
   MX_SPI1_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
+   printf("SENDING SETTINGS\n");
+   send_settings_spi(1000, 10, 0);
+   printf("SETTINGS SENT, STARTING TESTS\n");
+   lightsleep_test(1000, 10);
+   printf("TESTS FINISHED, FETCHING DATA\n");
 
+   uint16_t *data = receive_data_SPI(10);
+   printf("DATA FETCHED!\n");
+
+   // Free the allocated memory for received_data
+   free(data);
+
+   // Reset the MCU to simulate sys.exit() behavior
+   NVIC_SystemReset();
   /* USER CODE END 2 */
 
   /* Infinite loop */
