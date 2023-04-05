@@ -19,3 +19,22 @@ def deepsleep_i2C_test():
     callback()
 
 
+<<<<<<< Updated upstream
+=======
+def lightsleep_test(amount_of_runs):
+    global captures
+    while True:
+        if(captures == amount_of_runs):
+            break
+        send_start_signal()
+        machine.lightsleep()
+        
+def deepsleep_test(amount_of_runs):
+    global captures
+    while True:
+        if(captures == amount_of_runs):
+            break
+        send_start_signal()
+        machine.deepsleep()
+
+>>>>>>> Stashed changes

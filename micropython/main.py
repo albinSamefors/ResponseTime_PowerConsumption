@@ -1,6 +1,28 @@
 from STM32_scripts import interrupt_tests, set_interval_tests
 import machine
 import utime
+<<<<<<< Updated upstream
+=======
+import os
+import uos
+import sys
+RECIEVE_READY = machine.Pin('B4', machine.Pin.IN)
+SS = machine.Pin('D10', mode=machine.Pin.OUT, value=1)
+SCK = machine.Pin('D13', mode=machine.Pin.OUT)
+MOSI = machine.Pin('D11', mode=machine.Pin.OUT)
+MISO = machine.Pin('D12', mode=machine.Pin.OUT)
+SPI = machine.SPI(1, baudrate=9600)
+SPI.init(baudrate=9600,polarity=0,phase=0,bits=8,firstbit=SPI.MSB)
+
+DEBUG_MODE = False
+
+SLEEP_TIME_SPI_ADDR =    0b00000001
+RUN_AMMOUNT_SPI_ADDR =   0b00000010
+TEST_MODE_SPI_ADDR =     0b00000011
+RECIEVE_DATA_ADDR =      0b00000100
+SLEEP_TYPE_ADDR =        0b00000101
+
+>>>>>>> Stashed changes
 
 STM32_CLOCK_FREQUENCY = 64000000
 STM32_PERIOD = 1/STM32_CLOCK_FREQUENCY
@@ -29,6 +51,7 @@ def get_cycles_from_time(duration_s, sleep_interval_ms):
     cycles = int((duration_s/sleep_interval_s))
     return cycles, sleep_interval_ms
 
+<<<<<<< Updated upstream
 #THIS CODE IS NOT COMPLIANT WITH DRY BUT WILL REWORKED WHEN I KNOW THAT IT WORKS
 def get_test_input():
     print("----------------------TEST RUNNER----------------------")
@@ -63,6 +86,72 @@ def get_test_input():
         elif test_lightsleep.lower() == "y":
             print("Testing Lightsleep")
             accepted_input = True
+=======
+def load_and_print_data(file_name):
+    file = open(file_name, 'r')
+    results = []
+    for line in file.readlines():
+        results.append(float(line))
+    print("-----------------------TEST STATS-----------------------")
+    print("Amount of collected data:       {}".format(len(results)))
+    print("Average response time us:       {}".format((sum(results)/len(results))))
+    print("Fastest response time us:       {}".format(min(results)))
+    print("Slowest response time us:       {}".format(max(results)))
+    print("--------------------------------------------------------")
+
+    file.close()
+
+def send_settings_spi(sleep_time, run_amount, run_type, sleep_type):
+    """
+    It takes in three parameters, sleep_time, run_amount, and run_type, and sends them to the
+    microcontroller via SPI
+    
+    :param sleep_time: The time in seconds the system will sleep
+    :param run_amount: The number of times the test will run
+    :param run_type: 0 = Interval mode, 1 = Interrupt mode
+    """
+    try:
+        timearr = sleep_time.to_bytes(2,'little')
+        SS.low()
+        SPI.write(bytearray([SLEEP_TIME_SPI_ADDR,
+                             timearr[0],
+                             timearr[1]]))
+    finally:
+        SS.high()
+    try:
+        amountarr = run_amount.to_bytes(2,'little')
+        SS.low()
+        SPI.write(bytearray([RUN_AMMOUNT_SPI_ADDR,
+                             amountarr[0],
+                             amountarr[1]]))
+    finally:
+        SS.high()
+
+
+    try:
+        typearr = run_type.to_bytes(2,'little')
+        SS.low()
+        SPI.write(bytearray([TEST_MODE_SPI_ADDR,
+                            typearr[0],
+                            typearr[1]]))
+    finally:
+        SS.high()
+    try:
+        sleep_type_arr = sleep_type.to_bytes(2, 'little')
+        SS.low()
+        SPI.write(bytearray([SLEEP_TYPE_ADDR,
+                             sleep_type_arr[0],
+                             sleep_type_arr[1]]))
+    finally:
+        SS.high()
+
+def recieve_data_SPI(run_amount):
+    bytesread = []
+    print("PIN VALUE {}".format(RECIEVE_READY.value()))
+    while RECIEVE_READY.value() == 0:
+        if(DEBUG_MODE):
+            sys.exit()
+>>>>>>> Stashed changes
         else:
             print("{} IS INVALID TRY AGAIN".format(test_lightsleep))
     accepted_input = False
@@ -161,8 +250,18 @@ def pretty_print_results(results, sleep_interval):
     print("Slowest response time us:       {}".format(max(results) * STM32_PERIOD * 1000 * 1000))
     print("--------------------------------------------------------")
 
+def test_runner():
+    print("-------------------------------------------")
+    print("RESPONSE TIME TEST RUNNER")
+    sleep_time_ms = input("ENTER SLEEP LENGTH (ms): ")
+    intervals = input("ENTER AMOUNT OF RUNS:    ")
+    test_mode = input("WAKE USING INTERRUPT? y/n:   ")
+    sleep_mode = input("RUN USING LIGHTSLEEP? y/n:   ")
+
+
 #THESE ARE JUST HARD VALUES FOR THE RESET TYPES. 2 IS RESET BY BUTTON AND 4 IS DEEPSLEEP RESET
 if machine.reset_cause() == 2:
+<<<<<<< Updated upstream
     get_test_input()
 
 #TODO: DEEPSLEEP TESTING IS CURRENTLY WORKING LIKE THE MOVIE MEMENTO
@@ -171,6 +270,17 @@ if machine.reset_cause() == 2:
 #TO THE machine.rtc() MEMORY AND LATER PARSING THAT DATA INTO PRNTABLE RESULT
 #ALTOUGHT RIGHT NOW 2023-03-18-16:57 I WONT DEAL WITH THIS.
 #SO TO FUTURE ME GOOD LUCK AND DONT DO ANYTHING STUPID K ;)
+=======
+    print("SENDING SETTINGS")
+    send_settings_spi(1000, 10, 1)
+    print("SETTINGS SENT, STARTING TESTS")
+    interrupt_tests.deepsleep_test(10)
+    print("TESTS FINISHED, FETCHING DATA")
+    data = recieve_data_SPI(10)
+    print("DATA FETCHED!")
+    sys.exit()
+    
+>>>>>>> Stashed changes
 elif machine.reset_cause() == 4:
     print("DEEPSLEPT")
 """
