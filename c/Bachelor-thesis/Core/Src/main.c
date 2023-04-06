@@ -131,7 +131,8 @@ void lightsleep_test(uint32_t interval_in_ms, uint32_t amount_of_loops)
         HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_RESET);
 
         // Delay using HAL_Delay which puts the CPU in sleep mode while waiting
-        HAL_Delay(interval_in_ms);
+        //HAL_Delay(interval_in_ms);
+        HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFID);
 
 
         HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_SET);
