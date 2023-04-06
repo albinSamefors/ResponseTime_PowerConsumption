@@ -157,15 +157,6 @@ void sendTestData(uint32_t *times){
 	HAL_GPIO_WritePin(TransmitReady_GPIO_Port, TransmitReady_Pin, GPIO_PIN_RESET);
 }
 
-void sendData(uint32_t *data){
-
-		for(int i = 0; i < max_amount_of_runs; i++){
-			uint32_t *ptr = &data[i];
-			uint16_t value = *((uint16_t*)ptr);
-			send16Bit(&value);
-
-	}
-}
 
 void calculateTestTimes(struct TimeCapture *data, uint32_t *times){
 	for(int i = 0; i < max_amount_of_runs; i++){
