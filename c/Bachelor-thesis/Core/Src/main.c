@@ -40,11 +40,10 @@
 
 #define GREEN_LED GPIO_PIN_0
 
-#define SLEEP_TIME_ADDR 0b00000001
-#define RUN_AMOUNT_ADDR 0b00000010
-#define TEST_MODE_ADDR	0b00000011
+#define SLEEP_TIME_ADDR 1
+#define RUN_AMOUNT_ADDR 2
+#define TEST_MODE_ADDR	3
 
-#define STM32_PERIOD 0.000000032 // period of the STM32 clock in seconds
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -53,8 +52,6 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-RTC_HandleTypeDef hrtc;
-
 SPI_HandleTypeDef hspi1;
 
 TIM_HandleTypeDef htim2;
@@ -63,6 +60,7 @@ TIM_HandleTypeDef htim2;
 
 volatile uint32_t captures = 0;
 int test = 0;
+_Bool finished = false;
 
 
 /* USER CODE END PV */
@@ -71,7 +69,6 @@ int test = 0;
 void SystemClock_Config(void);
 void PeriphCommonClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_RTC_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
@@ -120,6 +117,10 @@ void send_start_signal(){
 	HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_RESET);
 }
+void send_stop_signal(){
+	HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_RESET);
+}
 
 void lightsleep_test(uint32_t interval_in_ms, uint32_t amount_of_loops)
 {
@@ -128,16 +129,12 @@ void lightsleep_test(uint32_t interval_in_ms, uint32_t amount_of_loops)
     while (run_counter < amount_of_loops)
     {
         // Assuming you have initialized TIMER_PIN, change the pin name accordingly
-        HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_SET);
-        HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_RESET);
+        send_start_signal();
 
         // Delay using HAL_Delay which puts the CPU in sleep mode while waiting
         HAL_Delay(interval_in_ms);
-
-
-        HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_SET);
-        HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_RESET);
-
+        //HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFID);
+        send_stop_signal();
         run_counter++;
     }
 }
@@ -173,9 +170,9 @@ void lightsleep_test_runner(uint32_t* (*test)(uint32_t, uint32_t), uint32_t data
 
 	// Call test function and write results to file
 	uint32_t *cycles = test(sleep_interval_ms, data_per_run);
-	for (uint32_t i = 0; i < data_per_run; i++){
-		fprintf(file, "%f\n", (float)cycles[i] * STM32_PERIOD * 1000 * 1000);
-	}
+	//for (uint32_t i = 0; i < data_per_run; i++){
+	//	fprintf(file, "%f\n", (float)cycles[i] * STM32_PERIOD * 1000 * 1000);
+	//}
 
 	// Close file and print file name
 	fclose(file);
@@ -188,7 +185,7 @@ void lightsleep_test_runner(uint32_t* (*test)(uint32_t, uint32_t), uint32_t data
 // The test function pointer type
 typedef void(*TestFunc)(void);
 void deepsleep_test_runner(TestFunc test, uint32_t data_per_run, uint32_t sleep_interval_ms){
-	extern RTC_HandleTypeDef hrtc;
+	//extern RTC_HandleTypeDef hrtc;
 
 	// Get the reset cause
 	uint32_t reset_cause = __HAL_RCC_GET_FLAG(RCC_FLAG_SFTRST);
@@ -215,8 +212,8 @@ void deepsleep_test_runner(TestFunc test, uint32_t data_per_run, uint32_t sleep_
 
         // Save data to RTC backup registers
         // Assuming the necessary RTC backup registers are initialized
-        HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR0, data_per_run);
-        HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR1, sleep_interval_ms);
+        //HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR0, data_per_run);
+        //HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR1, sleep_interval_ms);
 
         // Call the test function
         test();
@@ -230,39 +227,40 @@ void deepsleep_test_runner(TestFunc test, uint32_t data_per_run, uint32_t sleep_
 }
 
 
-void send_settings_spi(float sleep_time, uint16_t run_amount, uint8_t run_type){
-	uint16_t timeArr, amountArr, typeArr;
-	uint8_t buffer[9]; // Declare a buffer to hold the data to be transmitted
+_Bool send16Bit(uint16_t *send){
+	if(HAL_SPI_Transmit(&hspi1, (uint8_t*)send, 2, 10) == HAL_OK){
+		return true;
+	}
+	return false;
 
-	test = 1;
-	// Convert sleep_time to bytes and add to buffer
-	timeArr = (uint16_t)(sleep_time * 1000);
-	buffer[0] = SLEEP_TIME_ADDR;
-	buffer[1] = (uint8_t)(timeArr & 0b11111111);
-	buffer[2] = (uint8_t)((timeArr >> 8) & 0b11111111);
+}
+_Bool recieve16Bit(uint16_t *readInto){
+	if(HAL_SPI_Receive(&hspi1, (uint8_t*)readInto, 2, 10) == HAL_OK){
+		return true;
+	}
+	return false;
+}
+void send_settings_spi(uint16_t sleep_time, uint16_t run_amount, uint16_t run_type){
 
-	test = 2;
+	HAL_StatusTypeDef sendSleepTimeReady = HAL_SPI_Transmit(&hspi1, (uint8_t*)SLEEP_TIME_ADDR, 1, 10);
+	if(sendSleepTimeReady == HAL_OK){
+		if(!send16Bit(&sleep_time)){
+			printf("COULD NOT SEND SLEEP TIME");
+		}
+	}
+	HAL_StatusTypeDef sendRunAmountReady = HAL_SPI_Transmit(&hspi1, (uint8_t*)RUN_AMOUNT_ADDR, 1, 10);
+	if(sendRunAmountReady == HAL_OK){
+		if(!send16Bit(&run_amount)){
+			printf("COULD NOT SEND RUN AMOUNT");
+		}
+	}
+	HAL_StatusTypeDef sendRunTypeReady = HAL_SPI_Transmit(&hspi1, (uint8_t*)TEST_MODE_ADDR, 1, 10);
+	if(sendRunTypeReady == HAL_OK){
+		if(!send16Bit(&run_type)){
+			printf("COULD NOT SEND RUN TYPE");
+		}
+	}
 
-	// Convert run_amount to bytes and add to buffer
-	amountArr = (uint16_t)__builtin_bswap16(run_amount);
-	buffer[3] = RUN_AMOUNT_ADDR;
-	buffer[4] = (uint8_t)(amountArr & 0b11111111);
-	buffer[5] = (uint8_t)((amountArr >> 8) & 0b11111111);
-
-	test = 3;
-
-	// Add run_type to buffer
-	typeArr = (uint16_t)run_type;
-	buffer[6] = TEST_MODE_ADDR;
-	buffer[7] = (uint8_t)(typeArr & 0b11111111);
-	buffer[8] = (uint8_t)((typeArr >> 8) & 0b11111111);
-
-	test = 4;
-
-	// Transmit the buffer over SPI using the hspi1 handle and wait for transmission to complete
-	HAL_SPI_Transmit(&hspi1, buffer, sizeof(buffer), HAL_MAX_DELAY);
-
-	test = 5;
 }
 
 uint16_t* receive_data_SPI(uint16_t run_amount){
@@ -325,26 +323,15 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_RTC_Init();
   MX_SPI1_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
 
 
-  printf("SENDING SETTINGS\n");
-  send_settings_spi(1000, 10, 0);
-  printf("SETTINGS SENT, STARTING TESTS\n");
-  lightsleep_test(1000, 10);
-  printf("TESTS FINISHED, FETCHING DATA\n");
 
-  uint16_t *data = receive_data_SPI(10);
-  printf("DATA FETCHED!\n");
-
-  // Free the allocated memory for received_data
-  free(data);
 
   // Reset the MCU to simulate sys.exit() behavior
-  NVIC_SystemReset();
+  //NVIC_SystemReset();
 
   /* USER CODE END 2 */
 
@@ -355,6 +342,15 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	 while(!finished)
+	 {
+		 send_settings_spi(1000, 10, 0);
+		 lightsleep_test(1000, 10);
+		 uint16_t *data = receive_data_SPI(10);
+	     // Free the allocated memory for received_data
+		 free(data);
+		 finished = true;
+	 }
   }
   /* USER CODE END 3 */
 }
@@ -375,12 +371,10 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSI1
-                              |RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
@@ -429,85 +423,6 @@ void PeriphCommonClock_Config(void)
 }
 
 /**
-  * @brief RTC Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_RTC_Init(void)
-{
-
-  /* USER CODE BEGIN RTC_Init 0 */
-
-  /* USER CODE END RTC_Init 0 */
-
-  RTC_TimeTypeDef sTime = {0};
-  RTC_DateTypeDef sDate = {0};
-
-  /* USER CODE BEGIN RTC_Init 1 */
-
-  /* USER CODE END RTC_Init 1 */
-
-  /** Initialize RTC Only
-  */
-  hrtc.Instance = RTC;
-  hrtc.Init.HourFormat = RTC_HOURFORMAT_24;
-  hrtc.Init.AsynchPrediv = 127;
-  hrtc.Init.SynchPrediv = 255;
-  hrtc.Init.OutPut = RTC_OUTPUT_DISABLE;
-  hrtc.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
-  hrtc.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
-  hrtc.Init.OutPutRemap = RTC_OUTPUT_REMAP_NONE;
-  if (HAL_RTC_Init(&hrtc) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-  /* USER CODE BEGIN Check_RTC_BKUP */
-
-  /* USER CODE END Check_RTC_BKUP */
-
-  /** Initialize RTC and set the Time and Date
-  */
-  sTime.Hours = 0x12;
-  sTime.Minutes = 0x0;
-  sTime.Seconds = 0x0;
-  sTime.SubSeconds = 0x0;
-  sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
-  sTime.StoreOperation = RTC_STOREOPERATION_RESET;
-  if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BCD) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sDate.WeekDay = RTC_WEEKDAY_THURSDAY;
-  sDate.Month = RTC_MONTH_MARCH;
-  sDate.Date = 0x16;
-  sDate.Year = 0x23;
-
-  if (HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BCD) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-  /** Enable the WakeUp
-  */
-  if (HAL_RTCEx_SetWakeUpTimer_IT(&hrtc, 0, RTC_WAKEUPCLOCK_RTCCLK_DIV16) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-  /** Enable the reference Clock input
-  */
-  if (HAL_RTCEx_SetRefClock(&hrtc) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN RTC_Init 2 */
-
-  /* USER CODE END RTC_Init 2 */
-
-}
-
-/**
   * @brief SPI1 Initialization Function
   * @param None
   * @retval None
@@ -529,14 +444,14 @@ static void MX_SPI1_Init(void)
   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
-  hspi1.Init.NSS = SPI_NSS_HARD_OUTPUT;
+  hspi1.Init.NSS = SPI_NSS_HARD_INPUT;
   hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
   hspi1.Init.CRCPolynomial = 7;
   hspi1.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
-  hspi1.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
+  hspi1.Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
   if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
     Error_Handler();
@@ -613,7 +528,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOC, TIMER_PIN_Pin|RESPONSE_PIN_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LD2_Pin|LD3_Pin|LD1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, LD2_Pin|LD3_Pin|CHIP_SELECT_Pin|LD1_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : TIMER_PIN_Pin RESPONSE_PIN_Pin */
   GPIO_InitStruct.Pin = TIMER_PIN_Pin|RESPONSE_PIN_Pin;
@@ -622,11 +537,11 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PC1 */
-  GPIO_InitStruct.Pin = GPIO_PIN_1;
+  /*Configure GPIO pin : IRQ_PIN_Pin */
+  GPIO_InitStruct.Pin = IRQ_PIN_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  HAL_GPIO_Init(IRQ_PIN_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : B1_Pin */
   GPIO_InitStruct.Pin = B1_Pin;
@@ -634,8 +549,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LD2_Pin LD3_Pin LD1_Pin */
-  GPIO_InitStruct.Pin = LD2_Pin|LD3_Pin|LD1_Pin;
+  /*Configure GPIO pins : LD2_Pin LD3_Pin CHIP_SELECT_Pin LD1_Pin */
+  GPIO_InitStruct.Pin = LD2_Pin|LD3_Pin|CHIP_SELECT_Pin|LD1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -652,6 +567,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(RECEIVE_READY_GPIO_Port, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI1_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI1_IRQn);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */

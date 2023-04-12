@@ -59,6 +59,9 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define TIMER_PIN_Pin GPIO_PIN_0
 #define TIMER_PIN_GPIO_Port GPIOC
+#define IRQ_PIN_Pin GPIO_PIN_1
+#define IRQ_PIN_GPIO_Port GPIOC
+#define IRQ_PIN_EXTI_IRQn EXTI1_IRQn
 #define RESPONSE_PIN_Pin GPIO_PIN_2
 #define RESPONSE_PIN_GPIO_Port GPIOC
 #define B1_Pin GPIO_PIN_4
@@ -75,6 +78,8 @@ void Error_Handler(void);
 #define B3_GPIO_Port GPIOD
 #define JTDO_Pin GPIO_PIN_3
 #define JTDO_GPIO_Port GPIOB
+#define CHIP_SELECT_Pin GPIO_PIN_4
+#define CHIP_SELECT_GPIO_Port GPIOB
 #define LD1_Pin GPIO_PIN_5
 #define LD1_GPIO_Port GPIOB
 #define RECEIVE_READY_Pin GPIO_PIN_6
