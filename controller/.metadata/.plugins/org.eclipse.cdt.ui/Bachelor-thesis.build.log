@@ -1,4 +1,4 @@
-10:40:11 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+11:09:33 **** Build of configuration Debug for project Bachelor-thesis ****
 make -j12 all 
 arm-none-eabi-size   Bachelor-thesis.elf 
    text	   data	    bss	    dec	    hex	filename
@@ -6,5 +6,5 @@ arm-none-eabi-size   Bachelor-thesis.elf
 Finished building: default.size.stdout
  
 
-10:40:12 Build Finished. 0 errors, 0 warnings. (took 250ms)
+11:09:33 Build Finished. 0 errors, 0 warnings. (took 227ms)
 
