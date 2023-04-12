@@ -40,9 +40,9 @@
 
 #define GREEN_LED GPIO_PIN_0
 
-#define SLEEP_TIME_ADDR 1
-#define RUN_AMOUNT_ADDR 2
-#define TEST_MODE_ADDR	3
+uint8_t SLEEP_TIME_ADDR =  1;
+uint8_t RUN_AMOUNT_ADDR = 2;
+uint8_t TEST_MODE_ADDR	= 3;
 
 /* USER CODE END PD */
 
@@ -130,13 +130,22 @@ void lightsleep_test(uint32_t interval_in_ms, uint32_t amount_of_loops)
     {
         // Assuming you have initialized TIMER_PIN, change the pin name accordingly
         send_start_signal();
+        HAL_TIM_Base_Start_IT(&htim2);
+        HAL_SuspendTick();
+        HAL_PWR_EnterSTOPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
 
-        // Delay using HAL_Delay which puts the CPU in sleep mode while waiting
-        HAL_Delay(interval_in_ms);
-        //HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFID);
-        send_stop_signal();
         run_counter++;
     }
+}
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+	if (htim->Instance == TIM2){
+		HAL_ResumeTick();
+		SystemClock_Config();
+		send_stop_signal();
+		HAL_TIM_Base_Stop_IT(&htim2);
+		HAL_Delay(10);
+	}
 }
 
 void lightsleep_test_interrupt(uint32_t amount_of_runs){
@@ -241,20 +250,23 @@ _Bool recieve16Bit(uint16_t *readInto){
 	return false;
 }
 void send_settings_spi(uint16_t sleep_time, uint16_t run_amount, uint16_t run_type){
-
-	HAL_StatusTypeDef sendSleepTimeReady = HAL_SPI_Transmit(&hspi1, (uint8_t*)SLEEP_TIME_ADDR, 1, 10);
+	uint16_t var = 32;
+	HAL_StatusTypeDef sendSleepTimeReady = HAL_SPI_Transmit(&hspi1, &SLEEP_TIME_ADDR, 1, 10);
 	if(sendSleepTimeReady == HAL_OK){
 		if(!send16Bit(&sleep_time)){
 			printf("COULD NOT SEND SLEEP TIME");
 		}
 	}
-	HAL_StatusTypeDef sendRunAmountReady = HAL_SPI_Transmit(&hspi1, (uint8_t*)RUN_AMOUNT_ADDR, 1, 10);
+	else{
+		//
+	}
+	HAL_StatusTypeDef sendRunAmountReady = HAL_SPI_Transmit(&hspi1, &RUN_AMOUNT_ADDR, 1, 10);
 	if(sendRunAmountReady == HAL_OK){
 		if(!send16Bit(&run_amount)){
 			printf("COULD NOT SEND RUN AMOUNT");
 		}
 	}
-	HAL_StatusTypeDef sendRunTypeReady = HAL_SPI_Transmit(&hspi1, (uint8_t*)TEST_MODE_ADDR, 1, 10);
+	HAL_StatusTypeDef sendRunTypeReady = HAL_SPI_Transmit(&hspi1, &TEST_MODE_ADDR, 1, 10);
 	if(sendRunTypeReady == HAL_OK){
 		if(!send16Bit(&run_type)){
 			printf("COULD NOT SEND RUN TYPE");
@@ -326,13 +338,8 @@ int main(void)
   MX_SPI1_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-
-
-
-
-  // Reset the MCU to simulate sys.exit() behavior
-  //NVIC_SystemReset();
-
+  HAL_NVIC_SetPriority(TIM2_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(TIM2_IRQn);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -345,6 +352,7 @@ int main(void)
 	 while(!finished)
 	 {
 		 send_settings_spi(1000, 10, 0);
+		 HAL_Delay(10);
 		 lightsleep_test(1000, 10);
 		 uint16_t *data = receive_data_SPI(10);
 	     // Free the allocated memory for received_data
@@ -481,9 +489,9 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 32-1;
+  htim2.Init.Prescaler = 32000-1;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 4294967295;
+  htim2.Init.Period = 1000-1;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
@@ -502,7 +510,6 @@ static void MX_TIM2_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN TIM2_Init 2 */
-
   /* USER CODE END TIM2_Init 2 */
 
 }
@@ -606,14 +613,14 @@ void deepsleep_test(uint32_t interval_in_ms){
 	HAL_PWR_EnterSTANDBYMode();
 }
 
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
-
-	if (GPIO_Pin == RESPONSE_PIN_Pin){
-		 HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_SET);
-		 HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_RESET);
-		 captures += 1;
-	}
-}
+//void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+//
+//	if (GPIO_Pin == RESPONSE_PIN_Pin){
+//		 HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_SET);
+//		 HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_RESET);
+//		 captures += 1;
+//	}
+//}
 
 /* USER CODE END 4 */
 

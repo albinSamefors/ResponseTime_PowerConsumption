@@ -1,4 +1,164 @@
-14:59:46 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+14:12:10 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'load_and_print_data':
+../Core/Src/main.c:109:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  109 |     printf("Amount of collected data:       %d\n", len);
+      |                                             ~^     ~~~
+      |                                              |     |
+      |                                              int   uint32_t {aka long unsigned int}
+      |                                             %ld
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:174:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                  ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                   |                    |
+      |                                                                   int                  uint32_t {aka long unsigned int}
+      |                                                                  %ld
+../Core/Src/main.c:180:12: warning: unused variable 'cycles' [-Wunused-variable]
+  180 |  uint32_t *cycles = test(sleep_interval_ms, data_per_run);
+      |            ^~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:215:73: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                        ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                         |                    |
+      |                                                                         int                  uint32_t {aka long unsigned int}
+      |                                                                        %ld
+../Core/Src/main.c: In function 'send_settings_spi':
+../Core/Src/main.c:252:11: warning: unused variable 'var' [-Wunused-variable]
+  252 |  uint16_t var = 32;
+      |           ^~~
+../Core/Src/main.c: In function 'lightsleep_blinky_test':
+../Core/Src/main.c:595:11: warning: variable 'results' set but not used [-Wunused-but-set-variable]
+  595 |  uint32_t results[amount_of_loops];
+      |           ^~~~~~~
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:174:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                               ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:174:21: note: using the range [-2147483648, 2147483647] for directive argument
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:174:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:215:53: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 7 and 28 [-Wformat-overflow=]
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                     ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:215:28: note: using the range [-2147483648, 2147483647] for directive argument
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:215:9: note: 'sprintf' output between 48 and 98 bytes into a destination of size 50
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bachelor-thesis.elf
+ 
+arm-none-eabi-size   Bachelor-thesis.elf 
+arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
+   text	   data	    bss	    dec	    hex	filename
+  33228	    488	   1768	  35484	   8a9c	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bachelor-thesis.list
+ 
+14:12:14 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33228	    488	   1768	  35484	   8a9c	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+14:13:01 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33228	    488	   1768	  35484	   8a9c	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+14:13:35 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33228	    488	   1768	  35484	   8a9c	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+14:22:09 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33228	    488	   1768	  35484	   8a9c	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+14:33:37 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'load_and_print_data':
+../Core/Src/main.c:109:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  109 |     printf("Amount of collected data:       %d\n", len);
+      |                                             ~^     ~~~
+      |                                              |     |
+      |                                              int   uint32_t {aka long unsigned int}
+      |                                             %ld
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:174:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                  ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                   |                    |
+      |                                                                   int                  uint32_t {aka long unsigned int}
+      |                                                                  %ld
+../Core/Src/main.c:180:12: warning: unused variable 'cycles' [-Wunused-variable]
+  180 |  uint32_t *cycles = test(sleep_interval_ms, data_per_run);
+      |            ^~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:215:73: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                        ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                         |                    |
+      |                                                                         int                  uint32_t {aka long unsigned int}
+      |                                                                        %ld
+../Core/Src/main.c: In function 'send_settings_spi':
+../Core/Src/main.c:252:11: warning: unused variable 'var' [-Wunused-variable]
+  252 |  uint16_t var = 32;
+      |           ^~~
+../Core/Src/main.c: In function 'lightsleep_blinky_test':
+../Core/Src/main.c:595:11: warning: variable 'results' set but not used [-Wunused-but-set-variable]
+  595 |  uint32_t results[amount_of_loops];
+      |           ^~~~~~~
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:174:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                               ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:174:21: note: using the range [-2147483648, 2147483647] for directive argument
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:174:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:215:53: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 7 and 28 [-Wformat-overflow=]
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                     ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:215:28: note: using the range [-2147483648, 2147483647] for directive argument
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:215:9: note: 'sprintf' output between 48 and 98 bytes into a destination of size 50
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bachelor-thesis.elf
+ 
+arm-none-eabi-size   Bachelor-thesis.elf 
+arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
+   text	   data	    bss	    dec	    hex	filename
+  33188	    488	   1768	  35444	   8a74	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bachelor-thesis.list
+ 
+14:39:52 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
 make -j8 all 
 arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.o"
 arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.o"
@@ -13,64 +173,66 @@ arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr.c" -mcp
 arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.o"
 arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.o"
 arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.o"
-arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc.o"
-arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rtc_ex.o"
 arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi.o"
 arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi_ex.o"
 arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim.o"
 arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim_ex.o"
 arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_ll_rcc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_ll_rcc.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_ll_rcc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_ll_rcc.o"
-arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32wb55rgvx.d" -MT"Core/Startup/startup_stm32wb55rgvx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32wb55rgvx.o" "../Core/Startup/startup_stm32wb55rgvx.s"
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 arm-none-eabi-gcc "../Core/Src/stm32wbxx_hal_msp.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32wbxx_hal_msp.d" -MT"Core/Src/stm32wbxx_hal_msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32wbxx_hal_msp.o"
 arm-none-eabi-gcc "../Core/Src/stm32wbxx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32wbxx_it.d" -MT"Core/Src/stm32wbxx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32wbxx_it.o"
-arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
-arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../Core/Src/system_stm32wbxx.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/system_stm32wbxx.d" -MT"Core/Src/system_stm32wbxx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/system_stm32wbxx.o"
 ../Core/Src/main.c: In function 'load_and_print_data':
-../Core/Src/main.c:112:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  112 |     printf("Amount of collected data:       %d\n", len);
+../Core/Src/main.c:109:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  109 |     printf("Amount of collected data:       %d\n", len);
       |                                             ~^     ~~~
       |                                              |     |
       |                                              int   uint32_t {aka long unsigned int}
       |                                             %ld
 ../Core/Src/main.c: In function 'lightsleep_test_runner':
-../Core/Src/main.c:169:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  169 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+../Core/Src/main.c:174:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
       |                                                                  ~^                    ~~~~~~~~~~~~~~~~~
       |                                                                   |                    |
       |                                                                   int                  uint32_t {aka long unsigned int}
       |                                                                  %ld
-arm-none-eabi-gcc "../Core/Src/system_stm32wbxx.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/system_stm32wbxx.d" -MT"Core/Src/system_stm32wbxx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/system_stm32wbxx.o"
+../Core/Src/main.c:180:12: warning: unused variable 'cycles' [-Wunused-variable]
+  180 |  uint32_t *cycles = test(sleep_interval_ms, data_per_run);
+      |            ^~~~~~
 ../Core/Src/main.c: In function 'deepsleep_test_runner':
-../Core/Src/main.c:210:73: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  210 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+../Core/Src/main.c:215:73: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
       |                                                                        ~^                    ~~~~~~~~~~~~~~~~~
       |                                                                         |                    |
       |                                                                         int                  uint32_t {aka long unsigned int}
       |                                                                        %ld
+../Core/Src/main.c: In function 'send_settings_spi':
+../Core/Src/main.c:252:11: warning: unused variable 'var' [-Wunused-variable]
+  252 |  uint16_t var = 32;
+      |           ^~~
 ../Core/Src/main.c: In function 'lightsleep_blinky_test':
-../Core/Src/main.c:669:11: warning: variable 'results' set but not used [-Wunused-but-set-variable]
-  669 |  uint32_t results[amount_of_loops];
+../Core/Src/main.c:595:11: warning: variable 'results' set but not used [-Wunused-but-set-variable]
+  595 |  uint32_t results[amount_of_loops];
       |           ^~~~~~~
 ../Core/Src/main.c: In function 'lightsleep_test_runner':
-../Core/Src/main.c:169:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
-  169 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+../Core/Src/main.c:174:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
       |                                               ^~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:169:21: note: using the range [-2147483648, 2147483647] for directive argument
-  169 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+../Core/Src/main.c:174:21: note: using the range [-2147483648, 2147483647] for directive argument
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
       |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:169:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
-  169 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+../Core/Src/main.c:174:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
       |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ../Core/Src/main.c: In function 'deepsleep_test_runner':
-../Core/Src/main.c:210:53: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 7 and 28 [-Wformat-overflow=]
-  210 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+../Core/Src/main.c:215:53: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 7 and 28 [-Wformat-overflow=]
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
       |                                                     ^~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:210:28: note: using the range [-2147483648, 2147483647] for directive argument
-  210 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+../Core/Src/main.c:215:28: note: using the range [-2147483648, 2147483647] for directive argument
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
       |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:210:9: note: 'sprintf' output between 48 and 98 bytes into a destination of size 50
-  210 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+../Core/Src/main.c:215:9: note: 'sprintf' output between 48 and 98 bytes into a destination of size 50
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
       |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: Bachelor-thesis.elf
@@ -78,7 +240,633 @@ Finished building target: Bachelor-thesis.elf
 arm-none-eabi-size   Bachelor-thesis.elf 
 arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
    text	   data	    bss	    dec	    hex	filename
-  34432	    484	   1804	  36720	   8f70	Bachelor-thesis.elf
+  33204	    488	   1768	  35460	   8a84	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bachelor-thesis.list
+ 
+14:44:25 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'load_and_print_data':
+../Core/Src/main.c:109:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  109 |     printf("Amount of collected data:       %d\n", len);
+      |                                             ~^     ~~~
+      |                                              |     |
+      |                                              int   uint32_t {aka long unsigned int}
+      |                                             %ld
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:174:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                  ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                   |                    |
+      |                                                                   int                  uint32_t {aka long unsigned int}
+      |                                                                  %ld
+../Core/Src/main.c:180:12: warning: unused variable 'cycles' [-Wunused-variable]
+  180 |  uint32_t *cycles = test(sleep_interval_ms, data_per_run);
+      |            ^~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:215:73: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                        ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                         |                    |
+      |                                                                         int                  uint32_t {aka long unsigned int}
+      |                                                                        %ld
+../Core/Src/main.c: In function 'send_settings_spi':
+../Core/Src/main.c:252:11: warning: unused variable 'var' [-Wunused-variable]
+  252 |  uint16_t var = 32;
+      |           ^~~
+../Core/Src/main.c: In function 'lightsleep_blinky_test':
+../Core/Src/main.c:595:11: warning: variable 'results' set but not used [-Wunused-but-set-variable]
+  595 |  uint32_t results[amount_of_loops];
+      |           ^~~~~~~
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:174:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                               ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:174:21: note: using the range [-2147483648, 2147483647] for directive argument
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:174:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:215:53: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 7 and 28 [-Wformat-overflow=]
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                     ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:215:28: note: using the range [-2147483648, 2147483647] for directive argument
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:215:9: note: 'sprintf' output between 48 and 98 bytes into a destination of size 50
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bachelor-thesis.elf
+ 
+arm-none-eabi-size   Bachelor-thesis.elf 
+arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
+   text	   data	    bss	    dec	    hex	filename
+  33204	    488	   1768	  35460	   8a84	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bachelor-thesis.list
+ 
+14:46:59 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33204	    488	   1768	  35460	   8a84	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+14:47:16 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33204	    488	   1768	  35460	   8a84	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+14:47:46 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33204	    488	   1768	  35460	   8a84	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+14:50:31 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_exti.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_exti.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_exti.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_exti.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_gpio.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_gpio.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_gpio.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_gpio.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_hsem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_hsem.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_hsem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_hsem.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_ll_rcc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_ll_rcc.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_ll_rcc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_ll_rcc.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32wbxx_hal_msp.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32wbxx_hal_msp.d" -MT"Core/Src/stm32wbxx_hal_msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32wbxx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/stm32wbxx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32wbxx_it.d" -MT"Core/Src/stm32wbxx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32wbxx_it.o"
+arm-none-eabi-gcc "../Core/Src/system_stm32wbxx.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/system_stm32wbxx.d" -MT"Core/Src/system_stm32wbxx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/system_stm32wbxx.o"
+../Core/Src/main.c: In function 'load_and_print_data':
+../Core/Src/main.c:109:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  109 |     printf("Amount of collected data:       %d\n", len);
+      |                                             ~^     ~~~
+      |                                              |     |
+      |                                              int   uint32_t {aka long unsigned int}
+      |                                             %ld
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:174:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                  ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                   |                    |
+      |                                                                   int                  uint32_t {aka long unsigned int}
+      |                                                                  %ld
+../Core/Src/main.c:180:12: warning: unused variable 'cycles' [-Wunused-variable]
+  180 |  uint32_t *cycles = test(sleep_interval_ms, data_per_run);
+      |            ^~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:215:73: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                        ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                         |                    |
+      |                                                                         int                  uint32_t {aka long unsigned int}
+      |                                                                        %ld
+../Core/Src/main.c: In function 'send_settings_spi':
+../Core/Src/main.c:252:11: warning: unused variable 'var' [-Wunused-variable]
+  252 |  uint16_t var = 32;
+      |           ^~~
+../Core/Src/main.c: In function 'lightsleep_blinky_test':
+../Core/Src/main.c:595:11: warning: variable 'results' set but not used [-Wunused-but-set-variable]
+  595 |  uint32_t results[amount_of_loops];
+      |           ^~~~~~~
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:174:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                               ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:174:21: note: using the range [-2147483648, 2147483647] for directive argument
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:174:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:215:53: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 7 and 28 [-Wformat-overflow=]
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                     ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:215:28: note: using the range [-2147483648, 2147483647] for directive argument
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:215:9: note: 'sprintf' output between 48 and 98 bytes into a destination of size 50
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bachelor-thesis.elf
+ 
+arm-none-eabi-size   Bachelor-thesis.elf 
+arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
+   text	   data	    bss	    dec	    hex	filename
+  33204	    488	   1768	  35460	   8a84	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bachelor-thesis.list
+ 
+14:50:38 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33204	    488	   1768	  35460	   8a84	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+14:52:09 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'load_and_print_data':
+../Core/Src/main.c:109:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  109 |     printf("Amount of collected data:       %d\n", len);
+      |                                             ~^     ~~~
+      |                                              |     |
+      |                                              int   uint32_t {aka long unsigned int}
+      |                                             %ld
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:174:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                  ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                   |                    |
+      |                                                                   int                  uint32_t {aka long unsigned int}
+      |                                                                  %ld
+../Core/Src/main.c:180:12: warning: unused variable 'cycles' [-Wunused-variable]
+  180 |  uint32_t *cycles = test(sleep_interval_ms, data_per_run);
+      |            ^~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:215:73: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                        ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                         |                    |
+      |                                                                         int                  uint32_t {aka long unsigned int}
+      |                                                                        %ld
+../Core/Src/main.c: In function 'send_settings_spi':
+../Core/Src/main.c:252:11: warning: unused variable 'var' [-Wunused-variable]
+  252 |  uint16_t var = 32;
+      |           ^~~
+../Core/Src/main.c: In function 'lightsleep_blinky_test':
+../Core/Src/main.c:594:11: warning: variable 'results' set but not used [-Wunused-but-set-variable]
+  594 |  uint32_t results[amount_of_loops];
+      |           ^~~~~~~
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:174:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                               ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:174:21: note: using the range [-2147483648, 2147483647] for directive argument
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:174:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:215:53: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 7 and 28 [-Wformat-overflow=]
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                     ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:215:28: note: using the range [-2147483648, 2147483647] for directive argument
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:215:9: note: 'sprintf' output between 48 and 98 bytes into a destination of size 50
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bachelor-thesis.elf
+ 
+arm-none-eabi-size   Bachelor-thesis.elf 
+arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
+   text	   data	    bss	    dec	    hex	filename
+  33188	    488	   1768	  35444	   8a74	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bachelor-thesis.list
+ 
+14:52:32 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33188	    488	   1768	  35444	   8a74	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+14:53:25 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33188	    488	   1768	  35444	   8a74	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+14:53:43 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33188	    488	   1768	  35444	   8a74	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+14:55:17 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'load_and_print_data':
+../Core/Src/main.c:109:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  109 |     printf("Amount of collected data:       %d\n", len);
+      |                                             ~^     ~~~
+      |                                              |     |
+      |                                              int   uint32_t {aka long unsigned int}
+      |                                             %ld
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:174:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                  ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                   |                    |
+      |                                                                   int                  uint32_t {aka long unsigned int}
+      |                                                                  %ld
+../Core/Src/main.c:180:12: warning: unused variable 'cycles' [-Wunused-variable]
+  180 |  uint32_t *cycles = test(sleep_interval_ms, data_per_run);
+      |            ^~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:215:73: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                        ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                         |                    |
+      |                                                                         int                  uint32_t {aka long unsigned int}
+      |                                                                        %ld
+../Core/Src/main.c: In function 'send_settings_spi':
+../Core/Src/main.c:252:11: warning: unused variable 'var' [-Wunused-variable]
+  252 |  uint16_t var = 32;
+      |           ^~~
+../Core/Src/main.c: In function 'lightsleep_blinky_test':
+../Core/Src/main.c:594:11: warning: variable 'results' set but not used [-Wunused-but-set-variable]
+  594 |  uint32_t results[amount_of_loops];
+      |           ^~~~~~~
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:174:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                               ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:174:21: note: using the range [-2147483648, 2147483647] for directive argument
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:174:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
+  174 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:215:53: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 7 and 28 [-Wformat-overflow=]
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                     ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:215:28: note: using the range [-2147483648, 2147483647] for directive argument
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:215:9: note: 'sprintf' output between 48 and 98 bytes into a destination of size 50
+  215 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bachelor-thesis.elf
+ 
+arm-none-eabi-size   Bachelor-thesis.elf 
+arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
+   text	   data	    bss	    dec	    hex	filename
+  33188	    488	   1768	  35444	   8a74	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bachelor-thesis.list
+ 
+14:58:34 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'load_and_print_data':
+../Core/Src/main.c:109:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  109 |     printf("Amount of collected data:       %d\n", len);
+      |                                             ~^     ~~~
+      |                                              |     |
+      |                                              int   uint32_t {aka long unsigned int}
+      |                                             %ld
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:176:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  176 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                  ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                   |                    |
+      |                                                                   int                  uint32_t {aka long unsigned int}
+      |                                                                  %ld
+../Core/Src/main.c:182:12: warning: unused variable 'cycles' [-Wunused-variable]
+  182 |  uint32_t *cycles = test(sleep_interval_ms, data_per_run);
+      |            ^~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:217:73: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  217 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                        ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                         |                    |
+      |                                                                         int                  uint32_t {aka long unsigned int}
+      |                                                                        %ld
+../Core/Src/main.c: In function 'send_settings_spi':
+../Core/Src/main.c:254:11: warning: unused variable 'var' [-Wunused-variable]
+  254 |  uint16_t var = 32;
+      |           ^~~
+../Core/Src/main.c: In function 'lightsleep_blinky_test':
+../Core/Src/main.c:596:11: warning: variable 'results' set but not used [-Wunused-but-set-variable]
+  596 |  uint32_t results[amount_of_loops];
+      |           ^~~~~~~
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:176:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
+  176 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                               ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:176:21: note: using the range [-2147483648, 2147483647] for directive argument
+  176 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:176:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
+  176 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:217:53: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 7 and 28 [-Wformat-overflow=]
+  217 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                     ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:217:28: note: using the range [-2147483648, 2147483647] for directive argument
+  217 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:217:9: note: 'sprintf' output between 48 and 98 bytes into a destination of size 50
+  217 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bachelor-thesis.elf
+ 
+arm-none-eabi-size   Bachelor-thesis.elf 
+arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
+   text	   data	    bss	    dec	    hex	filename
+  33260	    488	   1768	  35516	   8abc	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bachelor-thesis.list
+ 
+15:01:48 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'load_and_print_data':
+../Core/Src/main.c:109:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  109 |     printf("Amount of collected data:       %d\n", len);
+      |                                             ~^     ~~~
+      |                                              |     |
+      |                                              int   uint32_t {aka long unsigned int}
+      |                                             %ld
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:176:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  176 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                  ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                   |                    |
+      |                                                                   int                  uint32_t {aka long unsigned int}
+      |                                                                  %ld
+../Core/Src/main.c:182:12: warning: unused variable 'cycles' [-Wunused-variable]
+  182 |  uint32_t *cycles = test(sleep_interval_ms, data_per_run);
+      |            ^~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:217:73: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  217 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                        ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                         |                    |
+      |                                                                         int                  uint32_t {aka long unsigned int}
+      |                                                                        %ld
+../Core/Src/main.c: In function 'send_settings_spi':
+../Core/Src/main.c:254:11: warning: unused variable 'var' [-Wunused-variable]
+  254 |  uint16_t var = 32;
+      |           ^~~
+../Core/Src/main.c: In function 'lightsleep_blinky_test':
+../Core/Src/main.c:596:11: warning: variable 'results' set but not used [-Wunused-but-set-variable]
+  596 |  uint32_t results[amount_of_loops];
+      |           ^~~~~~~
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:176:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
+  176 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                               ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:176:21: note: using the range [-2147483648, 2147483647] for directive argument
+  176 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:176:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
+  176 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:217:53: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 7 and 28 [-Wformat-overflow=]
+  217 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                     ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:217:28: note: using the range [-2147483648, 2147483647] for directive argument
+  217 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:217:9: note: 'sprintf' output between 48 and 98 bytes into a destination of size 50
+  217 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bachelor-thesis.elf
+ 
+arm-none-eabi-size   Bachelor-thesis.elf 
+arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
+   text	   data	    bss	    dec	    hex	filename
+  33292	    488	   1768	  35548	   8adc	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bachelor-thesis.list
+ 
+15:03:19 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33292	    488	   1768	  35548	   8adc	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+15:05:37 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_cortex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_dma_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_exti.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_exti.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_exti.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_exti.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_flash_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_gpio.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_gpio.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_gpio.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_gpio.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_hsem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_hsem.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_hsem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_hsem.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_pwr_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_rcc_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim_ex.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_tim_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_ll_rcc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_ll_rcc.d" -MT"Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_ll_rcc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_ll_rcc.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32wbxx_hal_msp.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32wbxx_hal_msp.d" -MT"Core/Src/stm32wbxx_hal_msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32wbxx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/stm32wbxx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32wbxx_it.d" -MT"Core/Src/stm32wbxx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32wbxx_it.o"
+arm-none-eabi-gcc "../Core/Src/system_stm32wbxx.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/system_stm32wbxx.d" -MT"Core/Src/system_stm32wbxx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/system_stm32wbxx.o"
+../Core/Src/main.c: In function 'load_and_print_data':
+../Core/Src/main.c:109:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  109 |     printf("Amount of collected data:       %d\n", len);
+      |                                             ~^     ~~~
+      |                                              |     |
+      |                                              int   uint32_t {aka long unsigned int}
+      |                                             %ld
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:176:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  176 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                  ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                   |                    |
+      |                                                                   int                  uint32_t {aka long unsigned int}
+      |                                                                  %ld
+../Core/Src/main.c:182:12: warning: unused variable 'cycles' [-Wunused-variable]
+  182 |  uint32_t *cycles = test(sleep_interval_ms, data_per_run);
+      |            ^~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:217:73: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  217 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                        ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                         |                    |
+      |                                                                         int                  uint32_t {aka long unsigned int}
+      |                                                                        %ld
+../Core/Src/main.c: In function 'send_settings_spi':
+../Core/Src/main.c:254:11: warning: unused variable 'var' [-Wunused-variable]
+  254 |  uint16_t var = 32;
+      |           ^~~
+../Core/Src/main.c: In function 'lightsleep_blinky_test':
+../Core/Src/main.c:596:11: warning: variable 'results' set but not used [-Wunused-but-set-variable]
+  596 |  uint32_t results[amount_of_loops];
+      |           ^~~~~~~
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:176:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
+  176 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                               ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:176:21: note: using the range [-2147483648, 2147483647] for directive argument
+  176 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:176:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
+  176 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:217:53: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 7 and 28 [-Wformat-overflow=]
+  217 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                     ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:217:28: note: using the range [-2147483648, 2147483647] for directive argument
+  217 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:217:9: note: 'sprintf' output between 48 and 98 bytes into a destination of size 50
+  217 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bachelor-thesis.elf
+ 
+arm-none-eabi-size   Bachelor-thesis.elf 
+arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
+   text	   data	    bss	    dec	    hex	filename
+  33292	    488	   1768	  35548	   8adc	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bachelor-thesis.list
+ 
+15:08:50 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'load_and_print_data':
+../Core/Src/main.c:109:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  109 |     printf("Amount of collected data:       %d\n", len);
+      |                                             ~^     ~~~
+      |                                              |     |
+      |                                              int   uint32_t {aka long unsigned int}
+      |                                             %ld
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:175:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  175 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                  ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                   |                    |
+      |                                                                   int                  uint32_t {aka long unsigned int}
+      |                                                                  %ld
+../Core/Src/main.c:181:12: warning: unused variable 'cycles' [-Wunused-variable]
+  181 |  uint32_t *cycles = test(sleep_interval_ms, data_per_run);
+      |            ^~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:216:73: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  216 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                                        ~^                    ~~~~~~~~~~~~~~~~~
+      |                                                                         |                    |
+      |                                                                         int                  uint32_t {aka long unsigned int}
+      |                                                                        %ld
+../Core/Src/main.c: In function 'send_settings_spi':
+../Core/Src/main.c:253:11: warning: unused variable 'var' [-Wunused-variable]
+  253 |  uint16_t var = 32;
+      |           ^~~
+../Core/Src/main.c: In function 'lightsleep_blinky_test':
+../Core/Src/main.c:595:11: warning: variable 'results' set but not used [-Wunused-but-set-variable]
+  595 |  uint32_t results[amount_of_loops];
+      |           ^~~~~~~
+../Core/Src/main.c: In function 'lightsleep_test_runner':
+../Core/Src/main.c:175:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
+  175 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                               ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:175:21: note: using the range [-2147483648, 2147483647] for directive argument
+  175 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:175:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
+  175 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'deepsleep_test_runner':
+../Core/Src/main.c:216:53: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 7 and 28 [-Wformat-overflow=]
+  216 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                                                     ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:216:28: note: using the range [-2147483648, 2147483647] for directive argument
+  216 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:216:9: note: 'sprintf' output between 48 and 98 bytes into a destination of size 50
+  216 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bachelor-thesis.elf
+ 
+arm-none-eabi-size   Bachelor-thesis.elf 
+arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
+   text	   data	    bss	    dec	    hex	filename
+  33292	    488	   1768	  35548	   8adc	Bachelor-thesis.elf
 Finished building: default.size.stdout
  
 Finished building: Bachelor-thesis.list
