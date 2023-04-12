@@ -1,65 +1,10 @@
-09:05:06 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+10:40:11 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
 make -j12 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'load_and_print_data':
-../Core/Src/main.c:111:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  111 |     printf("Amount of collected data:       %d\n", len);
-      |                                             ~^     ~~~
-      |                                              |     |
-      |                                              int   uint32_t {aka long unsigned int}
-      |                                             %ld
-../Core/Src/main.c: In function 'lightsleep_test_runner':
-../Core/Src/main.c:168:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  168 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                                  ~^                    ~~~~~~~~~~~~~~~~~
-      |                                                                   |                    |
-      |                                                                   int                  uint32_t {aka long unsigned int}
-      |                                                                  %ld
-../Core/Src/main.c:174:12: warning: unused variable 'cycles' [-Wunused-variable]
-  174 |  uint32_t *cycles = test(sleep_interval_ms, data_per_run);
-      |            ^~~~~~
-../Core/Src/main.c: In function 'deepsleep_test_runner':
-../Core/Src/main.c:209:73: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  209 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                                        ~^                    ~~~~~~~~~~~~~~~~~
-      |                                                                         |                    |
-      |                                                                         int                  uint32_t {aka long unsigned int}
-      |                                                                        %ld
-../Core/Src/main.c: In function 'lightsleep_blinky_test':
-../Core/Src/main.c:673:11: warning: variable 'results' set but not used [-Wunused-but-set-variable]
-  673 |  uint32_t results[amount_of_loops];
-      |           ^~~~~~~
-../Core/Src/main.c: In function 'lightsleep_test_runner':
-../Core/Src/main.c:168:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
-  168 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                               ^~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:168:21: note: using the range [-2147483648, 2147483647] for directive argument
-  168 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:168:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
-  168 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c: In function 'deepsleep_test_runner':
-../Core/Src/main.c:209:53: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 7 and 28 [-Wformat-overflow=]
-  209 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                     ^~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:209:28: note: using the range [-2147483648, 2147483647] for directive argument
-  209 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:209:9: note: 'sprintf' output between 48 and 98 bytes into a destination of size 50
-  209 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/albin/Documents/GitHub/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Bachelor-thesis.elf
- 
 arm-none-eabi-size   Bachelor-thesis.elf 
-arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
    text	   data	    bss	    dec	    hex	filename
-  34692	    484	   1804	  36980	   9074	Bachelor-thesis.elf
+  31932	    484	   1772	  34188	   858c	Bachelor-thesis.elf
 Finished building: default.size.stdout
  
-Finished building: Bachelor-thesis.list
- 
 
-09:05:07 Build Finished. 0 errors, 7 warnings. (took 565ms)
+10:40:12 Build Finished. 0 errors, 0 warnings. (took 250ms)
 

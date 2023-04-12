@@ -52,8 +52,6 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-RTC_HandleTypeDef hrtc;
-
 SPI_HandleTypeDef hspi1;
 
 TIM_HandleTypeDef htim2;
@@ -62,6 +60,7 @@ TIM_HandleTypeDef htim2;
 
 volatile uint32_t captures = 0;
 int test = 0;
+_Bool finished = false;
 
 
 /* USER CODE END PV */
@@ -70,7 +69,6 @@ int test = 0;
 void SystemClock_Config(void);
 void PeriphCommonClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_RTC_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
@@ -119,6 +117,10 @@ void send_start_signal(){
 	HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_RESET);
 }
+void send_stop_signal(){
+	HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_RESET);
+}
 
 void lightsleep_test(uint32_t interval_in_ms, uint32_t amount_of_loops)
 {
@@ -127,17 +129,12 @@ void lightsleep_test(uint32_t interval_in_ms, uint32_t amount_of_loops)
     while (run_counter < amount_of_loops)
     {
         // Assuming you have initialized TIMER_PIN, change the pin name accordingly
-        HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_SET);
-        HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_RESET);
+        send_start_signal();
 
         // Delay using HAL_Delay which puts the CPU in sleep mode while waiting
-        //HAL_Delay(interval_in_ms);
-        HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFID);
-
-
-        HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_SET);
-        HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_RESET);
-
+        HAL_Delay(interval_in_ms);
+        //HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFID);
+        send_stop_signal();
         run_counter++;
     }
 }
@@ -188,7 +185,7 @@ void lightsleep_test_runner(uint32_t* (*test)(uint32_t, uint32_t), uint32_t data
 // The test function pointer type
 typedef void(*TestFunc)(void);
 void deepsleep_test_runner(TestFunc test, uint32_t data_per_run, uint32_t sleep_interval_ms){
-	extern RTC_HandleTypeDef hrtc;
+	//extern RTC_HandleTypeDef hrtc;
 
 	// Get the reset cause
 	uint32_t reset_cause = __HAL_RCC_GET_FLAG(RCC_FLAG_SFTRST);
@@ -215,8 +212,8 @@ void deepsleep_test_runner(TestFunc test, uint32_t data_per_run, uint32_t sleep_
 
         // Save data to RTC backup registers
         // Assuming the necessary RTC backup registers are initialized
-        HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR0, data_per_run);
-        HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR1, sleep_interval_ms);
+        //HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR0, data_per_run);
+        //HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR1, sleep_interval_ms);
 
         // Call the test function
         test();
@@ -326,26 +323,15 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_RTC_Init();
   MX_SPI1_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-   printf("SENDING SETTINGS\n");
-   send_settings_spi(1000, 10, 0);
-   printf("SETTINGS SENT, STARTING TESTS\n");
-   lightsleep_test(1000, 10);
-   printf("TESTS FINISHED, FETCHING DATA\n");
 
-   uint16_t *data = receive_data_SPI(10);
-   printf("DATA FETCHED!\n");
-
-   // Free the allocated memory for received_data
-   free(data);
 
 
 
   // Reset the MCU to simulate sys.exit() behavior
-  NVIC_SystemReset();
+  //NVIC_SystemReset();
 
   /* USER CODE END 2 */
 
@@ -356,6 +342,15 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	 while(!finished)
+	 {
+		 send_settings_spi(1000, 10, 0);
+		 lightsleep_test(1000, 10);
+		 uint16_t *data = receive_data_SPI(10);
+	     // Free the allocated memory for received_data
+		 free(data);
+		 finished = true;
+	 }
   }
   /* USER CODE END 3 */
 }
@@ -376,12 +371,10 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSI1
-                              |RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
@@ -430,85 +423,6 @@ void PeriphCommonClock_Config(void)
 }
 
 /**
-  * @brief RTC Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_RTC_Init(void)
-{
-
-  /* USER CODE BEGIN RTC_Init 0 */
-
-  /* USER CODE END RTC_Init 0 */
-
-  RTC_TimeTypeDef sTime = {0};
-  RTC_DateTypeDef sDate = {0};
-
-  /* USER CODE BEGIN RTC_Init 1 */
-
-  /* USER CODE END RTC_Init 1 */
-
-  /** Initialize RTC Only
-  */
-  hrtc.Instance = RTC;
-  hrtc.Init.HourFormat = RTC_HOURFORMAT_24;
-  hrtc.Init.AsynchPrediv = 127;
-  hrtc.Init.SynchPrediv = 255;
-  hrtc.Init.OutPut = RTC_OUTPUT_DISABLE;
-  hrtc.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
-  hrtc.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
-  hrtc.Init.OutPutRemap = RTC_OUTPUT_REMAP_NONE;
-  if (HAL_RTC_Init(&hrtc) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-  /* USER CODE BEGIN Check_RTC_BKUP */
-
-  /* USER CODE END Check_RTC_BKUP */
-
-  /** Initialize RTC and set the Time and Date
-  */
-  sTime.Hours = 0x12;
-  sTime.Minutes = 0x0;
-  sTime.Seconds = 0x0;
-  sTime.SubSeconds = 0x0;
-  sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
-  sTime.StoreOperation = RTC_STOREOPERATION_RESET;
-  if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BCD) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sDate.WeekDay = RTC_WEEKDAY_THURSDAY;
-  sDate.Month = RTC_MONTH_MARCH;
-  sDate.Date = 0x16;
-  sDate.Year = 0x23;
-
-  if (HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BCD) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-  /** Enable the WakeUp
-  */
-  if (HAL_RTCEx_SetWakeUpTimer_IT(&hrtc, 0, RTC_WAKEUPCLOCK_RTCCLK_DIV16) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-  /** Enable the reference Clock input
-  */
-  if (HAL_RTCEx_SetRefClock(&hrtc) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN RTC_Init 2 */
-
-  /* USER CODE END RTC_Init 2 */
-
-}
-
-/**
   * @brief SPI1 Initialization Function
   * @param None
   * @retval None
@@ -527,7 +441,7 @@ static void MX_SPI1_Init(void)
   hspi1.Instance = SPI1;
   hspi1.Init.Mode = SPI_MODE_MASTER;
   hspi1.Init.Direction = SPI_DIRECTION_2LINES;
-  hspi1.Init.DataSize = SPI_DATASIZE_4BIT;
+  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi1.Init.NSS = SPI_NSS_HARD_INPUT;

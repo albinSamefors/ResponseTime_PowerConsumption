@@ -522,7 +522,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, Interrupter_Pin|DeepseepWakeup_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(Interrupter_GPIO_Port, Interrupter_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(DeepseepWakeup_GPIO_Port, DeepseepWakeup_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, LD2_Pin|LD3_Pin|TransmitReady_Pin|LD1_Pin, GPIO_PIN_RESET);
@@ -533,18 +536,25 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(TestStartInput_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : Interrupter_Pin DeepseepWakeup_Pin */
-  GPIO_InitStruct.Pin = Interrupter_Pin|DeepseepWakeup_Pin;
+  /*Configure GPIO pin : Interrupter_Pin */
+  GPIO_InitStruct.Pin = Interrupter_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  HAL_GPIO_Init(Interrupter_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : TestStopInput_Pin */
   GPIO_InitStruct.Pin = TestStopInput_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(TestStopInput_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : DeepseepWakeup_Pin */
+  GPIO_InitStruct.Pin = DeepseepWakeup_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(DeepseepWakeup_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : LD2_Pin LD3_Pin TransmitReady_Pin LD1_Pin */
   GPIO_InitStruct.Pin = LD2_Pin|LD3_Pin|TransmitReady_Pin|LD1_Pin;
