@@ -27,6 +27,8 @@
 #include <stdbool.h>
 #include <time.h>
 #include <stdlib.h>
+#include "stm32wbxx_hal_rtc.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -52,9 +54,9 @@ uint8_t TEST_MODE_ADDR	= 3;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-SPI_HandleTypeDef hspi1;
+RTC_HandleTypeDef hrtc;
 
-TIM_HandleTypeDef htim2;
+SPI_HandleTypeDef hspi1;
 
 /* USER CODE BEGIN PV */
 
@@ -70,7 +72,7 @@ void SystemClock_Config(void);
 void PeriphCommonClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_SPI1_Init(void);
-static void MX_TIM2_Init(void);
+static void MX_RTC_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -122,30 +124,60 @@ void send_stop_signal(){
 	HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_RESET);
 }
 
-void lightsleep_test(uint32_t interval_in_ms, uint32_t amount_of_loops)
+void stop_mode_with_rtc_wakeup(uint32_t wakeup_interval_ms, uint32_t wakeup_count)
 {
     uint32_t run_counter = 0;
-    HAL_SuspendTick();
-    HAL_TIM_Base_Init(&htim2);
-    while (run_counter < amount_of_loops)
+
+    // Convert the interval from milliseconds to RTC clock ticks
+    float multiplier = 1/0.488;
+    uint32_t interval = wakeup_interval_ms * multiplier;
+
+    while (run_counter < wakeup_count)
     {
-        // Assuming you have initialized TIMER_PIN, change the pin name accordingly
         send_start_signal();
-        HAL_TIM_Base_Start_IT(&htim2);
-        HAL_PWR_EnterSTOPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+
+        // Enter Stop mode
+        HAL_SuspendTick();
+        // Configure the RTC Wake-up timer
+        HAL_RTCEx_SetWakeUpTimer_IT(&hrtc, interval, RTC_WAKEUPCLOCK_RTCCLK_DIV16);
+        HAL_PWREx_EnterSTOP2Mode(PWR_SLEEPENTRY_WFI);
+
+        // Disable the RTC Wake-up timer
+        HAL_RTCEx_DeactivateWakeUpTimer(&hrtc);
+        SystemClock_Config(); // Reconfigure the system clock after waking up
+
+        // Wake up from Stop mode
+        HAL_ResumeTick();
+
+        send_stop_signal();
+        HAL_Delay(10);
+
         run_counter++;
     }
 }
 
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	if (htim->Instance == TIM2){
-		HAL_ResumeTick();
-		SystemClock_Config();
-		send_stop_signal();
-		HAL_TIM_Base_Stop_IT(&htim2);
-		HAL_Delay(10);
-	}
-}
+//void lightsleep_test(uint32_t interval_in_ms, uint32_t amount_of_loops)
+//{
+//    uint32_t run_counter = 0;
+//    while (run_counter < amount_of_loops)
+//    {
+//        // Assuming you have initialized TIMER_PIN, change the pin name accordingly
+//        send_start_signal();
+//        HAL_PWR_EnterSTOPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+//        run_counter++;
+//    }
+//}
+
+//void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+//	if (htim->Instance == TIM2){
+//		__HAL_TIM_CLEAR_FLAG(htim, TIM_FLAG_UPDATE);
+//		HAL_ResumeTick();
+//		SystemClock_Config();
+//		send_stop_signal();
+//		HAL_TIM_Base_Stop_IT(&htim2);
+//		HAL_Delay(10);
+//	}
+//}
 
 void lightsleep_test_interrupt(uint32_t amount_of_runs){
     while(1){
@@ -249,7 +281,6 @@ _Bool recieve16Bit(uint16_t *readInto){
 	return false;
 }
 void send_settings_spi(uint16_t sleep_time, uint16_t run_amount, uint16_t run_type){
-	uint16_t var = 32;
 	HAL_StatusTypeDef sendSleepTimeReady = HAL_SPI_Transmit(&hspi1, &SLEEP_TIME_ADDR, 1, 10);
 	if(sendSleepTimeReady == HAL_OK){
 		if(!send16Bit(&sleep_time)){
@@ -335,10 +366,10 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_SPI1_Init();
-  MX_TIM2_Init();
+  MX_RTC_Init();
   /* USER CODE BEGIN 2 */
-  HAL_NVIC_SetPriority(TIM2_IRQn, 5, 0);
-  HAL_NVIC_EnableIRQ(TIM2_IRQn);
+//  HAL_NVIC_SetPriority(TIM2_IRQn, 5, 0);
+//  HAL_NVIC_EnableIRQ(TIM2_IRQn);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -350,9 +381,10 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	 while(!finished)
 	 {
-		 send_settings_spi(1000, 10, 0);
+		 send_settings_spi(1000, 100, 0);
 		 HAL_Delay(10);
-		 lightsleep_test(1000, 10);
+		 //lightsleep_test(1000, 10);
+		 stop_mode_with_rtc_wakeup(1000, 100);
 		 uint16_t *data = receive_data_SPI(10);
 	     // Free the allocated memory for received_data
 		 free(data);
@@ -371,6 +403,11 @@ void SystemClock_Config(void)
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
+  /** Configure LSE Drive Capability
+  */
+  HAL_PWR_EnableBkUpAccess();
+  __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_MEDIUMHIGH);
+
   /** Configure the main internal regulator output voltage
   */
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
@@ -378,8 +415,10 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_HSE
+                              |RCC_OSCILLATORTYPE_LSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.LSEState = RCC_LSE_ON;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
@@ -430,6 +469,49 @@ void PeriphCommonClock_Config(void)
 }
 
 /**
+  * @brief RTC Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_RTC_Init(void)
+{
+
+  /* USER CODE BEGIN RTC_Init 0 */
+
+  /* USER CODE END RTC_Init 0 */
+
+  /* USER CODE BEGIN RTC_Init 1 */
+
+  /* USER CODE END RTC_Init 1 */
+
+  /** Initialize RTC Only
+  */
+  hrtc.Instance = RTC;
+  hrtc.Init.HourFormat = RTC_HOURFORMAT_24;
+  hrtc.Init.AsynchPrediv = 127;
+  hrtc.Init.SynchPrediv = 255;
+  hrtc.Init.OutPut = RTC_OUTPUT_DISABLE;
+  hrtc.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
+  hrtc.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
+  hrtc.Init.OutPutRemap = RTC_OUTPUT_REMAP_NONE;
+  if (HAL_RTC_Init(&hrtc) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Enable the WakeUp
+  */
+  if (HAL_RTCEx_SetWakeUpTimer_IT(&hrtc, 0x500B, RTC_WAKEUPCLOCK_RTCCLK_DIV16) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN RTC_Init 2 */
+
+  /* USER CODE END RTC_Init 2 */
+
+}
+
+/**
   * @brief SPI1 Initialization Function
   * @param None
   * @retval None
@@ -466,50 +548,6 @@ static void MX_SPI1_Init(void)
   /* USER CODE BEGIN SPI1_Init 2 */
 
   /* USER CODE END SPI1_Init 2 */
-
-}
-
-/**
-  * @brief TIM2 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_TIM2_Init(void)
-{
-
-  /* USER CODE BEGIN TIM2_Init 0 */
-
-  /* USER CODE END TIM2_Init 0 */
-
-  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
-  TIM_MasterConfigTypeDef sMasterConfig = {0};
-
-  /* USER CODE BEGIN TIM2_Init 1 */
-
-  /* USER CODE END TIM2_Init 1 */
-  htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 32000-1;
-  htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 1000-1;
-  htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-  if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
-  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-  if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN TIM2_Init 2 */
-  /* USER CODE END TIM2_Init 2 */
 
 }
 

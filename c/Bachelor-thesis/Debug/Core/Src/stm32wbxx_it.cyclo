@@ -7,5 +7,5 @@ stm32wbxx_it.c:144:6:SVC_Handler	1
 stm32wbxx_it.c:157:6:DebugMon_Handler	1
 stm32wbxx_it.c:170:6:PendSV_Handler	1
 stm32wbxx_it.c:183:6:SysTick_Handler	1
-stm32wbxx_it.c:204:6:EXTI1_IRQHandler	1
-stm32wbxx_it.c:218:6:TIM2_IRQHandler	1
+stm32wbxx_it.c:204:6:RTC_WKUP_IRQHandler	1
+stm32wbxx_it.c:218:6:EXTI1_IRQHandler	1
