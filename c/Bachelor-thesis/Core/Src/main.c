@@ -125,15 +125,14 @@ void send_stop_signal(){
 void lightsleep_test(uint32_t interval_in_ms, uint32_t amount_of_loops)
 {
     uint32_t run_counter = 0;
-
+    HAL_SuspendTick();
+    HAL_TIM_Base_Init(&htim2);
     while (run_counter < amount_of_loops)
     {
         // Assuming you have initialized TIMER_PIN, change the pin name accordingly
         send_start_signal();
         HAL_TIM_Base_Start_IT(&htim2);
-        HAL_SuspendTick();
         HAL_PWR_EnterSTOPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
-
         run_counter++;
     }
 }
