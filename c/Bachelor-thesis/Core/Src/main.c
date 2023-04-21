@@ -60,9 +60,10 @@ SPI_HandleTypeDef hspi1;
 
 /* USER CODE BEGIN PV */
 
-volatile uint32_t captures = 0;
 int test = 0;
 _Bool finished = false;
+uint32_t runAmount = 0;
+uint32_t maxRuns = 0;
 
 
 /* USER CODE END PV */
@@ -124,13 +125,13 @@ void send_stop_signal(){
 	HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_RESET);
 }
 
-void stop_mode_with_rtc_wakeup(uint32_t wakeup_interval_ms, uint32_t wakeup_count)
+void lightsleep(uint32_t wakeup_interval_ms, uint32_t wakeup_count)
 {
     uint32_t run_counter = 0;
-
-    // Convert the interval from milliseconds to RTC clock ticks
-    float multiplier = 1/0.488;
-    uint32_t interval = wakeup_interval_ms * multiplier;
+    double period = (16.0/32768.0);
+    double wakeup_in_ms = (double)wakeup_interval_ms / 1000.0;
+    double msMultiplier = (wakeup_in_ms/period);
+    uint32_t interval = (uint32_t)round(msMultiplier);
 
     while (run_counter < wakeup_count)
     {
@@ -140,7 +141,8 @@ void stop_mode_with_rtc_wakeup(uint32_t wakeup_interval_ms, uint32_t wakeup_coun
         HAL_SuspendTick();
         // Configure the RTC Wake-up timer
         HAL_RTCEx_SetWakeUpTimer_IT(&hrtc, interval, RTC_WAKEUPCLOCK_RTCCLK_DIV16);
-        HAL_PWREx_EnterSTOP2Mode(PWR_SLEEPENTRY_WFI);
+        // HAL_PWREx_EnterSTOP2Mode(PWR_SLEEPENTRY_WFI);
+        HAL_PWR_EnterSTOPMode(PWR_MAINREGULATOR_ON, PWR_STOPENTRY_WFI);
 
         // Disable the RTC Wake-up timer
         HAL_RTCEx_DeactivateWakeUpTimer(&hrtc);
@@ -156,40 +158,13 @@ void stop_mode_with_rtc_wakeup(uint32_t wakeup_interval_ms, uint32_t wakeup_coun
     }
 }
 
-//void lightsleep_test(uint32_t interval_in_ms, uint32_t amount_of_loops)
-//{
-//    uint32_t run_counter = 0;
-//    while (run_counter < amount_of_loops)
-//    {
-//        // Assuming you have initialized TIMER_PIN, change the pin name accordingly
-//        send_start_signal();
-//        HAL_PWR_EnterSTOPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
-//        run_counter++;
-//    }
-//}
-
-//void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-//	if (htim->Instance == TIM2){
-//		__HAL_TIM_CLEAR_FLAG(htim, TIM_FLAG_UPDATE);
-//		HAL_ResumeTick();
-//		SystemClock_Config();
-//		send_stop_signal();
-//		HAL_TIM_Base_Stop_IT(&htim2);
-//		HAL_Delay(10);
-//	}
-//}
-
-void lightsleep_test_interrupt(uint32_t amount_of_runs){
-    while(1){
-        if(captures == amount_of_runs){
-            break;
-        }
+void lightsleep_test_interrupt(){
         send_start_signal();
-        printf("WENT TO SLEEP round %lu of %lu\n", captures, amount_of_runs);
-        HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
-        printf("WOKE UP round %lu of %lu\n", captures, amount_of_runs);
-    }
-    printf("EXITED FUNCTION\n");
+
+        // Enter Stop mode
+        HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
+        //HAL_PWREx_EnterSTOP2Mode(PWR_SLEEPENTRY_WFI);
+
 }
 
 void lightsleep_test_runner(uint32_t* (*test)(uint32_t, uint32_t), uint32_t data_per_run, uint32_t sleep_interval_ms){
@@ -381,10 +356,13 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	 while(!finished)
 	 {
-		 send_settings_spi(1000, 100, 0);
+		 uint16_t runs = 10;
+		 maxRuns = runs;
+		 send_settings_spi(1000, runs, 1);
 		 HAL_Delay(10);
-		 //lightsleep_test(1000, 10);
-		 stop_mode_with_rtc_wakeup(1000, 100);
+		 HAL_SuspendTick();
+		 lightsleep_test_interrupt();
+		 //lightsleep(1000, 10);
 		 uint16_t *data = receive_data_SPI(10);
 	     // Free the allocated memory for received_data
 		 free(data);
@@ -584,7 +562,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin : IRQ_PIN_Pin */
   GPIO_InitStruct.Pin = IRQ_PIN_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(IRQ_PIN_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : B1_Pin */
@@ -622,26 +600,21 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
-void blinky(){
-	HAL_GPIO_WritePin(GPIOB, GREEN_LED, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOB, GREEN_LED, GPIO_PIN_RESET);
-}
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  if(GPIO_Pin == IRQ_PIN_Pin) {
+	  HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
+	  send_stop_signal();
+	  runAmount++;
+	  // HAL_ResumeTick();
+	  // HAL_Delay(10);
+	  HAL_PWR_DisableSleepOnExit();
+	  if(runAmount < maxRuns)
+	  lightsleep_test_interrupt();
 
-void lightsleep_blinky_test(uint32_t interval_in_ms, uint32_t amount_of_loops){
-	uint32_t timer_start, timer_end, result;
-	uint32_t results[amount_of_loops];
-	uint32_t run_counter = 0;
-
-	while (run_counter < amount_of_loops){
-		timer_start = HAL_GetTick();
-		HAL_PWR_EnterSLEEPMode(PWR_LOWPOWERREGULATOR_ON, PWR_SLEEPENTRY_WFI);
-		HAL_Delay(interval_in_ms);
-		timer_end = HAL_GetTick();
-		blinky();
-		result = timer_end - timer_start;
-		results[run_counter] = result;
-		run_counter++;
-	}
+  } else {
+      __NOP();
+  }
 }
 
 void deepsleep_test(uint32_t interval_in_ms){
@@ -649,15 +622,6 @@ void deepsleep_test(uint32_t interval_in_ms){
 	HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_RESET);
 	HAL_PWR_EnterSTANDBYMode();
 }
-
-//void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
-//
-//	if (GPIO_Pin == RESPONSE_PIN_Pin){
-//		 HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_SET);
-//		 HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_RESET);
-//		 captures += 1;
-//	}
-//}
 
 /* USER CODE END 4 */
 

@@ -1,10 +1,10 @@
-16:07:32 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+15:06:05 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
 make -j8 all 
 arm-none-eabi-size   Bachelor-thesis.elf 
    text	   data	    bss	    dec	    hex	filename
-  32156	    488	   1728	  34372	   8644	Bachelor-thesis.elf
+  32044	    488	   1736	  34268	   85dc	Bachelor-thesis.elf
 Finished building: default.size.stdout
  
 
-16:07:32 Build Finished. 0 errors, 0 warnings. (took 240ms)
+15:06:05 Build Finished. 0 errors, 0 warnings. (took 252ms)
 
