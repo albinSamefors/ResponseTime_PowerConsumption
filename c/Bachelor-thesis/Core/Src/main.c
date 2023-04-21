@@ -159,12 +159,14 @@ void lightsleep(uint32_t wakeup_interval_ms, uint32_t wakeup_count)
 }
 
 void lightsleep_test_interrupt(){
+	while(runAmount < maxRuns){
         send_start_signal();
 
         // Enter Stop mode
         HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
         //HAL_PWREx_EnterSTOP2Mode(PWR_SLEEPENTRY_WFI);
-
+        //send_stop_signal();
+	}
 }
 
 void lightsleep_test_runner(uint32_t* (*test)(uint32_t, uint32_t), uint32_t data_per_run, uint32_t sleep_interval_ms){
@@ -356,9 +358,9 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	 while(!finished)
 	 {
-		 uint16_t runs = 10;
+		 uint16_t runs = 100;
 		 maxRuns = runs;
-		 send_settings_spi(1000, runs, 1);
+		 send_settings_spi(10000, runs, 1);
 		 HAL_Delay(10);
 		 HAL_SuspendTick();
 		 lightsleep_test_interrupt();
@@ -603,15 +605,13 @@ static void MX_GPIO_Init(void)
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   if(GPIO_Pin == IRQ_PIN_Pin) {
-	  HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
-	  send_stop_signal();
+	  //HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
+	  HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_SET);
+	  HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_RESET);
 	  runAmount++;
 	  // HAL_ResumeTick();
 	  // HAL_Delay(10);
 	  HAL_PWR_DisableSleepOnExit();
-	  if(runAmount < maxRuns)
-	  lightsleep_test_interrupt();
-
   } else {
       __NOP();
   }
