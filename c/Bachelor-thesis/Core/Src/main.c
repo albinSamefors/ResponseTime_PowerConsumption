@@ -62,6 +62,8 @@ SPI_HandleTypeDef hspi1;
 
 int test = 0;
 _Bool finished = false;
+uint32_t runAmount = 0;
+uint32_t maxRuns = 0;
 
 
 /* USER CODE END PV */
@@ -139,7 +141,8 @@ void lightsleep(uint32_t wakeup_interval_ms, uint32_t wakeup_count)
         HAL_SuspendTick();
         // Configure the RTC Wake-up timer
         HAL_RTCEx_SetWakeUpTimer_IT(&hrtc, interval, RTC_WAKEUPCLOCK_RTCCLK_DIV16);
-        HAL_PWREx_EnterSTOP2Mode(PWR_SLEEPENTRY_WFI);
+        // HAL_PWREx_EnterSTOP2Mode(PWR_SLEEPENTRY_WFI);
+        HAL_PWR_EnterSTOPMode(PWR_MAINREGULATOR_ON, PWR_STOPENTRY_WFI);
 
         // Disable the RTC Wake-up timer
         HAL_RTCEx_DeactivateWakeUpTimer(&hrtc);
@@ -155,22 +158,13 @@ void lightsleep(uint32_t wakeup_interval_ms, uint32_t wakeup_count)
     }
 }
 
-void lightsleep_test_interrupt(uint32_t amount_of_runs){
-    uint32_t run_counter = 0;
-    HAL_SuspendTick();
-    while (run_counter < amount_of_runs)
-    {
+void lightsleep_test_interrupt(){
         send_start_signal();
 
         // Enter Stop mode
-        HAL_PWREx_EnterSTOP2Mode(PWR_SLEEPENTRY_WFI);
+        HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
+        //HAL_PWREx_EnterSTOP2Mode(PWR_SLEEPENTRY_WFI);
 
-        HAL_Delay(10);
-
-        run_counter++;
-    }
-    SystemClock_Config();
-    HAL_ResumeTick();
 }
 
 void lightsleep_test_runner(uint32_t* (*test)(uint32_t, uint32_t), uint32_t data_per_run, uint32_t sleep_interval_ms){
@@ -362,10 +356,13 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	 while(!finished)
 	 {
-		 send_settings_spi(1000, 10, 1);
+		 uint16_t runs = 10;
+		 maxRuns = runs;
+		 send_settings_spi(1000, runs, 1);
 		 HAL_Delay(10);
-		 lightsleep_test_interrupt(10);
-		 // lightsleep(100, 100);
+		 HAL_SuspendTick();
+		 lightsleep_test_interrupt();
+		 //lightsleep(1000, 10);
 		 uint16_t *data = receive_data_SPI(10);
 	     // Free the allocated memory for received_data
 		 free(data);
@@ -606,7 +603,14 @@ static void MX_GPIO_Init(void)
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   if(GPIO_Pin == IRQ_PIN_Pin) {
+	  HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
 	  send_stop_signal();
+	  runAmount++;
+	  // HAL_ResumeTick();
+	  // HAL_Delay(10);
+	  HAL_PWR_DisableSleepOnExit();
+	  if(runAmount < maxRuns)
+	  lightsleep_test_interrupt();
 
   } else {
       __NOP();
