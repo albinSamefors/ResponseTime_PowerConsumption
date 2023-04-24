@@ -1,595 +1,259 @@
-14:22:43 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+11:00:04 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  32300	    488	   1744	  34532	   86e4	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+11:00:07 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  32300	    488	   1744	  34532	   86e4	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+11:06:07 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
 make -j8 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 ../Core/Src/main.c: In function 'load_and_print_data':
-../Core/Src/main.c:112:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  112 |     printf("Amount of collected data:       %d\n", len);
+../Core/Src/main.c:115:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  115 |     printf("Amount of collected data:       %d\n", len);
       |                                             ~^     ~~~
       |                                              |     |
       |                                              int   uint32_t {aka long unsigned int}
       |                                             %ld
-../Core/Src/main.c: In function 'lightsleep':
-../Core/Src/main.c:134:35: warning: implicit declaration of function 'round' [-Wimplicit-function-declaration]
-  134 |     uint32_t interval = (uint32_t)round(msMultiplier);
-      |                                   ^~~~~
-../Core/Src/main.c:134:35: warning: incompatible implicit declaration of built-in function 'round'
-../Core/Src/main.c:30:1: note: include '<math.h>' or provide a declaration of 'round'
-   29 | #include <stdlib.h>
-  +++ |+#include <math.h>
-   30 | #include "stm32wbxx_hal_rtc.h"
-../Core/Src/main.c: In function 'lightsleep_test_runner':
-../Core/Src/main.c:182:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  182 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                                  ~^                    ~~~~~~~~~~~~~~~~~
-      |                                                                   |                    |
-      |                                                                   int                  uint32_t {aka long unsigned int}
-      |                                                                  %ld
-../Core/Src/main.c:188:12: warning: unused variable 'cycles' [-Wunused-variable]
-  188 |  uint32_t *cycles = test(sleep_interval_ms, data_per_run);
-      |            ^~~~~~
-../Core/Src/main.c: In function 'deepsleep_test_runner':
-../Core/Src/main.c:223:73: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  223 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                                        ~^                    ~~~~~~~~~~~~~~~~~
-      |                                                                         |                    |
-      |                                                                         int                  uint32_t {aka long unsigned int}
-      |                                                                        %ld
-../Core/Src/main.c: In function 'lightsleep_test_runner':
-../Core/Src/main.c:182:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
-  182 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                               ^~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:182:21: note: using the range [-2147483648, 2147483647] for directive argument
-  182 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:182:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
-  182 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c: In function 'deepsleep_test_runner':
-../Core/Src/main.c:223:53: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 7 and 28 [-Wformat-overflow=]
-  223 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                     ^~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:223:28: note: using the range [-2147483648, 2147483647] for directive argument
-  223 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:223:9: note: 'sprintf' output between 48 and 98 bytes into a destination of size 50
-  223 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: Bachelor-thesis.elf
  
 arm-none-eabi-size   Bachelor-thesis.elf 
 arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
    text	   data	    bss	    dec	    hex	filename
-  31980	    488	   1736	  34204	   859c	Bachelor-thesis.elf
+  32300	    488	   1744	  34532	   86e4	Bachelor-thesis.elf
 Finished building: default.size.stdout
  
 Finished building: Bachelor-thesis.list
  
-14:22:48 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-size   Bachelor-thesis.elf 
-   text	   data	    bss	    dec	    hex	filename
-  31980	    488	   1736	  34204	   859c	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-14:23:41 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-size   Bachelor-thesis.elf 
-   text	   data	    bss	    dec	    hex	filename
-  31980	    488	   1736	  34204	   859c	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-14:24:17 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-size   Bachelor-thesis.elf 
-   text	   data	    bss	    dec	    hex	filename
-  31980	    488	   1736	  34204	   859c	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-14:25:01 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-size   Bachelor-thesis.elf 
-   text	   data	    bss	    dec	    hex	filename
-  31980	    488	   1736	  34204	   859c	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-14:26:44 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+11:06:41 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
 make -j8 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 ../Core/Src/main.c: In function 'load_and_print_data':
-../Core/Src/main.c:112:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  112 |     printf("Amount of collected data:       %d\n", len);
+../Core/Src/main.c:115:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  115 |     printf("Amount of collected data:       %d\n", len);
       |                                             ~^     ~~~
       |                                              |     |
       |                                              int   uint32_t {aka long unsigned int}
       |                                             %ld
-../Core/Src/main.c: In function 'lightsleep':
-../Core/Src/main.c:134:35: warning: implicit declaration of function 'round' [-Wimplicit-function-declaration]
-  134 |     uint32_t interval = (uint32_t)round(msMultiplier);
-      |                                   ^~~~~
-../Core/Src/main.c:134:35: warning: incompatible implicit declaration of built-in function 'round'
-../Core/Src/main.c:30:1: note: include '<math.h>' or provide a declaration of 'round'
-   29 | #include <stdlib.h>
-  +++ |+#include <math.h>
-   30 | #include "stm32wbxx_hal_rtc.h"
-../Core/Src/main.c: In function 'lightsleep_test_runner':
-../Core/Src/main.c:181:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                                  ~^                    ~~~~~~~~~~~~~~~~~
-      |                                                                   |                    |
-      |                                                                   int                  uint32_t {aka long unsigned int}
-      |                                                                  %ld
-../Core/Src/main.c:187:12: warning: unused variable 'cycles' [-Wunused-variable]
-  187 |  uint32_t *cycles = test(sleep_interval_ms, data_per_run);
-      |            ^~~~~~
-../Core/Src/main.c: In function 'deepsleep_test_runner':
-../Core/Src/main.c:222:73: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                                        ~^                    ~~~~~~~~~~~~~~~~~
-      |                                                                         |                    |
-      |                                                                         int                  uint32_t {aka long unsigned int}
-      |                                                                        %ld
-../Core/Src/main.c: In function 'lightsleep_test_runner':
-../Core/Src/main.c:181:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                               ^~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:181:21: note: using the range [-2147483648, 2147483647] for directive argument
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:181:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c: In function 'deepsleep_test_runner':
-../Core/Src/main.c:222:53: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 7 and 28 [-Wformat-overflow=]
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                     ^~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:222:28: note: using the range [-2147483648, 2147483647] for directive argument
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:222:9: note: 'sprintf' output between 48 and 98 bytes into a destination of size 50
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: Bachelor-thesis.elf
  
 arm-none-eabi-size   Bachelor-thesis.elf 
 arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
    text	   data	    bss	    dec	    hex	filename
-  31940	    488	   1736	  34164	   8574	Bachelor-thesis.elf
+  31912	    488	   1744	  34144	   8560	Bachelor-thesis.elf
 Finished building: default.size.stdout
  
 Finished building: Bachelor-thesis.list
  
-14:26:57 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+11:06:51 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
 make -j8 all 
 arm-none-eabi-size   Bachelor-thesis.elf 
    text	   data	    bss	    dec	    hex	filename
-  31940	    488	   1736	  34164	   8574	Bachelor-thesis.elf
+  31912	    488	   1744	  34144	   8560	Bachelor-thesis.elf
 Finished building: default.size.stdout
  
-14:29:41 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+11:07:21 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
 make -j8 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 ../Core/Src/main.c: In function 'load_and_print_data':
-../Core/Src/main.c:112:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  112 |     printf("Amount of collected data:       %d\n", len);
+../Core/Src/main.c:115:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  115 |     printf("Amount of collected data:       %d\n", len);
       |                                             ~^     ~~~
       |                                              |     |
       |                                              int   uint32_t {aka long unsigned int}
       |                                             %ld
-../Core/Src/main.c: In function 'lightsleep':
-../Core/Src/main.c:134:35: warning: implicit declaration of function 'round' [-Wimplicit-function-declaration]
-  134 |     uint32_t interval = (uint32_t)round(msMultiplier);
-      |                                   ^~~~~
-../Core/Src/main.c:134:35: warning: incompatible implicit declaration of built-in function 'round'
-../Core/Src/main.c:30:1: note: include '<math.h>' or provide a declaration of 'round'
-   29 | #include <stdlib.h>
-  +++ |+#include <math.h>
-   30 | #include "stm32wbxx_hal_rtc.h"
-../Core/Src/main.c: In function 'lightsleep_test_runner':
-../Core/Src/main.c:181:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                                  ~^                    ~~~~~~~~~~~~~~~~~
-      |                                                                   |                    |
-      |                                                                   int                  uint32_t {aka long unsigned int}
-      |                                                                  %ld
-../Core/Src/main.c:187:12: warning: unused variable 'cycles' [-Wunused-variable]
-  187 |  uint32_t *cycles = test(sleep_interval_ms, data_per_run);
-      |            ^~~~~~
-../Core/Src/main.c: In function 'deepsleep_test_runner':
-../Core/Src/main.c:222:73: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                                        ~^                    ~~~~~~~~~~~~~~~~~
-      |                                                                         |                    |
-      |                                                                         int                  uint32_t {aka long unsigned int}
-      |                                                                        %ld
-../Core/Src/main.c: In function 'lightsleep_test_runner':
-../Core/Src/main.c:181:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                               ^~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:181:21: note: using the range [-2147483648, 2147483647] for directive argument
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:181:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c: In function 'deepsleep_test_runner':
-../Core/Src/main.c:222:53: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 7 and 28 [-Wformat-overflow=]
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                     ^~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:222:28: note: using the range [-2147483648, 2147483647] for directive argument
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:222:9: note: 'sprintf' output between 48 and 98 bytes into a destination of size 50
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: Bachelor-thesis.elf
  
 arm-none-eabi-size   Bachelor-thesis.elf 
 arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
    text	   data	    bss	    dec	    hex	filename
-  31940	    488	   1736	  34164	   8574	Bachelor-thesis.elf
+  31912	    488	   1744	  34144	   8560	Bachelor-thesis.elf
 Finished building: default.size.stdout
  
 Finished building: Bachelor-thesis.list
  
-14:30:04 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-size   Bachelor-thesis.elf 
-   text	   data	    bss	    dec	    hex	filename
-  31940	    488	   1736	  34164	   8574	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-14:36:11 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-size   Bachelor-thesis.elf 
-   text	   data	    bss	    dec	    hex	filename
-  31940	    488	   1736	  34164	   8574	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-14:37:35 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+11:33:52 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
 make -j8 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 ../Core/Src/main.c: In function 'load_and_print_data':
-../Core/Src/main.c:112:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  112 |     printf("Amount of collected data:       %d\n", len);
+../Core/Src/main.c:115:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  115 |     printf("Amount of collected data:       %d\n", len);
       |                                             ~^     ~~~
       |                                              |     |
       |                                              int   uint32_t {aka long unsigned int}
       |                                             %ld
-../Core/Src/main.c: In function 'lightsleep':
-../Core/Src/main.c:134:35: warning: implicit declaration of function 'round' [-Wimplicit-function-declaration]
-  134 |     uint32_t interval = (uint32_t)round(msMultiplier);
-      |                                   ^~~~~
-../Core/Src/main.c:134:35: warning: incompatible implicit declaration of built-in function 'round'
-../Core/Src/main.c:30:1: note: include '<math.h>' or provide a declaration of 'round'
-   29 | #include <stdlib.h>
-  +++ |+#include <math.h>
-   30 | #include "stm32wbxx_hal_rtc.h"
-../Core/Src/main.c: In function 'lightsleep_test_runner':
-../Core/Src/main.c:181:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                                  ~^                    ~~~~~~~~~~~~~~~~~
-      |                                                                   |                    |
-      |                                                                   int                  uint32_t {aka long unsigned int}
-      |                                                                  %ld
-../Core/Src/main.c:187:12: warning: unused variable 'cycles' [-Wunused-variable]
-  187 |  uint32_t *cycles = test(sleep_interval_ms, data_per_run);
-      |            ^~~~~~
-../Core/Src/main.c: In function 'deepsleep_test_runner':
-../Core/Src/main.c:222:73: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                                        ~^                    ~~~~~~~~~~~~~~~~~
-      |                                                                         |                    |
-      |                                                                         int                  uint32_t {aka long unsigned int}
-      |                                                                        %ld
-../Core/Src/main.c: In function 'lightsleep_test_runner':
-../Core/Src/main.c:181:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                               ^~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:181:21: note: using the range [-2147483648, 2147483647] for directive argument
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:181:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c: In function 'deepsleep_test_runner':
-../Core/Src/main.c:222:53: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 7 and 28 [-Wformat-overflow=]
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                     ^~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:222:28: note: using the range [-2147483648, 2147483647] for directive argument
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:222:9: note: 'sprintf' output between 48 and 98 bytes into a destination of size 50
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: Bachelor-thesis.elf
  
 arm-none-eabi-size   Bachelor-thesis.elf 
 arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
    text	   data	    bss	    dec	    hex	filename
-  31940	    488	   1736	  34164	   8574	Bachelor-thesis.elf
+  32080	    488	   1744	  34312	   8608	Bachelor-thesis.elf
 Finished building: default.size.stdout
  
 Finished building: Bachelor-thesis.list
  
-14:37:59 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-size   Bachelor-thesis.elf 
-   text	   data	    bss	    dec	    hex	filename
-  31940	    488	   1736	  34164	   8574	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-14:38:15 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-size   Bachelor-thesis.elf 
-   text	   data	    bss	    dec	    hex	filename
-  31940	    488	   1736	  34164	   8574	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-14:41:27 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+11:34:52 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
 make -j8 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 ../Core/Src/main.c: In function 'load_and_print_data':
-../Core/Src/main.c:112:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  112 |     printf("Amount of collected data:       %d\n", len);
+../Core/Src/main.c:115:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  115 |     printf("Amount of collected data:       %d\n", len);
       |                                             ~^     ~~~
       |                                              |     |
       |                                              int   uint32_t {aka long unsigned int}
       |                                             %ld
-../Core/Src/main.c: In function 'lightsleep':
-../Core/Src/main.c:134:35: warning: implicit declaration of function 'round' [-Wimplicit-function-declaration]
-  134 |     uint32_t interval = (uint32_t)round(msMultiplier);
-      |                                   ^~~~~
-../Core/Src/main.c:134:35: warning: incompatible implicit declaration of built-in function 'round'
-../Core/Src/main.c:30:1: note: include '<math.h>' or provide a declaration of 'round'
-   29 | #include <stdlib.h>
-  +++ |+#include <math.h>
-   30 | #include "stm32wbxx_hal_rtc.h"
-../Core/Src/main.c: In function 'lightsleep_test_runner':
-../Core/Src/main.c:181:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                                  ~^                    ~~~~~~~~~~~~~~~~~
-      |                                                                   |                    |
-      |                                                                   int                  uint32_t {aka long unsigned int}
-      |                                                                  %ld
-../Core/Src/main.c:187:12: warning: unused variable 'cycles' [-Wunused-variable]
-  187 |  uint32_t *cycles = test(sleep_interval_ms, data_per_run);
-      |            ^~~~~~
-../Core/Src/main.c: In function 'deepsleep_test_runner':
-../Core/Src/main.c:222:73: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                                        ~^                    ~~~~~~~~~~~~~~~~~
-      |                                                                         |                    |
-      |                                                                         int                  uint32_t {aka long unsigned int}
-      |                                                                        %ld
-../Core/Src/main.c: In function 'lightsleep_test_runner':
-../Core/Src/main.c:181:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                               ^~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:181:21: note: using the range [-2147483648, 2147483647] for directive argument
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:181:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c: In function 'deepsleep_test_runner':
-../Core/Src/main.c:222:53: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 7 and 28 [-Wformat-overflow=]
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                     ^~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:222:28: note: using the range [-2147483648, 2147483647] for directive argument
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:222:9: note: 'sprintf' output between 48 and 98 bytes into a destination of size 50
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: Bachelor-thesis.elf
  
 arm-none-eabi-size   Bachelor-thesis.elf 
 arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
    text	   data	    bss	    dec	    hex	filename
-  32004	    488	   1736	  34228	   85b4	Bachelor-thesis.elf
+  32080	    488	   1744	  34312	   8608	Bachelor-thesis.elf
 Finished building: default.size.stdout
  
 Finished building: Bachelor-thesis.list
  
-14:41:39 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-size   Bachelor-thesis.elf 
-   text	   data	    bss	    dec	    hex	filename
-  32004	    488	   1736	  34228	   85b4	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-14:42:03 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-size   Bachelor-thesis.elf 
-   text	   data	    bss	    dec	    hex	filename
-  32004	    488	   1736	  34228	   85b4	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-14:42:39 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-size   Bachelor-thesis.elf 
-   text	   data	    bss	    dec	    hex	filename
-  32004	    488	   1736	  34228	   85b4	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-14:42:58 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-size   Bachelor-thesis.elf 
-   text	   data	    bss	    dec	    hex	filename
-  32004	    488	   1736	  34228	   85b4	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-14:43:34 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-size   Bachelor-thesis.elf 
-   text	   data	    bss	    dec	    hex	filename
-  32004	    488	   1736	  34228	   85b4	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-14:44:44 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+11:36:04 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
 make -j8 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 ../Core/Src/main.c: In function 'load_and_print_data':
-../Core/Src/main.c:112:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  112 |     printf("Amount of collected data:       %d\n", len);
+../Core/Src/main.c:115:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  115 |     printf("Amount of collected data:       %d\n", len);
       |                                             ~^     ~~~
       |                                              |     |
       |                                              int   uint32_t {aka long unsigned int}
       |                                             %ld
-../Core/Src/main.c: In function 'lightsleep':
-../Core/Src/main.c:134:35: warning: implicit declaration of function 'round' [-Wimplicit-function-declaration]
-  134 |     uint32_t interval = (uint32_t)round(msMultiplier);
-      |                                   ^~~~~
-../Core/Src/main.c:134:35: warning: incompatible implicit declaration of built-in function 'round'
-../Core/Src/main.c:30:1: note: include '<math.h>' or provide a declaration of 'round'
-   29 | #include <stdlib.h>
-  +++ |+#include <math.h>
-   30 | #include "stm32wbxx_hal_rtc.h"
-../Core/Src/main.c: In function 'lightsleep_test_runner':
-../Core/Src/main.c:181:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                                  ~^                    ~~~~~~~~~~~~~~~~~
-      |                                                                   |                    |
-      |                                                                   int                  uint32_t {aka long unsigned int}
-      |                                                                  %ld
-../Core/Src/main.c:187:12: warning: unused variable 'cycles' [-Wunused-variable]
-  187 |  uint32_t *cycles = test(sleep_interval_ms, data_per_run);
-      |            ^~~~~~
-../Core/Src/main.c: In function 'deepsleep_test_runner':
-../Core/Src/main.c:222:73: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                                        ~^                    ~~~~~~~~~~~~~~~~~
-      |                                                                         |                    |
-      |                                                                         int                  uint32_t {aka long unsigned int}
-      |                                                                        %ld
-../Core/Src/main.c: In function 'lightsleep_test_runner':
-../Core/Src/main.c:181:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                               ^~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:181:21: note: using the range [-2147483648, 2147483647] for directive argument
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:181:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c: In function 'deepsleep_test_runner':
-../Core/Src/main.c:222:53: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 7 and 28 [-Wformat-overflow=]
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                     ^~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:222:28: note: using the range [-2147483648, 2147483647] for directive argument
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:222:9: note: 'sprintf' output between 48 and 98 bytes into a destination of size 50
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: Bachelor-thesis.elf
  
 arm-none-eabi-size   Bachelor-thesis.elf 
 arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
    text	   data	    bss	    dec	    hex	filename
-  32004	    488	   1736	  34228	   85b4	Bachelor-thesis.elf
+  32080	    488	   1744	  34312	   8608	Bachelor-thesis.elf
 Finished building: default.size.stdout
  
 Finished building: Bachelor-thesis.list
  
-14:45:07 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-size   Bachelor-thesis.elf 
-   text	   data	    bss	    dec	    hex	filename
-  32004	    488	   1736	  34228	   85b4	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-15:05:24 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+11:37:33 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
 make -j8 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 ../Core/Src/main.c: In function 'load_and_print_data':
-../Core/Src/main.c:112:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  112 |     printf("Amount of collected data:       %d\n", len);
+../Core/Src/main.c:115:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  115 |     printf("Amount of collected data:       %d\n", len);
       |                                             ~^     ~~~
       |                                              |     |
       |                                              int   uint32_t {aka long unsigned int}
       |                                             %ld
-../Core/Src/main.c: In function 'lightsleep':
-../Core/Src/main.c:134:35: warning: implicit declaration of function 'round' [-Wimplicit-function-declaration]
-  134 |     uint32_t interval = (uint32_t)round(msMultiplier);
-      |                                   ^~~~~
-../Core/Src/main.c:134:35: warning: incompatible implicit declaration of built-in function 'round'
-../Core/Src/main.c:30:1: note: include '<math.h>' or provide a declaration of 'round'
-   29 | #include <stdlib.h>
-  +++ |+#include <math.h>
-   30 | #include "stm32wbxx_hal_rtc.h"
-../Core/Src/main.c: In function 'lightsleep_test_runner':
-../Core/Src/main.c:181:67: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                                  ~^                    ~~~~~~~~~~~~~~~~~
-      |                                                                   |                    |
-      |                                                                   int                  uint32_t {aka long unsigned int}
-      |                                                                  %ld
-../Core/Src/main.c:187:12: warning: unused variable 'cycles' [-Wunused-variable]
-  187 |  uint32_t *cycles = test(sleep_interval_ms, data_per_run);
-      |            ^~~~~~
-../Core/Src/main.c: In function 'deepsleep_test_runner':
-../Core/Src/main.c:222:73: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                                        ~^                    ~~~~~~~~~~~~~~~~~
-      |                                                                         |                    |
-      |                                                                         int                  uint32_t {aka long unsigned int}
-      |                                                                        %ld
-../Core/Src/main.c: In function 'lightsleep_test_runner':
-../Core/Src/main.c:181:47: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 5 and 27 [-Wformat-overflow=]
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                               ^~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:181:21: note: using the range [-2147483648, 2147483647] for directive argument
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:181:2: note: 'sprintf' output between 49 and 100 bytes into a destination of size 50
-  181 |  sprintf(file_name, "lightsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c: In function 'deepsleep_test_runner':
-../Core/Src/main.c:222:53: warning: '_sleep_interval_ms_' directive writing 19 bytes into a region of size between 7 and 28 [-Wformat-overflow=]
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                                                     ^~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:222:28: note: using the range [-2147483648, 2147483647] for directive argument
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:222:9: note: 'sprintf' output between 48 and 98 bytes into a destination of size 50
-  222 |         sprintf(file_name, "deepsleep_test_data_c/%s_sleep_interval_ms_%d_%s.txt", __func__, sleep_interval_ms, timestamp);
-      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: Bachelor-thesis.elf
  
 arm-none-eabi-size   Bachelor-thesis.elf 
 arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
    text	   data	    bss	    dec	    hex	filename
-  32044	    488	   1736	  34268	   85dc	Bachelor-thesis.elf
+  32080	    488	   1744	  34312	   8608	Bachelor-thesis.elf
 Finished building: default.size.stdout
  
 Finished building: Bachelor-thesis.list
  
-15:05:37 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+11:39:23 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
 make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'load_and_print_data':
+../Core/Src/main.c:115:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  115 |     printf("Amount of collected data:       %d\n", len);
+      |                                             ~^     ~~~
+      |                                              |     |
+      |                                              int   uint32_t {aka long unsigned int}
+      |                                             %ld
+arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bachelor-thesis.elf
+ 
 arm-none-eabi-size   Bachelor-thesis.elf 
+arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
    text	   data	    bss	    dec	    hex	filename
-  32044	    488	   1736	  34268	   85dc	Bachelor-thesis.elf
+  32080	    488	   1744	  34312	   8608	Bachelor-thesis.elf
 Finished building: default.size.stdout
  
-15:05:51 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+Finished building: Bachelor-thesis.list
+ 
+11:41:58 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
 make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'load_and_print_data':
+../Core/Src/main.c:115:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  115 |     printf("Amount of collected data:       %d\n", len);
+      |                                             ~^     ~~~
+      |                                              |     |
+      |                                              int   uint32_t {aka long unsigned int}
+      |                                             %ld
+arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bachelor-thesis.elf
+ 
 arm-none-eabi-size   Bachelor-thesis.elf 
+arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
    text	   data	    bss	    dec	    hex	filename
-  32044	    488	   1736	  34268	   85dc	Bachelor-thesis.elf
+  32080	    488	   1744	  34312	   8608	Bachelor-thesis.elf
 Finished building: default.size.stdout
  
-15:06:05 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+Finished building: Bachelor-thesis.list
+ 
+11:51:22 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'load_and_print_data':
+../Core/Src/main.c:115:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  115 |     printf("Amount of collected data:       %d\n", len);
+      |                                             ~^     ~~~
+      |                                              |     |
+      |                                              int   uint32_t {aka long unsigned int}
+      |                                             %ld
+arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bachelor-thesis.elf
+ 
+arm-none-eabi-size   Bachelor-thesis.elf 
+arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
+   text	   data	    bss	    dec	    hex	filename
+  32080	    488	   1744	  34312	   8608	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bachelor-thesis.list
+ 
+11:51:46 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
 make -j8 all 
 arm-none-eabi-size   Bachelor-thesis.elf 
    text	   data	    bss	    dec	    hex	filename
-  32044	    488	   1736	  34268	   85dc	Bachelor-thesis.elf
+  32080	    488	   1744	  34312	   8608	Bachelor-thesis.elf
 Finished building: default.size.stdout
+ 
+13:39:51 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'load_and_print_data':
+../Core/Src/main.c:115:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  115 |     printf("Amount of collected data:       %d\n", len);
+      |                                             ~^     ~~~
+      |                                              |     |
+      |                                              int   uint32_t {aka long unsigned int}
+      |                                             %ld
+arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bachelor-thesis.elf
+ 
+arm-none-eabi-size   Bachelor-thesis.elf 
+arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
+   text	   data	    bss	    dec	    hex	filename
+  32080	    488	   1744	  34312	   8608	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+Finished building: Bachelor-thesis.list
  
