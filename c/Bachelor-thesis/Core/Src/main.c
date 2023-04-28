@@ -68,6 +68,8 @@ _Bool firstRun = true;
 uint32_t runAmount = 0;
 uint32_t maxRuns = 0;
 uint32_t startSignalsSent = 0;
+uint32_t stopEntries = 0;
+uint32_t mainEntries = 0;
 
 
 /* USER CODE END PV */
@@ -317,17 +319,17 @@ int main(void)
   		  __HAL_PWR_CLEAR_FLAG(PWR_FLAG_SB);
   		  if(runningDeepSleep){
   			  if(HAL_GPIO_ReadPin(FirstRunControll_GPIO_Port, FirstRunControll_Pin) != GPIO_PIN_RESET){
+  				 stopEntries++;
 
   		  //send_stop_signal();
-  				  for(int i = 0; i < 10; i++){
-  					  HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_SET);
-  					  HAL_Delay(250);
-  					  HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
-  					  HAL_Delay(250);
-  				  }
   				  HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_SET);
   				  HAL_GPIO_WritePin(RESPONSE_PIN_GPIO_Port, RESPONSE_PIN_Pin, GPIO_PIN_SET);
-  				  deepsleep_test_interrupt();
+  				  //deepsleep_test_interrupt();
+  				  HAL_Delay(1);
+  				  HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_SET);
+  				  HAL_GPIO_WritePin(TIMER_PIN_GPIO_Port, TIMER_PIN_Pin, GPIO_PIN_SET);
+  				  HAL_PWR_EnterSTANDBYMode();
+
   				  //HAL_RTCEx_DeactivateWakeUpTimer(&hrtc);
   			  }
   		  }
@@ -346,8 +348,8 @@ int main(void)
 		 while(!finished)
 		 {
 			 if (HAL_GPIO_ReadPin(FirstRunControll_GPIO_Port, FirstRunControll_Pin) == GPIO_PIN_RESET) {
-				 HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-				 uint16_t sleeptime = 1000;
+				 mainEntries++;
+				 uint16_t sleeptime = 10000;
 				 uint16_t runs = 100;
 				 maxRuns = runs;
 				 send_settings_spi(sleeptime, runs, 1);
