@@ -64,6 +64,8 @@ void Error_Handler(void);
 #define IRQ_PIN_EXTI_IRQn EXTI1_IRQn
 #define RESPONSE_PIN_Pin GPIO_PIN_2
 #define RESPONSE_PIN_GPIO_Port GPIOC
+#define FirstRunControll_Pin GPIO_PIN_0
+#define FirstRunControll_GPIO_Port GPIOA
 #define B1_Pin GPIO_PIN_4
 #define B1_GPIO_Port GPIOC
 #define LD2_Pin GPIO_PIN_0
