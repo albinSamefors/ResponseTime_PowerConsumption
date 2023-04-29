@@ -1,23 +1,51 @@
-11:00:04 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+11:34:40 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
 make -j8 all 
 arm-none-eabi-size   Bachelor-thesis.elf 
    text	   data	    bss	    dec	    hex	filename
-  32300	    488	   1744	  34532	   86e4	Bachelor-thesis.elf
+  31864	    492	   1740	  34096	   8530	Bachelor-thesis.elf
 Finished building: default.size.stdout
  
-11:00:07 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+11:35:18 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
 make -j8 all 
 arm-none-eabi-size   Bachelor-thesis.elf 
    text	   data	    bss	    dec	    hex	filename
-  32300	    488	   1744	  34532	   86e4	Bachelor-thesis.elf
+  31864	    492	   1740	  34096	   8530	Bachelor-thesis.elf
 Finished building: default.size.stdout
  
-11:06:07 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+11:35:43 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  31864	    492	   1740	  34096	   8530	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+12:49:19 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  31864	    492	   1740	  34096	   8530	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+12:50:14 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  31864	    492	   1740	  34096	   8530	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+12:50:33 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+make -j8 all 
+arm-none-eabi-size   Bachelor-thesis.elf 
+   text	   data	    bss	    dec	    hex	filename
+  31864	    492	   1740	  34096	   8530	Bachelor-thesis.elf
+Finished building: default.size.stdout
+ 
+12:54:11 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
 make -j8 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 ../Core/Src/main.c: In function 'load_and_print_data':
-../Core/Src/main.c:115:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  115 |     printf("Amount of collected data:       %d\n", len);
+../Core/Src/main.c:117:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  117 |     printf("Amount of collected data:       %d\n", len);
       |                                             ~^     ~~~
       |                                              |     |
       |                                              int   uint32_t {aka long unsigned int}
@@ -28,232 +56,29 @@ Finished building target: Bachelor-thesis.elf
 arm-none-eabi-size   Bachelor-thesis.elf 
 arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
    text	   data	    bss	    dec	    hex	filename
-  32300	    488	   1744	  34532	   86e4	Bachelor-thesis.elf
+  31848	    492	   1740	  34080	   8520	Bachelor-thesis.elf
 Finished building: default.size.stdout
  
 Finished building: Bachelor-thesis.list
  
-11:06:41 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'load_and_print_data':
-../Core/Src/main.c:115:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  115 |     printf("Amount of collected data:       %d\n", len);
-      |                                             ~^     ~~~
-      |                                              |     |
-      |                                              int   uint32_t {aka long unsigned int}
-      |                                             %ld
-arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Bachelor-thesis.elf
- 
-arm-none-eabi-size   Bachelor-thesis.elf 
-arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
-   text	   data	    bss	    dec	    hex	filename
-  31912	    488	   1744	  34144	   8560	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-Finished building: Bachelor-thesis.list
- 
-11:06:51 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+12:55:07 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
 make -j8 all 
 arm-none-eabi-size   Bachelor-thesis.elf 
    text	   data	    bss	    dec	    hex	filename
-  31912	    488	   1744	  34144	   8560	Bachelor-thesis.elf
+  31848	    492	   1740	  34080	   8520	Bachelor-thesis.elf
 Finished building: default.size.stdout
  
-11:07:21 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'load_and_print_data':
-../Core/Src/main.c:115:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  115 |     printf("Amount of collected data:       %d\n", len);
-      |                                             ~^     ~~~
-      |                                              |     |
-      |                                              int   uint32_t {aka long unsigned int}
-      |                                             %ld
-arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Bachelor-thesis.elf
- 
-arm-none-eabi-size   Bachelor-thesis.elf 
-arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
-   text	   data	    bss	    dec	    hex	filename
-  31912	    488	   1744	  34144	   8560	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-Finished building: Bachelor-thesis.list
- 
-11:33:52 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'load_and_print_data':
-../Core/Src/main.c:115:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  115 |     printf("Amount of collected data:       %d\n", len);
-      |                                             ~^     ~~~
-      |                                              |     |
-      |                                              int   uint32_t {aka long unsigned int}
-      |                                             %ld
-arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Bachelor-thesis.elf
- 
-arm-none-eabi-size   Bachelor-thesis.elf 
-arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
-   text	   data	    bss	    dec	    hex	filename
-  32080	    488	   1744	  34312	   8608	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-Finished building: Bachelor-thesis.list
- 
-11:34:52 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'load_and_print_data':
-../Core/Src/main.c:115:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  115 |     printf("Amount of collected data:       %d\n", len);
-      |                                             ~^     ~~~
-      |                                              |     |
-      |                                              int   uint32_t {aka long unsigned int}
-      |                                             %ld
-arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Bachelor-thesis.elf
- 
-arm-none-eabi-size   Bachelor-thesis.elf 
-arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
-   text	   data	    bss	    dec	    hex	filename
-  32080	    488	   1744	  34312	   8608	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-Finished building: Bachelor-thesis.list
- 
-11:36:04 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'load_and_print_data':
-../Core/Src/main.c:115:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  115 |     printf("Amount of collected data:       %d\n", len);
-      |                                             ~^     ~~~
-      |                                              |     |
-      |                                              int   uint32_t {aka long unsigned int}
-      |                                             %ld
-arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Bachelor-thesis.elf
- 
-arm-none-eabi-size   Bachelor-thesis.elf 
-arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
-   text	   data	    bss	    dec	    hex	filename
-  32080	    488	   1744	  34312	   8608	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-Finished building: Bachelor-thesis.list
- 
-11:37:33 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'load_and_print_data':
-../Core/Src/main.c:115:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  115 |     printf("Amount of collected data:       %d\n", len);
-      |                                             ~^     ~~~
-      |                                              |     |
-      |                                              int   uint32_t {aka long unsigned int}
-      |                                             %ld
-arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Bachelor-thesis.elf
- 
-arm-none-eabi-size   Bachelor-thesis.elf 
-arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
-   text	   data	    bss	    dec	    hex	filename
-  32080	    488	   1744	  34312	   8608	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-Finished building: Bachelor-thesis.list
- 
-11:39:23 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'load_and_print_data':
-../Core/Src/main.c:115:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  115 |     printf("Amount of collected data:       %d\n", len);
-      |                                             ~^     ~~~
-      |                                              |     |
-      |                                              int   uint32_t {aka long unsigned int}
-      |                                             %ld
-arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Bachelor-thesis.elf
- 
-arm-none-eabi-size   Bachelor-thesis.elf 
-arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
-   text	   data	    bss	    dec	    hex	filename
-  32080	    488	   1744	  34312	   8608	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-Finished building: Bachelor-thesis.list
- 
-11:41:58 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'load_and_print_data':
-../Core/Src/main.c:115:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  115 |     printf("Amount of collected data:       %d\n", len);
-      |                                             ~^     ~~~
-      |                                              |     |
-      |                                              int   uint32_t {aka long unsigned int}
-      |                                             %ld
-arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Bachelor-thesis.elf
- 
-arm-none-eabi-size   Bachelor-thesis.elf 
-arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
-   text	   data	    bss	    dec	    hex	filename
-  32080	    488	   1744	  34312	   8608	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-Finished building: Bachelor-thesis.list
- 
-11:51:22 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
-make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'load_and_print_data':
-../Core/Src/main.c:115:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  115 |     printf("Amount of collected data:       %d\n", len);
-      |                                             ~^     ~~~
-      |                                              |     |
-      |                                              int   uint32_t {aka long unsigned int}
-      |                                             %ld
-arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Bachelor-thesis.elf
- 
-arm-none-eabi-size   Bachelor-thesis.elf 
-arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
-   text	   data	    bss	    dec	    hex	filename
-  32080	    488	   1744	  34312	   8608	Bachelor-thesis.elf
-Finished building: default.size.stdout
- 
-Finished building: Bachelor-thesis.list
- 
-11:51:46 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+12:55:24 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
 make -j8 all 
 arm-none-eabi-size   Bachelor-thesis.elf 
    text	   data	    bss	    dec	    hex	filename
-  32080	    488	   1744	  34312	   8608	Bachelor-thesis.elf
+  31848	    492	   1740	  34080	   8520	Bachelor-thesis.elf
 Finished building: default.size.stdout
  
-13:39:51 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
+12:56:37 **** Incremental Build of configuration Debug for project Bachelor-thesis ****
 make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'load_and_print_data':
-../Core/Src/main.c:115:46: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  115 |     printf("Amount of collected data:       %d\n", len);
-      |                                             ~^     ~~~
-      |                                              |     |
-      |                                              int   uint32_t {aka long unsigned int}
-      |                                             %ld
-arm-none-eabi-gcc -o "Bachelor-thesis.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felix/ResponseTime_PowerConsumption/c/Bachelor-thesis/STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bachelor-thesis.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Bachelor-thesis.elf
- 
 arm-none-eabi-size   Bachelor-thesis.elf 
-arm-none-eabi-objdump -h -S  Bachelor-thesis.elf  > "Bachelor-thesis.list"
    text	   data	    bss	    dec	    hex	filename
-  32080	    488	   1744	  34312	   8608	Bachelor-thesis.elf
+  31848	    492	   1740	  34080	   8520	Bachelor-thesis.elf
 Finished building: default.size.stdout
- 
-Finished building: Bachelor-thesis.list
  
