@@ -5,6 +5,9 @@ import os
 import uos
 import sys
 RECIEVE_READY = machine.Pin('B4', machine.Pin.IN)
+
+FIRSTRUNDONE = machine.Pin('A3', machine.Pin.IN)
+
 SS = machine.Pin('D10', mode=machine.Pin.OUT, value=1)
 SCK = machine.Pin('D13', mode=machine.Pin.OUT)
 MOSI = machine.Pin('D11', mode=machine.Pin.OUT)
@@ -18,6 +21,10 @@ SLEEP_TIME_SPI_ADDR =    0b00000001
 RUN_AMMOUNT_SPI_ADDR =   0b00000010
 TEST_MODE_SPI_ADDR =     0b00000011
 RECIEVE_DATA_ADDR =      0b00000100
+
+SLEEPTIME = 1000
+RUN_AMOUNT = 100
+WAKEUP_TYPE = 0
 
 
 STM32_CLOCK_FREQUENCY = 64000000
@@ -102,17 +109,33 @@ def recieve_data_SPI(run_amount):
     print(len(datasetLOL))
     return spi_data
 
-
+doing_run = False
 #THESE ARE JUST HARD VALUES FOR THE RESET TYPES. 2 IS RESET BY BUTTON AND 4 IS DEEPSLEEP RESET
-if machine.reset_cause() == 2:
-    print("SENDING SETTINGS")
-    send_settings_spi(1000, 10, 0)
-    print("SETTINGS SENT, STARTING TESTS")
-    set_interval_tests.lightsleep_test(1000,10)
-    print("TESTS FINISHED, FETCHING DATA")
-    data = recieve_data_SPI(10)
-    print("DATA FETCHED!")
-    sys.exit()
-elif machine.reset_cause() == 4:
-    print("DEEPSLEPT")
+#print(machine.reset_cause())
+if machine.reset_cause() == 2 and (FIRSTRUNDONE.value() == 0 or WAKEUP_TYPE == 0):
+    #print("SENDING SETTINGS")
+    send_settings_spi(SLEEPTIME, RUN_AMOUNT, WAKEUP_TYPE)
+    #print("SETTINGS SENT, STARTING TESTS")
+    set_interval_tests.lightsleep_test(SLEEPTIME,RUN_AMOUNT)
+    #interrupt_tests.lightsleep_test(100)
+    #print("GOING TO SLEEP")
+    #set_interval_tests.deepsleep_test(SLEEPTIME)
+    #print("WOKE UP FROM SLEEP")
+    #interrupt_tests.deepsleep_test()
+    #print("TESTS FINISHED, FETCHING DATA")
+    data = recieve_data_SPI(100)
+    #print("DATA FETCHED!")
+    #sys.exit()
+elif machine.reset_cause() == 4 or FIRSTRUNDONE.value() == 1:
+    #print("DEEPSLEPT")
+    if WAKEUP_TYPE == 0:
+        set_interval_tests.RESPONSE_PIN.high()
+        set_interval_tests.RESPONSE_PIN.low()
+        set_interval_tests.deepsleep_test(SLEEPTIME)
+        #print("INTERVAL DEEPSLEEP")
+    else:
+        #print("RESPONDING TO INTERRUPT")
+        interrupt_tests.RESPONSE_PIN.high()
+        interrupt_tests.RESPONSE_PIN.low()
+        interrupt_tests.deepsleep_test()
 

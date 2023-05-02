@@ -32,8 +32,12 @@ def lightsleep_test(amount_of_runs):
         if(captures == amount_of_runs):
             break
         send_start_signal()
-        print("WENT TO SLEEP round {} of {}".format(captures, amount_of_runs))
+        #print("WENT TO SLEEP round {} of {}".format(captures, amount_of_runs))
         machine.lightsleep()
-        print("WOKE UP round {} of {}".format(captures, amount_of_runs))
+        #print("WOKE UP round {} of {}".format(captures, amount_of_runs))
     print("EXITED FUNCTION")
+
+def deepsleep_test():
+    send_start_signal()
+    machine.deepsleep()
         
