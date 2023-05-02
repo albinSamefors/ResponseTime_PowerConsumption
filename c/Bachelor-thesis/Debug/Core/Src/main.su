@@ -12,10 +12,10 @@
 ../Core/Src/main.c:226:6:send_settings_spi	24	static
 ../Core/Src/main.c:251:11:receive_data_SPI	64	dynamic
 ../Core/Src/main.c:284:5:main	16	static
-../Core/Src/main.c:376:6:SystemClock_Config	112	static
-../Core/Src/main.c:427:6:PeriphCommonClock_Config	88	static
-../Core/Src/main.c:451:13:MX_RTC_Init	8	static
-../Core/Src/main.c:494:13:MX_SPI1_Init	8	static
-../Core/Src/main.c:534:13:MX_GPIO_Init	32	static
-../Core/Src/main.c:606:6:HAL_GPIO_EXTI_Callback	16	static,ignoring_inline_asm
-../Core/Src/main.c:626:6:Error_Handler	4	static,ignoring_inline_asm
+../Core/Src/main.c:377:6:SystemClock_Config	112	static
+../Core/Src/main.c:428:6:PeriphCommonClock_Config	88	static
+../Core/Src/main.c:452:13:MX_RTC_Init	8	static
+../Core/Src/main.c:495:13:MX_SPI1_Init	8	static
+../Core/Src/main.c:535:13:MX_GPIO_Init	32	static
+../Core/Src/main.c:607:6:HAL_GPIO_EXTI_Callback	16	static,ignoring_inline_asm
+../Core/Src/main.c:627:6:Error_Handler	4	static,ignoring_inline_asm

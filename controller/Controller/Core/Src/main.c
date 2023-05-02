@@ -58,6 +58,7 @@ struct TimeCapture lastBuff;
 _Bool timeBuffReady = false;
 _Bool run_test = false;
 _Bool finished = false;
+_Bool interruptInDeepsleep = true;
 
 //DATA FETCHED FROM SPI
 _Bool RecievedTransmitHeader = false;
@@ -178,8 +179,15 @@ void calculateTestTimes(struct TimeCapture *data, uint32_t *times){
 }
 
 void sendInterrupt(){
+	if(!interruptInDeepsleep){
 	HAL_GPIO_WritePin(Interrupter_GPIO_Port, Interrupter_Pin, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(Interrupter_GPIO_Port, Interrupter_Pin, GPIO_PIN_RESET);
+	}
+	else{
+		HAL_GPIO_WritePin(DeepseepWakeup_GPIO_Port,DeepseepWakeup_Pin, GPIO_PIN_RESET);
+		HAL_Delay(1);
+		HAL_GPIO_WritePin(DeepseepWakeup_GPIO_Port, DeepseepWakeup_Pin, GPIO_PIN_SET);
+	}
 }
 
 void testUsingInterrupts(struct TimeCapture *times){
@@ -188,6 +196,7 @@ void testUsingInterrupts(struct TimeCapture *times){
 		struct TimeCapture *time_ptr = &times[i];
 		HAL_Delay(sleep_time);
 		sendInterrupt();
+		HAL_GPIO_WritePin(FirstRunControl_GPIO_Port, FirstRunControl_Pin, GPIO_PIN_SET);
 		while(!timeBuffReady);
 		*time_ptr = timeBuff;
 		i++;
@@ -528,6 +537,9 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(DeepseepWakeup_GPIO_Port, DeepseepWakeup_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(FirstRunControl_GPIO_Port, FirstRunControl_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, LD2_Pin|LD3_Pin|TransmitReady_Pin|LD1_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : TestStartInput_Pin */
@@ -555,6 +567,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(DeepseepWakeup_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : FirstRunControl_Pin */
+  GPIO_InitStruct.Pin = FirstRunControl_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(FirstRunControl_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : LD2_Pin LD3_Pin TransmitReady_Pin LD1_Pin */
   GPIO_InitStruct.Pin = LD2_Pin|LD3_Pin|TransmitReady_Pin|LD1_Pin;

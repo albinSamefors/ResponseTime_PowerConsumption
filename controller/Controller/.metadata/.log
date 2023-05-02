@@ -20,3 +20,18 @@ Command-line arguments:  -os linux -ws gtk -arch x86_64
 !MESSAGE OK
 !SUBENTRY 1 org.eclipse.core.resources 4 77 2023-04-05 10:17:22.876
 !MESSAGE /home/felix/ResponseTime_PowerConsumption/controller overlaps the workspace location: /home/felix/ResponseTime_PowerConsumption/controller/Controller
+!SESSION 2023-05-01 09:33:54.925 -----------------------------------------------
+eclipse.buildId=Version 1.12.0
+java.version=11.0.17
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=sv_SE
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2023-05-01 09:34:26.168
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2023-05-01 09:34:26.177
+!MESSAGE Log4j2 initialized with config file C:\Users\Albin Samefors\Documents\GitHub\ResponseTime_PowerConsumption\controller\Controller\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2023-05-01 09:34:30.362
+!MESSAGE Started RMI Server, listening on port 41337

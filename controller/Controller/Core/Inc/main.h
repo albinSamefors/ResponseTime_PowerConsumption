@@ -67,6 +67,8 @@ void Error_Handler(void);
 #define TestStopInput_EXTI_IRQn EXTI2_IRQn
 #define DeepseepWakeup_Pin GPIO_PIN_3
 #define DeepseepWakeup_GPIO_Port GPIOC
+#define FirstRunControl_Pin GPIO_PIN_0
+#define FirstRunControl_GPIO_Port GPIOA
 #define LD2_Pin GPIO_PIN_0
 #define LD2_GPIO_Port GPIOB
 #define LD3_Pin GPIO_PIN_1

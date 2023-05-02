@@ -349,14 +349,15 @@ int main(void)
 		 {
 			 if (HAL_GPIO_ReadPin(FirstRunControll_GPIO_Port, FirstRunControll_Pin) == GPIO_PIN_RESET) {
 				 mainEntries++;
-				 uint16_t sleeptime = 10000;
+				 uint16_t sleeptime = 1000;
 				 uint16_t runs = 100;
 				 maxRuns = runs;
-				 send_settings_spi(sleeptime, runs, 1);
+				 send_settings_spi(sleeptime, runs, 0);
 				 HAL_Delay(10);
 				 HAL_SuspendTick();
 				 //lightsleep_test_interrupt();
-				 deepsleep_test_interrupt();
+				 //deepsleep_test_interrupt();
+				 deepsleep_test_interval(sleeptime, runs);
 				 //deepsleep_test_interval(sleeptime, runs);
 				 //lightsleep_test_interval(sleeptime, runs);
 				 uint16_t *data = receive_data_SPI(10);
