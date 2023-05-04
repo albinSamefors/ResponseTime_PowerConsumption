@@ -1,0 +1,28 @@
+FILE :Deepsleep_Interval/deepsleep_interval_10ms.txt 
+ MEAN: 497.94 
+ STANDARD DEVIATION: 4.197189535868017 
+
+FILE :Deepsleep_Interval/deepsleep_interval_50ms.txt 
+ MEAN: 537.32 
+ STANDARD DEVIATION: 4.527427525648533 
+
+FILE :Deepsleep_Interval/deepsleep_interval_100ms.txt 
+ MEAN: 830.84 
+ STANDARD DEVIATION: 3.861916622611109 
+
+FILE :Deepsleep_Interval/deepsleep_interval_500ms.txt 
+ MEAN: 736.63 
+ STANDARD DEVIATION: 5.207024102114375 
+
+ FILE :Deepsleep_Interval/deepsleep_interval_1000ms.txt 
+ MEAN: 741.63 
+ STANDARD DEVIATION: 3.89269829295824 
+
+FILE :Deepsleep_Interval/deepsleep_interval_5000ms.txt 
+ MEAN: 779.09 
+ STANDARD DEVIATION: 6.115709280206179 
+
+
+FILE :Deepsleep_Interval/deepsleep_interval_10000ms.txt 
+ MEAN: 826.22 
+ STANDARD DEVIATION: 5.804446571379568 

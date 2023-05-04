@@ -1,0 +1,27 @@
+FILE :Deepsleep_Interrupt/deepsleep_interrupt_10000ms.txt 
+ MEAN: 6389.16 
+ STANDARD DEVIATION: 66.98771827730812 
+
+FILE :Deepsleep_Interrupt/deepsleep_interrupt_10ms.txt 
+ MEAN: 6383.17 
+ STANDARD DEVIATION: 8.731614970897423 
+
+FILE :Deepsleep_Interrupt/deepsleep_interrupt_1000ms.txt 
+ MEAN: 6382.06 
+ STANDARD DEVIATION: 8.970863949475545 
+
+FILE :Deepsleep_Interrupt/deepsleep_interrupt_50ms.txt 
+ MEAN: 6383.73 
+ STANDARD DEVIATION: 16.329026302875498 
+
+FILE :Deepsleep_Interrupt/deepsleep_interrupt_500ms.txt 
+ MEAN: 6388.14 
+ STANDARD DEVIATION: 31.809124477105623 
+
+FILE :Deepsleep_Interrupt/deepsleep_interrupt_5000ms.txt 
+ MEAN: 6383.85 
+ STANDARD DEVIATION: 21.473413794736977 
+
+FILE :Deepsleep_Interrupt/deepsleep_interrupt_100ms.txt 
+ MEAN: 6385.72 
+ STANDARD DEVIATION: 33.719454325359415 

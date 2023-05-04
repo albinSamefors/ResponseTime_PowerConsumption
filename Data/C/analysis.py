@@ -3,6 +3,9 @@ import glob
 import os
 
 LIGHTSLEEP_INTERVAL_FOLDER = "Lightsleep Interval"
+LIGHTSLEEP_INTERRUPT_FOLDER = "Lightsleep Interrupt"
+DEEPSLEEP_INTERVAL_FOLDER = "Deepsleep_Interval"
+DEEPSLEEP_INTERRUPT_FOLDER = "Deepsleep_Interrupt"
 
 def loadFolder(folderName):
     all_files = []
@@ -27,9 +30,14 @@ def findErrorMargin(inputFile):
 
 def load_and_adjust_data(datafile, adjustment):
     data = []
+    i = 0
+    print(datafile)
     for line in datafile.readlines():
+        print("NO {}".format(i))
+        print(line)
         value = int(line) + adjustment
         data.append(value)
+        i += 1
     return data
 
 def get_mean(data):
@@ -43,8 +51,8 @@ def main():
     files = loadFolder(LIGHTSLEEP_INTERVAL_FOLDER)
     data = []
     for i in range(len(files)):
-        difference_in_us = findErrorMargin(files[i])
-        data.append(load_and_adjust_data(files[i], difference_in_us))
+        #difference_in_us = findErrorMargin(files[i])
+        data.append(load_and_adjust_data(files[i], 0))
     j = 0
     for block in data:
         print("FILE :{} \n MEAN: {} \n STANDARD DEVIATION: {} \n".format(files[j].name, get_mean(block), get_standard_deviation(block)))

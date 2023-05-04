@@ -1,0 +1,27 @@
+FILE :Lightsleep Interrupt/lightsleep_interrupt_5000ms.txt 
+ MEAN: 946.5050505050505 
+ STANDARD DEVIATION: 60.77236442267735 
+
+FILE :Lightsleep Interrupt/lightsleep_interrupt_10000ms.txt 
+ MEAN: 952.8888888888889 
+ STANDARD DEVIATION: 0.8026331525381387 
+
+FILE :Lightsleep Interrupt/lightsleep_interrupt_500ms.txt 
+ MEAN: 947.4848484848485 
+ STANDARD DEVIATION: 53.091185830190604 
+
+FILE :Lightsleep Interrupt/lightsleep_interrupt_100ms.txt 
+ MEAN: 947.43 
+ STANDARD DEVIATION: 54.122500866090824 
+
+FILE :Lightsleep Interrupt/lightsleep_interrupt_1000ms.txt 
+ MEAN: 948.2121212121212 
+ STANDARD DEVIATION: 46.094166402143976 
+
+FILE :Lightsleep Interrupt/lightsleep_interrupt_10ms.txt 
+ MEAN: 947.5757575757576 
+ STANDARD DEVIATION: 52.29541009835734 
+
+FILE :Lightsleep Interrupt/lightsleep_interrupt_50ms.txt 
+ MEAN: 946.75 
+ STANDARD DEVIATION: 61.29051721106618 
